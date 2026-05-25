@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Βάσεις Δεδομένων — SQL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <a href="index.html" class="back">&larr; Μαθήματα</a>
+    <span class="title">Σχεδίαση & Χρήση Βάσεων Δεδομένων</span>
+</div>
+
+<div class="page-wrapper">
+
+<nav class="sidebar">
+    <h3>Οδηγός</h3>
+    <a href="#cheatsheet">Cheat Sheet</a>
+
+    <h3>Ιστιοπλόοι & Κρατήσεις</h3>
+    <a href="#sailors-schema">Σχήμα</a>
+    <a href="#sailors-data">Δεδομένα</a>
+    <a href="#sailors-joins">Ζεύξεις πινάκων</a>
+    <a href="#sailors-setops">UNION & EXCEPT</a>
+    <a href="#sailors-subqueries">Υπο-ερωτήματα</a>
+    <a href="#sailors-exists">EXISTS & NOT EXISTS</a>
+    <a href="#sailors-aggregates">Συναθροίσεις</a>
+
+    <h3>Αγορά Προϊόντων</h3>
+    <a href="#products-schema">Σχήμα & Δεδομένα</a>
+    <a href="#products-queries">Ερωτήματα</a>
+
+    <h3>Προσωπικό & Τμήματα</h3>
+    <a href="#staff-schema">Σχήμα & Δεδομένα</a>
+    <a href="#staff-queries">Ερωτήματα</a>
+</nav>
+
+<main class="content">
+
+<!-- ═══ CHEAT SHEET ═══ -->
+<section class="db-section" id="cheatsheet">
+    <h2>Cheat Sheet</h2>
+    <p class="db-desc">Διαβάζεις την εκφώνηση, βρίσκεις τη λέξη-κλειδί, ξέρεις τι SQL χρειάζεσαι.</p>
+
+    <div class="cheat-grid">
+        <div class="cheat-group">
+            <h4>Φιλτράρισμα</h4>
+            <div class="cheat-row"><span class="cheat-word">όπου / με συνθήκη / μόνο αυτούς που</span><span class="cheat-sql">WHERE</span></div>
+            <div class="cheat-row"><span class="cheat-word">και / ταυτόχρονα</span><span class="cheat-sql">AND</span></div>
+            <div class="cheat-row"><span class="cheat-word">ή / είτε… είτε</span><span class="cheat-sql">OR</span></div>
+            <div class="cheat-row"><span class="cheat-word">δεν / χωρίς / εκτός</span><span class="cheat-sql">NOT</span></div>
+            <div class="cheat-row"><span class="cheat-word">ανάμεσα σε… / από… έως…</span><span class="cheat-sql">BETWEEN</span></div>
+            <div class="cheat-row"><span class="cheat-word">μοιάζει / ξεκινά με / περιέχει</span><span class="cheat-sql">LIKE</span></div>
+            <div class="cheat-row"><span class="cheat-word">χωρίς διπλότυπα / μοναδικά</span><span class="cheat-sql">DISTINCT</span></div>
+        </div>
+
+        <div class="cheat-group">
+            <h4>Ομαδοποίηση & Συνθήκες ομάδας</h4>
+            <div class="cheat-row"><span class="cheat-word">για κάθε / ανά / κατά ομάδες</span><span class="cheat-sql">GROUP BY</span></div>
+            <div class="cheat-row"><span class="cheat-word">τουλάχιστον / το πολύ / μόνο ομάδες με…</span><span class="cheat-sql">HAVING</span></div>
+            <div class="cheat-row"><span class="cheat-word">ταξινόμηση / αύξουσα / φθίνουσα</span><span class="cheat-sql">ORDER BY</span></div>
+        </div>
+
+        <div class="cheat-group">
+            <h4>Συναρτήσεις συνάθροισης</h4>
+            <div class="cheat-row"><span class="cheat-word">πόσοι / πλήθος / αριθμός</span><span class="cheat-sql">COUNT</span></div>
+            <div class="cheat-row"><span class="cheat-word">μέσος όρος / μέση τιμή</span><span class="cheat-sql">AVG</span></div>
+            <div class="cheat-row"><span class="cheat-word">άθροισμα / σύνολο</span><span class="cheat-sql">SUM</span></div>
+            <div class="cheat-row"><span class="cheat-word">μέγιστο / μεγαλύτερο / υψηλότερο</span><span class="cheat-sql">MAX</span></div>
+            <div class="cheat-row"><span class="cheat-word">ελάχιστο / μικρότερο / χαμηλότερο</span><span class="cheat-sql">MIN</span></div>
+        </div>
+
+        <div class="cheat-group">
+            <h4>Υπο-ερωτήματα & Ύπαρξη</h4>
+            <div class="cheat-row"><span class="cheat-word">ανήκει σε… / βρίσκεται στη λίστα</span><span class="cheat-sql">IN</span></div>
+            <div class="cheat-row"><span class="cheat-word">δεν ανήκει / δεν βρίσκεται σε</span><span class="cheat-sql">NOT IN</span></div>
+            <div class="cheat-row"><span class="cheat-word">υπάρχει / έχει κάνει / εμφανίζεται</span><span class="cheat-sql">EXISTS</span></div>
+            <div class="cheat-row"><span class="cheat-word">δεν υπάρχει / δεν έχει κάνει ποτέ</span><span class="cheat-sql">NOT EXISTS</span></div>
+            <div class="cheat-row"><span class="cheat-word">μεγαλύτερο από όλους / πάνω από κάθε</span><span class="cheat-sql">> ALL</span></div>
+            <div class="cheat-row"><span class="cheat-word">μεγαλύτερο από κάποιον / πάνω από έναν</span><span class="cheat-sql">> ANY</span></div>
+        </div>
+
+        <div class="cheat-group">
+            <h4>Πράξεις συνόλων</h4>
+            <div class="cheat-row"><span class="cheat-word">ένωση / ή ο ένας ή ο άλλος</span><span class="cheat-sql">UNION</span></div>
+            <div class="cheat-row"><span class="cheat-word">εκτός / αφαίρεσε / χωρίς αυτούς</span><span class="cheat-sql">EXCEPT</span></div>
+            <div class="cheat-row"><span class="cheat-word">κοινοί / και οι δύο / τομή</span><span class="cheat-sql">INTERSECT</span></div>
+        </div>
+
+        <div class="cheat-group">
+            <h4>Σύνθετα patterns</h4>
+            <div class="cheat-row"><span class="cheat-word">όλα τα… / κάθε ένα χωρίς εξαίρεση</span><span class="cheat-sql">NOT EXISTS + NOT EXISTS (Division)</span></div>
+            <div class="cheat-row"><span class="cheat-word">αποκλειστικά / μόνο αυτού του τύπου</span><span class="cheat-sql">NOT EXISTS (αντίθετη συνθήκη)</span></div>
+            <div class="cheat-row"><span class="cheat-word">δύο διαφορετικά ταυτόχρονα</span><span class="cheat-sql">Self-ζεύξη (Κ1, Κ2 &lt;&gt;)</span></div>
+            <div class="cheat-row"><span class="cheat-word">φίλτρο πριν GROUP vs μετά GROUP</span><span class="cheat-sql">WHERE (πριν) vs HAVING (μετά)</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ΙΣΤΙΟΠΛΟΟΙ & ΚΡΑΤΗΣΕΙΣ ═══ -->
+<section class="db-section" id="sailors">
+    <h2>Ιστιοπλόοι & Κρατήσεις</h2>
+    <p class="db-desc">Πίνακες: ΙΣ (ιστιοπλόοι), ΣΚ (σκάφη), ΚΡ (κρατήσεις)</p>
+
+    <div class="sub-section" id="sailors-schema">
+        <h3>Σχήμα Βάσης</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">DDL</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS SUMMER;
+USE SUMMER;
+
+CREATE TABLE IF NOT EXISTS ΙΣ (
+    κωδι    INT PRIMARY KEY,
+    ονομα   VARCHAR(255),
+    επίπεδο INT
+);
+
+CREATE TABLE IF NOT EXISTS ΣΚ (
+    κωδσ   INT PRIMARY KEY,
+    ονομα  VARCHAR(255),
+    χρωμα  VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS ΚΡ (
+    κωδι INT,
+    κωδσ INT,
+    ημ   DATE,
+
+    CONSTRAINT FQκωδι
+        FOREIGN KEY (κωδι) REFERENCES ΙΣ(κωδι),
+
+    CONSTRAINT FQκωδσ
+        FOREIGN KEY (κωδσ) REFERENCES ΣΚ(κωδσ)
+);</code></pre>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-data">
+        <h3>Δεδομένα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">INSERT</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-sql">INSERT INTO ΙΣ VALUES
+(1, 'Νίκος',   1),
+(2, 'Μαρία',   2),
+(3, 'Γιώργος', 3),
+(4, 'Ελένη',   2),
+(5, 'Κώστας',  1);
+
+INSERT INTO ΣΚ VALUES
+(10, 'Μπάλα',    'Κόκκινο'),
+(11, 'Ρακέτα',   'Μπλε'),
+(12, 'Ποδήλατο', 'Μαύρο'),
+(13, 'Κράνος',   'Άσπρο'),
+(14, 'Γάντια',   'Πράσινο');
+
+INSERT INTO ΚΡ VALUES
+(1, 10, '2026-06-01'),
+(2, 11, '2026-06-02'),
+(3, 12, '2026-06-03'),
+(4, 13, '2026-06-04'),
+(5, 14, '2026-06-05');</code></pre>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-joins">
+        <h3>Ζεύξεις πινάκων</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">1</span> Ποιοι κράτησαν κόκκινο σκάφος — ονόματα & επίπεδα</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα, Ι.επίπεδο
+FROM ΙΣ Ι, ΚΡ Κ, ΣΚ Σ
+WHERE Ι.κωδι = Κ.κωδι
+  AND Κ.κωδσ = Σ.κωδσ
+  AND Σ.χρωμα = 'Κόκκινο';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">2</span> Όλοι όσοι έχουν κράτηση — αλφαβητικά</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα
+FROM ΙΣ Ι, ΚΡ Κ
+WHERE Ι.κωδι = Κ.κωδι
+ORDER BY ονομα;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">3</span> Κράτηση σε κόκκινο <em>ή</em> πράσινο σκάφος — OR</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα
+FROM ΙΣ Ι, ΚΡ Κ, ΣΚ Σ
+WHERE Ι.κωδι = Κ.κωδι
+  AND Σ.κωδσ = Κ.κωδσ
+  AND (Σ.χρωμα = 'Κόκκινο' OR Σ.χρωμα = 'Πράσινο');</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">4</span> Κράτηση <em>και</em> σε κόκκινο <em>και</em> σε πράσινο — self-ζεύξη</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα
+FROM ΙΣ Ι, ΚΡ Κ1, ΚΡ Κ2, ΣΚ Σ1, ΣΚ Σ2
+WHERE Ι.κωδι = Κ1.κωδι AND Σ1.κωδσ = Κ1.κωδσ AND Σ1.χρωμα = 'Κόκκινο'
+  AND Ι.κωδι = Κ2.κωδι AND Σ2.κωδσ = Κ2.κωδσ AND Σ2.χρωμα = 'Πράσινο';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">5</span> Δύο διαφορετικά σκάφη την ίδια ημέρα</div>
+            <pre><code class="language-sql">SELECT DISTINCT Ι.ονομα
+FROM ΙΣ Ι, ΚΡ Κ1, ΚΡ Κ2
+WHERE Ι.κωδι = Κ1.κωδι
+  AND Ι.κωδι = Κ2.κωδι
+  AND Κ1.ημ = Κ2.ημ
+  AND Κ1.κωδσ &lt;&gt; Κ2.κωδσ;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">6</span> Δύο σκάφη ίδια μέρα — με bonus +2 στο επίπεδο</div>
+            <pre><code class="language-sql">SELECT DISTINCT Ι.ονομα, Ι.επίπεδο + 2
+FROM ΙΣ Ι, ΚΡ Κ1, ΚΡ Κ2
+WHERE Ι.κωδι = Κ1.κωδι
+  AND Ι.κωδι = Κ2.κωδι
+  AND Κ1.ημ = Κ2.ημ
+  AND Κ1.κωδσ &lt;&gt; Κ2.κωδσ;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">7</span> Κράτηση σε συγκεκριμένο σκάφος (κωδ. 2)</div>
+            <pre><code class="language-sql">SELECT DISTINCT Ι.ονομα
+FROM ΙΣ Ι, ΚΡ Κ, ΣΚ Σ
+WHERE Ι.κωδι = Κ.κωδι
+  AND Κ.κωδσ = 2;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">8</span> Τι χρώμα σκάφη κράτησε η Μαρία</div>
+            <pre><code class="language-sql">SELECT DISTINCT Σ.χρωμα AS χρ
+FROM ΙΣ Ι, ΚΡ Κ, ΣΚ Σ
+WHERE Ι.κωδι = Κ.κωδι
+  AND Σ.κωδσ = Κ.κωδσ
+  AND Ι.ονομα = 'Μαρία';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-setops">
+        <h3>Πράξεις συνόλων — UNION & EXCEPT</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">9</span> Σκάφη που κράτησε η Μαρία ή ο Γιώργος — UNION</div>
+            <pre><code class="language-sql">SELECT DISTINCT Σ.κωδσ
+FROM ΣΚ Σ, ΚΡ Κ, ΙΣ Ι
+WHERE Ι.κωδι = Κ.κωδι AND Σ.κωδσ = Κ.κωδσ AND Ι.ονομα = 'Μαρία'
+
+UNION
+
+SELECT DISTINCT Σ.κωδσ
+FROM ΣΚ Σ, ΚΡ Κ, ΙΣ Ι
+WHERE Ι.κωδι = Κ.κωδι AND Σ.κωδσ = Κ.κωδσ AND Ι.ονομα = 'Γιώργος';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">10</span> Όσοι έχουν κράτηση εκτός της Μαρίας — EXCEPT</div>
+            <pre><code class="language-sql">(SELECT DISTINCT Ι.κωδι
+ FROM ΙΣ Ι, ΚΡ Κ
+ WHERE Ι.κωδι = Κ.κωδι)
+
+EXCEPT
+
+(SELECT DISTINCT Ι.κωδι
+ FROM ΙΣ Ι
+ WHERE Ι.ονομα = 'Μαρία');</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-subqueries">
+        <h3>Υπο-ερωτήματα — IN, NOT IN, ALL</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">11</span> Ποιοι κράτησαν το σκάφος 12 — IN</div>
+            <pre><code class="language-sql">SELECT DISTINCT Ι.ονομα
+FROM ΙΣ Ι
+WHERE Ι.κωδι IN
+    (SELECT Κ.κωδι FROM ΚΡ Κ WHERE Κ.κωδσ = 12);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">12</span> Ποιοι κράτησαν κόκκινο σκάφος — εμφωλευμένο IN</div>
+            <pre><code class="language-sql">SELECT DISTINCT Ι.ονομα
+FROM ΙΣ Ι
+WHERE Ι.κωδι IN (
+    SELECT Κ.κωδι
+    FROM ΚΡ Κ, ΣΚ Σ
+    WHERE Κ.κωδσ = Σ.κωδσ AND Σ.χρωμα = 'Κόκκινο'
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">13</span> Κωδικός μεγαλύτερος από όλους με κόκκινη κράτηση — > ALL</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα
+FROM ΙΣ Ι
+WHERE Ι.κωδι > ALL (
+    SELECT Κ.κωδι
+    FROM ΚΡ Κ, ΣΚ Σ
+    WHERE Κ.κωδσ = Σ.κωδσ AND Σ.χρωμα = 'Κόκκινο'
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">14</span> Ποιοι είχαν κράτηση στις 2026-06-01 — IN με ημερομηνία</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE κωδι IN
+    (SELECT κωδι FROM ΚΡ WHERE ημ = '2026-06-01');</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">15</span> Σκάφη που δεν έχουν καμία κράτηση — NOT IN</div>
+            <pre><code class="language-sql">SELECT κωδσ
+FROM ΣΚ
+WHERE κωδσ NOT IN
+    (SELECT κωδσ FROM ΚΡ);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-exists">
+        <h3>Ύπαρξη — EXISTS & NOT EXISTS</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">16</span> Ιστιοπλόοι χωρίς καμία κράτηση — NOT EXISTS</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE NOT EXISTS
+    (SELECT * FROM ΚΡ WHERE ΙΣ.κωδι = ΚΡ.κωδι);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">17</span> Ιστιοπλόοι με τουλάχιστον μία κράτηση — EXISTS</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE EXISTS
+    (SELECT * FROM ΚΡ WHERE ΙΣ.κωδι = ΚΡ.κωδι);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">18</span> Όσοι κράτησαν αποκλειστικά κόκκινα σκάφη — διπλό NOT EXISTS</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE NOT EXISTS (
+    SELECT *
+    FROM ΚΡ, ΣΚ
+    WHERE ΣΚ.χρωμα != 'Κόκκινο'
+      AND ΚΡ.κωδσ = ΣΚ.κωδσ
+      AND ΙΣ.κωδι = ΚΡ.κωδι
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">19</span> Ιστιοπλόοι που ήταν μόνοι τους εκείνη τη μέρα</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE κωδι IN (
+    SELECT Κ1.κωδι
+    FROM ΚΡ Κ1
+    WHERE NOT EXISTS (
+        SELECT *
+        FROM ΚΡ Κ2
+        WHERE Κ1.ημ = Κ2.ημ
+          AND Κ1.κωδι != Κ2.κωδι
+    )
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">20</span> Όσοι κράτησαν όλα τα κόκκινα σκάφη — Division</div>
+            <pre><code class="language-sql">SELECT Ι.ονομα
+FROM ΙΣ Ι
+WHERE NOT EXISTS (
+    SELECT *
+    FROM ΣΚ Σ
+    WHERE Σ.χρωμα = 'Κόκκινο'
+      AND NOT EXISTS (
+          SELECT *
+          FROM ΚΡ Κ
+          WHERE Κ.κωδι = Ι.κωδι
+            AND Κ.κωδσ = Σ.κωδσ
+      )
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+
+    <div class="sub-section" id="sailors-aggregates">
+        <h3>Συναθροίσεις — COUNT, MIN, MAX, GROUP BY</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">21</span> Ιστιοπλόος με τον μικρότερο κωδικό — MIN</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE κωδι = (SELECT MIN(κωδι) FROM ΙΣ);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">22</span> Πόσοι ιστιοπλόοι υπάρχουν συνολικά — COUNT</div>
+            <pre><code class="language-sql">SELECT COUNT(*) FROM ΙΣ;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">23</span> Πόσες φορές εμφανίζεται κάθε όνομα — GROUP BY</div>
+            <pre><code class="language-sql">SELECT ονομα, COUNT(*)
+FROM ΙΣ
+GROUP BY ονομα;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">24</span> Μικρότερος κωδικός που έκανε κράτηση στις 03/06 — MIN + WHERE</div>
+            <pre><code class="language-sql">SELECT MIN(κωδι)
+FROM ΚΡ
+WHERE ημ = '2026-06-03';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">25</span> Ιστιοπλόοι με το υψηλότερο επίπεδο — MAX</div>
+            <pre><code class="language-sql">SELECT ονομα
+FROM ΙΣ
+WHERE επίπεδο = (SELECT MAX(επίπεδο) FROM ΙΣ);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">26</span> Πλήθος ιστιοπλόων επιπέδου >7 ανά χρώμα — COUNT + GROUP BY</div>
+            <pre><code class="language-sql">SELECT Σ.χρωμα, COUNT(DISTINCT Ι.κωδι)
+FROM ΙΣ Ι, ΣΚ Σ, ΚΡ Κ
+WHERE Κ.κωδι = Ι.κωδι
+  AND Κ.κωδσ = Σ.κωδσ
+  AND Ι.επίπεδο > 7
+GROUP BY Σ.χρωμα;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ΑΓΟΡΑ ΠΡΟΪΟΝΤΩΝ ═══ -->
+<section class="db-section" id="products">
+    <h2>Αγορά Προϊόντων</h2>
+    <p class="db-desc">Πίνακας: ΠΡΟΙΟΝΤΑ (όνομα, τιμή, ποσότητα, νομός)</p>
+
+    <div class="sub-section" id="products-schema">
+        <h3>Σχήμα & Δεδομένα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">DDL + INSERT</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS BASE2;
+USE BASE2;
+
+CREATE TABLE IF NOT EXISTS ΠΡΟΙΟΝΤΑ (
+    ΟΝΟΜΑ    VARCHAR(50),
+    ΤΙΜΗ     DECIMAL(10,2),
+    ΠΟΣΟΤΗΤΑ INT,
+    ΝΟΜΟΣ    VARCHAR(50)
+);
+
+INSERT INTO ΠΡΟΙΟΝΤΑ (ΟΝΟΜΑ, ΤΙΜΗ, ΠΟΣΟΤΗΤΑ, ΝΟΜΟΣ) VALUES
+('Μήλα',       1.20, 100, 'Αττικής'),
+('Πορτοκάλια', 1.50,  80, 'Αττικής'),
+('Μπανάνες',   2.10,  50, 'Θεσσαλονίκης'),
+('Γάλα',       1.80,  30, 'Αχαΐας'),
+('Ψωμί',       0.90, 120, 'Αχαΐας');</code></pre>
+        </div>
+    </div>
+
+    <div class="sub-section" id="products-queries">
+        <h3>Ερωτήματα</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">1</span> Νομοί με μέση τιμή πάνω από 1.20€ — GROUP BY + HAVING</div>
+            <pre><code class="language-sql">SELECT ΝΟΜΟΣ, AVG(ΤΙΜΗ)
+FROM ΠΡΟΙΟΝΤΑ
+GROUP BY ΝΟΜΟΣ
+HAVING AVG(ΤΙΜΗ) > 1.2;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ΠΡΟΣΩΠΙΚΟ & ΤΜΗΜΑΤΑ ═══ -->
+<section class="db-section" id="staff">
+    <h2>Προσωπικό & Τμήματα</h2>
+    <p class="db-desc">Πίνακες: ΥΠ (υπάλληλοι), ΤΜΗΜΑ (τμήματα εταιρείας)</p>
+
+    <div class="sub-section" id="staff-schema">
+        <h3>Σχήμα & Δεδομένα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">DDL + INSERT</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-sql">CREATE DATABASE IF NOT EXISTS BASE3;
+USE BASE3;
+
+CREATE TABLE IF NOT EXISTS ΥΠ (
+    κωδτ    INT,
+    μισθος  DECIMAL(10,2),
+    ηλικια  INT
+);
+
+INSERT INTO ΥΠ (κωδτ, μισθος, ηλικια) VALUES
+(1, 1200.00, 25),
+(2, 1500.00, 30),
+(3, 1800.00, 35),
+(4, 1100.00, 22),
+(5, 2000.00, 40);
+
+CREATE TABLE IF NOT EXISTS ΤΜΗΜΑ (
+    κωδτ           INT,
+    ονομα_τμηματος VARCHAR(50),
+    πολη           VARCHAR(50)
+);
+
+INSERT INTO ΤΜΗΜΑ (κωδτ, ονομα_τμηματος, πολη) VALUES
+(1, 'Πωλήσεις',    'Αθήνα'),
+(2, 'Λογιστήριο',  'Θεσσαλονίκη'),
+(3, 'IT',          'Αθήνα'),
+(4, 'HR',          'Πάτρα'),
+(5, 'Marketing',   'Ηράκλειο');</code></pre>
+        </div>
+    </div>
+
+    <div class="sub-section" id="staff-queries">
+        <h3>Ερωτήματα</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">1</span> Μέσος μισθός νέων (&lt;30) ανά τμήμα — μόνο τμήματα με ≥4 νέους — WHERE + HAVING</div>
+            <pre><code class="language-sql">SELECT κωδτ, AVG(μισθος)
+FROM ΥΠ
+WHERE ηλικια < 30
+GROUP BY κωδτ
+HAVING COUNT(*) >= 4;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">2</span> Μέσος μισθός νέων (&lt;30) σε μεγάλα τμήματα (>10 υπαλλήλους γενικά) — υπο-ερώτημα + HAVING</div>
+            <pre><code class="language-sql">SELECT κωδτ, AVG(μισθος)
+FROM ΥΠ
+WHERE ηλικια < 30
+  AND κωδτ IN (
+      SELECT κωδτ
+      FROM ΥΠ
+      GROUP BY κωδτ
+      HAVING COUNT(*) > 10
+  )
+GROUP BY κωδτ;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
