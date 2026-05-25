@@ -1,0 +1,454 @@
+/* ── Reset ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ── Base ── */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #fdf2f5;
+    color: #3d2833;
+    min-height: 100vh;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #e8c1cc; border-radius: 3px; }
+
+/* ════════════════════════════════════════
+   HOME PAGE
+   ════════════════════════════════════════ */
+
+.home-header {
+    padding: 4rem 2rem 3rem;
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.home-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    color: #2d1a23;
+    margin-bottom: 0.6rem;
+}
+
+.home-header p {
+    color: #9a7383;
+    font-size: 1rem;
+}
+
+.container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+}
+
+.section-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #c4929e;
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+}
+
+/* ── Course Cards ── */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.2rem;
+}
+
+.course-card {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-radius: 12px;
+    padding: 1.8rem;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.course-card:hover {
+    box-shadow: 0 4px 20px rgba(190, 100, 130, 0.1);
+    border-color: #e8a7b8;
+}
+
+.course-card h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: #2d1a23;
+    margin-bottom: 0.5rem;
+}
+
+.course-card p {
+    font-size: 0.88rem;
+    color: #9a7383;
+    line-height: 1.55;
+}
+
+.course-card.placeholder {
+    border-style: dashed;
+    opacity: 0.7;
+}
+
+/* ── Tags ── */
+.tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    margin-top: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.tag.ready {
+    background: #fce4ec;
+    color: #c2476b;
+}
+
+.tag.soon {
+    background: #f5eaed;
+    color: #b89aa3;
+}
+
+/* ── Footer ── */
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #c4929e;
+    font-size: 0.82rem;
+}
+
+/* ════════════════════════════════════════
+   COURSE PAGE — Layout
+   ════════════════════════════════════════ */
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 2rem;
+    background: #fff;
+    border-bottom: 1px solid #f0d4dc;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.top-bar a.back {
+    color: #c2476b;
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: opacity 0.2s;
+}
+
+.top-bar a.back:hover { opacity: 0.7; }
+.top-bar .title { font-weight: 500; font-size: 0.95rem; color: #5a3545; }
+
+.page-wrapper {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+    width: 250px;
+    min-height: calc(100vh - 50px);
+    background: #fff;
+    border-right: 1px solid #f0d4dc;
+    padding: 1.5rem 0.8rem;
+    position: sticky;
+    top: 50px;
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #c4929e;
+    margin-bottom: 0.6rem;
+    margin-top: 1.4rem;
+    padding-left: 0.6rem;
+    font-weight: 500;
+}
+
+.sidebar h3:first-child { margin-top: 0; }
+
+.sidebar a {
+    display: block;
+    padding: 0.45rem 0.6rem;
+    color: #7a5565;
+    text-decoration: none;
+    font-size: 0.84rem;
+    border-radius: 6px;
+    transition: background 0.15s;
+    margin-bottom: 1px;
+}
+
+.sidebar a:hover { background: #fce4ec; }
+
+.sidebar a.active {
+    background: #fce4ec;
+    color: #c2476b;
+    font-weight: 500;
+}
+
+/* ── Main Content ── */
+.content {
+    flex: 1;
+    padding: 2.5rem 3rem;
+    min-width: 0;
+}
+
+/* ── Sections ── */
+.db-section {
+    margin-bottom: 3.5rem;
+}
+
+.db-section > h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: #2d1a23;
+    margin-bottom: 0.3rem;
+}
+
+.db-section > .db-desc {
+    color: #9a7383;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.sub-section {
+    margin-bottom: 2.2rem;
+}
+
+.sub-section > h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #5a3545;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid #f0d4dc;
+}
+
+/* ════════════════════════════════════════
+   CODE BLOCKS
+   ════════════════════════════════════════ */
+
+.code-wrapper {
+    position: relative;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #f0d4dc;
+    background: #fff;
+}
+
+.code-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fdf2f5;
+    padding: 0.5rem 0.9rem;
+    border-bottom: 1px solid #f0d4dc;
+}
+
+.code-label {
+    font-size: 0.73rem;
+    color: #b08a95;
+    font-weight: 500;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.code-wrapper pre {
+    margin: 0;
+    padding: 1rem 1.2rem;
+    background: #fff;
+    overflow-x: auto;
+}
+
+.code-wrapper code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+}
+
+/* ── Copy Button ── */
+.copy-btn {
+    background: none;
+    border: 1px solid #e8c1cc;
+    color: #b08a95;
+    padding: 0.25rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.15s;
+}
+
+.copy-btn:hover {
+    border-color: #c2476b;
+    color: #c2476b;
+}
+
+.copy-btn.copied {
+    border-color: #6aa67e;
+    color: #6aa67e;
+}
+
+/* ════════════════════════════════════════
+   QUERY CARDS
+   ════════════════════════════════════════ */
+
+.query-card {
+    margin-bottom: 1.4rem;
+    border-radius: 8px;
+    border: 1px solid #f0d4dc;
+    overflow: hidden;
+    background: #fff;
+}
+
+.query-card .query-title {
+    background: #fdf2f5;
+    padding: 0.65rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #5a3545;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid #f0d4dc;
+}
+
+.query-card .query-title .q-num {
+    background: #fce4ec;
+    color: #c2476b;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.query-card pre {
+    margin: 0;
+    padding: 0.9rem 1rem;
+    background: #fff;
+    overflow-x: auto;
+}
+
+.query-card code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    line-height: 1.7;
+}
+
+.query-card .copy-row {
+    background: #fff;
+    padding: 0 1rem 0.5rem;
+    text-align: right;
+}
+
+/* ════════════════════════════════════════
+   CHEAT SHEET
+   ════════════════════════════════════════ */
+
+.cheat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.2rem;
+}
+
+.cheat-group {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-radius: 8px;
+    padding: 1.2rem;
+}
+
+.cheat-group h4 {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #c2476b;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.cheat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #faf0f3;
+}
+
+.cheat-row:last-child {
+    border-bottom: none;
+}
+
+.cheat-word {
+    font-size: 0.84rem;
+    color: #5a3545;
+    flex: 1;
+}
+
+.cheat-sql {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #c2476b;
+    background: #fce4ec;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════ */
+
+@media (max-width: 900px) {
+    .sidebar { display: none; }
+    .content { padding: 1.5rem 1.2rem; }
+    .top-bar { padding: 0.9rem 1.2rem; }
+
+    .home-header {
+        padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .home-header h1 {
+        font-size: 2rem;
+    }
+
+    .container {
+        padding: 0 1.5rem 3rem;
+    }
+
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cheat-grid {
+        grid-template-columns: 1fr;
+    }
+}
