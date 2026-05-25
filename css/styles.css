@@ -8,7 +8,9 @@
 /* ── Base ── */
 body {
     font-family: 'DM Sans', sans-serif;
-    background: #fdf2f5;
+    background-color: #fdf2f5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 18c-1.6-5.3-7-8-12-6s-7 7.4-5 12l17 20 17-20c2-4.6-.3-10-5-12s-10.4.7-12 6z' fill='%23f5d5de' opacity='0.35'/%3E%3C/svg%3E");
+    background-size: 80px 80px;
     color: #3d2833;
     min-height: 100vh;
 }
@@ -53,7 +55,12 @@ body {
     letter-spacing: 1.5px;
     color: #c4929e;
     margin-bottom: 1.2rem;
+    margin-top: 2.5rem;
     font-weight: 500;
+}
+
+.section-label:first-child {
+    margin-top: 0;
 }
 
 /* ── Course Cards ── */

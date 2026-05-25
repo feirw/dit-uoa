@@ -38,6 +38,10 @@
     <h3>Προσωπικό & Τμήματα</h3>
     <a href="#staff-schema">Σχήμα & Δεδομένα</a>
     <a href="#staff-queries">Ερωτήματα</a>
+
+    <h3>Εργασία 2 — Πτήσεις</h3>
+    <a href="#hw2-schema">Σχήμα</a>
+    <a href="#hw2-queries">Ερωτήματα (1–10)</a>
 </nav>
 
 <main class="content">
@@ -581,6 +585,183 @@ WHERE ηλικια < 30
       HAVING COUNT(*) > 10
   )
 GROUP BY κωδτ;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ΕΡΓΑΣΙΑ 2 — ΑΕΡΟΠΟΡΙΚΕΣ ΠΤΗΣΕΙΣ ═══ -->
+<section class="db-section" id="hw2">
+    <h2>Εργασία 2 — Αεροπορικές Πτήσεις</h2>
+    <p class="db-desc">Πίνακες: airlines, airplanes, airports, routes, flights, passengers, airlines_has_airplanes, flights_has_passengers</p>
+
+    <div class="sub-section" id="hw2-schema">
+        <h3>Σχήμα Βάσης</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">Πίνακες</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-sql">-- airlines (id, name, code, active)
+-- airplanes (id, number, manufacturer)
+-- airports (id, name, city, country)
+-- routes (id, airlines_id, source_id, destination_id)
+-- flights (id, routes_id, airplanes_id, date)
+-- passengers (id, name, surname, year_of_birth)
+-- airlines_has_airplanes (airlines_id, airplanes_id)
+-- flights_has_passengers (flights_id, passengers_id)</code></pre>
+        </div>
+    </div>
+
+    <div class="sub-section" id="hw2-queries">
+        <h3>Ερωτήματα</h3>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">1</span> Αεροσκάφη Airbus που πετούν για Lufthansa</div>
+            <pre><code class="language-sql">SELECT DISTINCT a.number
+FROM airplanes a, airlines_has_airplanes aha, airlines al
+WHERE a.manufacturer = 'Airbus'
+  AND a.id = aha.airplanes_id
+  AND al.id = aha.airlines_id
+  AND al.name = 'Lufthansa';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">2</span> Εταιρείες με δρομολόγιο Athens → Prague</div>
+            <pre><code class="language-sql">SELECT DISTINCT al.name
+FROM airlines al, routes r, airports src, airports dest
+WHERE al.id = r.airlines_id
+  AND r.source_id = src.id AND src.city = 'Athens'
+  AND r.destination_id = dest.id AND dest.city = 'Prague';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">3</span> Πόσοι επιβάτες ταξίδεψαν στις 2012-02-19 με Aegean Airlines — COUNT</div>
+            <pre><code class="language-sql">SELECT COUNT(DISTINCT fhp.passengers_id)
+FROM flights_has_passengers fhp, flights f, routes r, airlines al
+WHERE fhp.flights_id = f.id
+  AND f.date = '2012-02-19'
+  AND r.id = f.routes_id
+  AND r.airlines_id = al.id
+  AND al.name = 'Aegean Airlines';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">4</span> Υπήρξε πτήση Olympic Airways 2014-12-12 Athens→London; (yes/no) — EXISTS + UNION</div>
+            <pre><code class="language-sql">SELECT 'yes'
+WHERE EXISTS (
+    SELECT *
+    FROM routes r, flights f, airports src, airports dest, airlines al
+    WHERE f.date = '2014-12-12'
+      AND r.id = f.routes_id
+      AND r.airlines_id = al.id AND al.name = 'Olympic Airways'
+      AND r.source_id = src.id AND src.name = 'Athens El. Venizelos'
+      AND r.destination_id = dest.id AND dest.name = 'London Gatwick'
+)
+
+UNION
+
+SELECT 'no'
+WHERE NOT EXISTS (
+    SELECT *
+    FROM routes r, flights f, airports src, airports dest, airlines al
+    WHERE f.date = '2014-12-12'
+      AND r.id = f.routes_id
+      AND r.airlines_id = al.id AND al.name = 'Olympic Airways'
+      AND r.source_id = src.id AND src.name = 'Athens El. Venizelos'
+      AND r.destination_id = dest.id AND dest.name = 'London Gatwick'
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">5</span> Μέση ηλικία επισκεπτών Berlin — AVG</div>
+            <pre><code class="language-sql">SELECT AVG(2026 - p.year_of_birth)
+FROM passengers p, flights_has_passengers fhp, flights f, routes r, airports dest
+WHERE fhp.passengers_id = p.id
+  AND fhp.flights_id = f.id
+  AND f.routes_id = r.id
+  AND r.destination_id = dest.id
+  AND dest.city = 'Berlin';</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">6</span> Επιβάτες που πέταξαν πάντα με το ίδιο αεροπλάνο — HAVING COUNT(DISTINCT) = 1</div>
+            <pre><code class="language-sql">SELECT p.name, p.surname
+FROM passengers p, flights f, flights_has_passengers fhp
+WHERE fhp.flights_id = f.id
+  AND fhp.passengers_id = p.id
+GROUP BY p.id, p.name, p.surname
+HAVING COUNT(DISTINCT f.airplanes_id) = 1;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">7</span> Πτήσεις 2010-03 έως 2014-07 με πάνω από 5 επιβάτες — BETWEEN + HAVING</div>
+            <pre><code class="language-sql">SELECT DISTINCT src.city, dest.city
+FROM flights f, routes r, airports src, airports dest, flights_has_passengers fhp
+WHERE f.routes_id = r.id
+  AND r.source_id = src.id
+  AND r.destination_id = dest.id
+  AND fhp.flights_id = f.id
+  AND f.date >= '2010-03-01' AND f.date &lt;= '2014-07-17'
+GROUP BY f.id, src.city, dest.city
+HAVING COUNT(fhp.passengers_id) > 5;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">8</span> Εταιρείες με ακριβώς 4 αεροσκάφη — αριθμός δρομολογίων — HAVING = 4</div>
+            <pre><code class="language-sql">SELECT al.id, al.name, al.code, COUNT(DISTINCT r.id)
+FROM airlines al, airlines_has_airplanes aha, routes r
+WHERE al.id = aha.airlines_id
+  AND al.id = r.airlines_id
+GROUP BY al.id, al.name, al.code
+HAVING COUNT(DISTINCT aha.airplanes_id) = 4;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">9</span> Επιβάτες που πέταξαν με όλες τις ενεργές εταιρείες — Division με COUNT</div>
+            <pre><code class="language-sql">SELECT p.name, p.surname
+FROM passengers p, flights_has_passengers fhp, flights f, routes r, airlines al
+WHERE p.id = fhp.passengers_id
+  AND fhp.flights_id = f.id
+  AND f.routes_id = r.id
+  AND r.airlines_id = al.id
+  AND al.active = 'Y'
+GROUP BY p.id, p.name, p.surname
+HAVING COUNT(DISTINCT al.id) = (
+    SELECT COUNT(*) FROM airlines WHERE active = 'Y'
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">10</span> Μόνο Aegean Airlines ή >1 ταξίδι στο 2011–2013 — UNION δύο συνόλων</div>
+            <pre><code class="language-sql">SELECT p.name, p.surname
+FROM passengers p, flights_has_passengers fhp, flights f, routes r, airlines al
+WHERE p.id = fhp.passengers_id
+  AND fhp.flights_id = f.id
+  AND f.routes_id = r.id
+  AND r.airlines_id = al.id
+GROUP BY p.id, p.name, p.surname
+HAVING COUNT(DISTINCT al.name) = 1
+   AND MAX(al.name) = 'Aegean Airlines'
+
+UNION
+
+SELECT p.name, p.surname
+FROM passengers p, flights_has_passengers fhp, flights f
+WHERE p.id = fhp.passengers_id
+  AND fhp.flights_id = f.id
+  AND f.date BETWEEN '2011-01-02' AND '2013-12-31'
+GROUP BY p.id, p.name, p.surname
+HAVING COUNT(*) > 1;</code></pre>
             <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
         </div>
     </div>
