@@ -468,6 +468,16 @@ footer {
     margin-top: 0;
 }
 
+.lab-period-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: #2d1a23;
+    margin: 2.5rem 0 1rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid #e8a0b0;
+}
+
 .materials-category {
     margin-bottom: 2.2rem;
 }

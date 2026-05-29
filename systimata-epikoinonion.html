@@ -71,11 +71,13 @@
         <h3>4. Γραφικά (MATLAB Graphics)</h3>
         <p><code>plot(x, y)</code> - Σχεδιάζει συνεχή καμπύλη από τα δεδομένα x και y.</p>
         <p><code>stem(n, x)</code> - Σχεδιάζει διακριτά δείγματα (σήματα δειγματοληψίας).</p>
+        <p><code>image(C)</code> - Εμφανίζει τον πίνακα <code>C</code> ως εικόνα: κάθε στοιχείο γίνεται pixel με χρώμα ανάλογο της τιμής του. Χρήσιμο για 2D δεδομένα (π.χ. πίνακες, χρονο-συχνότητα, φασματογράμματα). Συχνά συνδυάζεται με <code>colormap</code> και <code>colorbar</code>.</p>
         <p><code>title('...')</code> - Ορίζει τίτλο γραφήματος.</p>
         <p><code>xlabel('...')</code> - Ορίζει ετικέτα άξονα x.</p>
         <p><code>ylabel('...')</code> - Ορίζει ετικέτα άξονα y.</p>
         <p><code>grid on</code> - Ενεργοποιεί πλέγμα στο γράφημα.</p>
         <p><code>legend('...')</code> - Προσθέτει υπόμνημα.</p>
+        <p><code>figure</code> - Δημιουργεί νέο παράθυρο γραφήματος (figure). Χωρίς αυτό, νέα plots μπορεί να αντικαθιστούν το προηγούμενο. Με <code>figure(2)</code> επιλέγεις συγκεκριμένο παράθυρο.</p>
         <p><code>subplot(m,n,p)</code> - Χωρίζει το figure σε m x n θέσεις και ενεργοποιεί την p.</p>
     </div>
 
@@ -465,6 +467,15 @@ grid on;</code></pre>
         <h3>5. Πυκνότητα φάσματος ισχύος (PSD)</h3>
         <p><strong>PSD</strong>: δείχνει πώς κατανέμεται η ισχύς ενός σήματος ως προς τη συχνότητα.</p>
         <p><strong>Θεώρημα Wiener-Khinchin</strong>: η PSD είναι ο μετασχηματισμός Fourier της αυτοσυσχέτισης.</p>
+
+        <p><strong>FFT (Fast Fourier Transform)</strong>: ο γρήγορος αλγόριθμος υπολογισμού του μετασχηματισμού Fourier. Μεταφέρει ένα σήμα από το <strong>πεδίο του χρόνου</strong> στο <strong>πεδίο της συχνότητας</strong> και δείχνει ποιες συχνότητες περιέχει και με πόση «δύνα».</p>
+        <ul>
+            <li>Στο MATLAB: <code>fft(x)</code> — υπολογισμός FFT του διανύσματος <code>x</code></li>
+            <li><code>fftshift(...)</code> — κεντράρει το φάσμα ώστε το μηδέν Hz να είναι στη μέση του άξονα</li>
+            <li><code>ifft(...)</code> — αντίστροφος μετασχηματισμός (από συχνότητα πίσω στον χρόνο)</li>
+        </ul>
+        <p>Η PSD και το <code>periodogram</code> βασίζονται στο FFT για να εκτιμήσουν πώς κατανέμεται η ισχύς του σήματος ανά συχνότητα.</p>
+
         <p><strong>Περιοδόγραμμα</strong>: απλός μη παραμετρικός εκτιμητής της PSD.</p>
         <p><code>periodogram(x, [], Nfft, Fs)</code> - Εκτιμά PSD του x με Nfft σημεία FFT και συχνότητα δειγματοληψίας Fs.</p>
 
@@ -733,8 +744,8 @@ xlabel('\omega/\pi')</code></pre>
         </div>
     </div>
 
-    <h2 class="lab-main-title">Εργαστήριο 6 &amp; 7 — Διαμόρφωση πλάτους (AM)</h2>
-    <p class="course-desc">Θεωρία διαμόρφωσης και παράδειγμα σήματος AM στο MATLAB</p>
+    <h2 class="lab-main-title">Εργαστήριο 6 &amp; 7 — Κατηγορίες διαμόρφωσης AM</h2>
+    <p class="course-desc">Συνολικό φέρον · DSB-SC · SSB · αποδιαμόρφωση AM · FM &amp; PM</p>
 
     <div class="materials-category">
         <h3>1. Τι είναι διαμόρφωση</h3>
@@ -743,23 +754,34 @@ xlabel('\omega/\pi')</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>2. Διαμόρφωση πλάτους — AM</h3>
-        <p>Στην AM (Amplitude Modulation), το πλάτος του φέροντος μεταβάλλεται ανάλογα με το μήνυμα, ενώ η συχνότητα παραμένει σταθερή.</p>
+        <h3>2. Κατηγορίες διαμόρφωσης AM</h3>
+        <ul>
+            <li><strong>Διαμόρφωση με συνολικό φέρον</strong> — κλασική AM, μεταδίδεται το φέρον στη <code>fc</code></li>
+            <li><strong>Διαμόρφωση με κατηργημένο φέρον (DSB-SC)</strong> — διπλή πλευρική ζώνη, χωρίς συνιστώσα φέροντος</li>
+            <li><strong>Διαμόρφωση μονής πλευρικής ζώνης (SSB)</strong> — μία πλευρική ζώνη (USB ή LSB)</li>
+        </ul>
+    </div>
+
+    <h3 class="lab-period-title">Διαμόρφωση με συνολικό φέρον</h3>
+
+    <div class="materials-category">
+        <h3>3. Διαμόρφωση πλάτους — AM (συνολικό φέρον)</h3>
+        <p>Στην κλασική AM μεταδίδεται και το φέρον σήμα στη συχνότητα <code>fc</code> (συνολικό φέρον). Το πλάτος του φέροντος μεταβάλλεται ανάλογα με το μήνυμα, ενώ η συχνότητα παραμένει σταθερή.</p>
         <p><strong>Σήμα φέροντος (carrier)</strong>: υψηλής συχνότητας, συνήθως η κεντρική συχνότητα fc.</p>
         <p><strong>Μήνυμα (modulating signal)</strong>: χαμηλότερης συχνότητας fm, ελέγχει το πόσο «δυνατά» γίνεται το φέρον.</p>
         <p><strong>Δείκτη βάθους διαμόρφωσης</strong>: Mu (0 &lt;= Mu &lt;= 1) — βαθμός βάθους, όχι 100%.</p>
     </div>
 
     <div class="materials-category">
-        <h3>3. Μαθηματική μορφή σήματος AM</h3>
+        <h3>4. Μαθηματική μορφή σήματος AM (συνολικό φέρον)</h3>
         <p>Το AM σήμα γράφεται ως:</p>
         <p><code>x(t) = Ac * (1 + Mu*cos(2*pi*fm*t)) * cos(2*pi*fc*t)</code></p>
-        <p>Το πρώτο παράγονγο <code>(1 + Mu*cos(2*pi*fm*t))</code> είναι το περιβάλλον (envelope).</p>
-        <p>Το δεύτερο <code>cos(2*pi*fc*t)</code> είναι το φέρον υψηλής συχνότητας (carrier).</p>
+        <p>Ο όρος <code>(1 + Mu*cos(2*pi*fm*t))</code> περιλαμβάνει τη σταθερή συνιστώσα — μεταδίδεται το <strong>συνολικό φέρον</strong> στη <code>fc</code> (διαφορά από DSB-SC).</p>
+        <p>Το <code>(1 + Mu*cos(...))</code> καθορίζει και το περιβάλλον (envelope). Το <code>cos(2*pi*fc*t)</code> είναι το φέρον υψηλής συχνότητας.</p>
     </div>
 
     <div class="materials-category">
-        <h3>4. Περιβάλλον (envelope)</h3>
+        <h3>5. Περιβάλλον (envelope)</h3>
         <p>Το περιβάλλον δείχνει πώς αλλάζει το πλάτος του σήματος στον χρόνο.</p>
         <p><code>x_env(t) = abs(Ac * (1 + Mu*cos(2*pi*fm*t)))</code></p>
         <p>Στην πράξη, η περιοχή AM «ακολουθεί» το σχήμα του μηνύματος, ακόμα κι αν το φέρον κρανεί την υψηλή συχνότητα.</p>
@@ -767,7 +789,7 @@ xlabel('\omega/\pi')</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>5. Δείκτης διαμόρφωσης μ (Mu)</h3>
+        <h3>6. Δείκτης διαμόρφωσης μ (Mu)</h3>
         <p>Ο δείκτης μ καθορίζει πόσο «βαθιά» διαμορφώνεται το φέρον από το μήνυμα. Η τιμή του επηρεάζει άμεσα το σχήμα του περιβάλλοντος και την ποιότητα της μετάδοσης.</p>
 
         <h4>Μικρό μ (π.χ. 0.2)</h4>
@@ -816,7 +838,7 @@ xlabel('\omega/\pi')</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>6. Αναλογικό σήμα και δειγματοληψία στο MATLAB</h3>
+        <h3>7. Αναλογικό σήμα και δειγματοληψία στο MATLAB</h3>
 
         <h4>Το σήμα στη φύση είναι αναλογικό</h4>
         <p>Στην πραγματικότητα το AM σήμα είναι:</p>
@@ -856,7 +878,7 @@ xlabel('\omega/\pi')</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>7. Παράμετροι στο MATLAB (σύνοψη)</h3>
+        <h3>8. Παράμετροι στο MATLAB (σύνοψη)</h3>
         <ul>
             <li><code>Ac</code> — πλάτος φέροντος (amplitude carrier)</li>
             <li><code>Mu</code> — δείκτης βάθους διαμόρφωσης (modulation index)</li>
@@ -868,7 +890,7 @@ xlabel('\omega/\pi')</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>8. Παράδειγμα — Σήμα AM και περιβάλλον</h3>
+        <h3>9. Παράδειγμα — Σήμα AM και περιβάλλον</h3>
         <div class="code-wrapper">
             <div class="code-header">
                 <span class="code-label">MATLAB — AM signal and envelope</span>
@@ -902,7 +924,7 @@ title('AM Modulated Signal and Envelope');</code></pre>
     </div>
 
     <div class="materials-category">
-        <h3>9. Παράδειγμα — AM με δείκτη n (δειγματοληψία)</h3>
+        <h3>10. Παράδειγμα — AM με δείκτη n (δειγματοληψία)</h3>
         <div class="code-wrapper">
             <div class="code-header">
                 <span class="code-label">MATLAB — AM με n, Ts και περιβάλλον</span>
@@ -926,6 +948,465 @@ hold on;                             % Κράτηση figure για δεύτερ
 plot(n*Ts, x_env)                    % Σχεδίαση περιβάλλοντος
 title('AM — Σήμα και περιβάλλον (δειγματοληψία)');</code></pre>
         </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>11. Παράδειγμα — AM πολυτονικό μήνυμα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — AM spectrum (multi-tone modulating signal)</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% AM spectrum for a multi-tone modulating signal
+Ac = 4.648;
+fc = 10;
+fm1 = 1;
+fm2 = 2;
+t = [0:0.001:2]; % Vector of time instants.
+% Compute the message signal.
+m = 3*cos(2*pi*fm1*t-pi/6)+2*sin(2*pi*fm2*t);
+% Compute the AM signal.
+x_am = (Ac+m).*cos(2*pi*fc*t);
+% Compute the envelope.
+x_env = abs(Ac+m);
+% Graph message signal and the AM signal with envelope.
+clf;
+subplot(2,1,1);
+plot(t,m);
+xlabel('t (s)');
+ylabel('Amplitude');
+title('Message signal m(t)');
+grid;
+subplot(2,1,2);
+plot(t,x_am,'-',t,x_env,'m--');
+xlabel('t (s)');
+ylabel('Amplitude');
+title('Tone modulated AM signal x_{AM}(t) and its envelope');
+legend('AM signal','Envelope');</code></pre>
+        </div>
+    </div>
+
+    <h3 class="lab-period-title">Διαμόρφωση με κατηργημένο φέρον (DSB-SC)</h3>
+
+    <div class="materials-category">
+        <h3>12. Η έννοια του κατηργημένου φέροντος (DSB-SC)</h3>
+        <p>Στην κλασική AM, ένα μεγάλο μέρος της συνολικής ισχύος (πάνω από 66%) καταναλώνεται για τη μετάδοση της φέρουσας συχνότητας <code>fc</code>, η οποία όμως δεν περιέχει καμία πληροφορία. Η πληροφορία βρίσκεται μόνο στις πλευρικές ζώνες.</p>
+        <p><strong>DSB-SC</strong> (Double Sideband Suppressed Carrier): καταργούμε (φιλτράρουμε) το φέρον σήμα και μεταδίδουμε μόνο τις δύο πλευρικές ζώνες (άνω και κάτω).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>13. Μαθηματική αναπαράσταση DSB-SC</h3>
+        <p>Η παραγωγή του σήματος DSB-SC είναι μαθηματικά ένας απλός πολλαπλασιασμός του σήματος πληροφορίας <code>m(t)</code> με το φέρον <code>c(t)</code>:</p>
+        <p><code>s(t) = m(t) · cos(2π·fc·t)</code></p>
+        <p><strong>Πλάτος:</strong> Το πλάτος του διαμορφωμένου σήματος είναι μηδέν όταν η πληροφορία <code>m(t)</code> είναι μηδέν.</p>
+        <p><strong>Αλλαγή φάσης:</strong> Κάθε φορά που το σήμα <code>m(t)</code> αλλάζει πρόσημο (από θετικό σε αρνητικό), η φάση του διαμορφωμένου σήματος αλλάζει κατά 180°.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>14. Φάσμα σήματος DSB-SC</h3>
+        <p>Το φάσμα αποτελείται από δύο «αντίγραφα» του φάσματος της πληροφορίας, μετατοπισμένα γύρω από τη συχνότητα <code>fc</code>:</p>
+        <ul>
+            <li><strong>Άνω πλευρική ζώνη (USB):</strong> <code>fc + fm</code></li>
+            <li><strong>Κάτω πλευρική ζώνη (LSB):</strong> <code>fc - fm</code></li>
+        </ul>
+        <p><strong>Απουσία φέροντος:</strong> Στη συχνότητα <code>fc</code>, η ισχύς είναι μηδενική.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>15. Πλεονεκτήματα και μειονεκτήματα DSB-SC</h3>
+        <p><strong>Πλεονέκτημα:</strong> Μεγάλη οικονομία ισχύος, αφού όλη η ενέργεια πηγαίνει στην πληροφορία.</p>
+        <p><strong>Μειονέκτημα:</strong> Η αποδιαμόρφωση είναι πολύ πιο δύσκολη. Δεν μπορεί να χρησιμοποιηθεί απλός φωρατής περιβάλλουσας (envelope detector).</p>
+        <p>Απαιτείται <strong>σύγχρονη αποδιαμόρφωση</strong> (coherent detection): ο δέκτης πρέπει να αναγεννήσει το φέρον σήμα σε πλήρη συγχρονισμό φάσης με τον πομπό.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>16. Παράδειγμα — Γινόμενο φέροντος και σήματος βασικής ζώνης (DSB-SC)</h3>
+        <p>Στο παρακάτω παράδειγμα υπολογίζουμε το γινόμενο του φέροντος με το σήμα βασικής ζώνης (προσοχή στη χρήση του τελεστή <code>.*</code> για στοιχειακό πολλαπλασιασμό διανυσμάτων).</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — DSB-SC: m(t)·c(t)</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fs = 2000;                           % Ρυθμός δειγματοληψίας (Hz)
+len = 1;                             % Διάρκεια σήματος (sec)
+t = (-len/2):1/fs:(len/2);           % Χρονικός άξονας
+
+fm = 0.5;                            % Συχνότητα μηνύματος (Hz)
+m = cos(2*pi*fm*t) - 0.25;           % Σήμα βασικής ζώνης (με DC offset)
+
+fc = 20;                             % Συχνότητα φέροντος (Hz)
+c = cos(2*pi*fc*t);                  % Φέρον
+
+u = m.*c;                            % DSB-SC: στοιχειακός πολλαπλασιασμός (όχι *)
+
+subplot(3,1,1);                      % Πάνω subplot
+plot(t, m);                          % Μήνυμα m(t)
+title('Message signal');
+
+subplot(3,1,2);                      % Μεσαίο subplot
+plot(t, c);                          % Φέρον c(t)
+title('Carrier');
+
+subplot(3,1,3);                      % Κάτω subplot
+plot(t, u);                          % Διαμορφωμένο DSB-SC
+title('DSB-SC modulated signal');</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>17. Παράδειγμα — Φάσμα μηνύματος, φέροντος και DSB-SC</h3>
+        <p>Συνάρτηση <code>am_spectrum</code> για το φάσμα (FFT + fftshift). Σύγκριση φάσματος μηνύματος, φέροντος και διαμορφωμένου σήματος DSB-SC (<code>u = m.*c</code>) — προσέχουμε την απουσία ισχύος στο <code>fc</code> στο φάσμα του <code>u</code>.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — am_spectrum.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">function X = am_spectrum(x)
+% x — αρχικό σήμα στον χρόνο
+% X — φάσμα (μέτρο FFT με κεντράρισμα συχνοτήτων)
+X = abs(fftshift(fft(x)));         % FFT, fftshift, απόλυτη τιμή</code></pre>
+        </div>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Φάσματα m, c, u (DSB-SC)</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fs = 10000;                        % Ρυθμός δειγματοληψίας (Hz)
+t = 0:1/fs:0.1;                    % Χρονικός άξονας
+m = cos(2*pi*100*t);               % Πληροφορία (fm = 100 Hz)
+c = cos(2*pi*1000*t);              % Φέρον (fc = 1000 Hz)
+u = m.*c;                          % DSB-SC: γινόμενο (κατηργημένο φέρον)
+
+M = am_spectrum(m);                % Φάσμα μηνύματος
+C = am_spectrum(c);                % Φάσμα φέροντος
+U = am_spectrum(u);                % Φάσμα DSB-SC (χωρίς συνιστώσα στο fc)
+
+N = length(m);                     % Αριθμός δειγμάτων
+f = fs * (-N/2 : N/2-1) / N;       % Άξονας συχνοτήτων (Hz)
+
+subplot(3,1,1);                    % Πάνω subplot
+plot(f, M);                        % Φάσμα μηνύματος
+title('Spectrum of Message');
+
+subplot(3,1,2);                    % Μεσαίο subplot
+plot(f, C);                        % Φάσμα φέροντος (κορυφή στο fc)
+title('Spectrum of Carrier');
+
+subplot(3,1,3);                    % Κάτω subplot
+plot(f, U);                        % Φάσμα DSB-SC (πλευρικές ζώνες, όχι fc)
+title('Spectrum of DSB-SC Signal');</code></pre>
+        </div>
+    </div>
+
+    <h3 class="lab-period-title">Διαμόρφωση μονής πλευρικής ζώνης (SSB)</h3>
+
+    <div class="materials-category">
+        <h3>18. Εισαγωγή και σκοπός</h3>
+        <p>Στις διαμορφώσεις AM και DSB-SC (διπλής πλευρικής ζώνης), το απαιτούμενο εύρος ζώνης μετάδοσης είναι το διπλάσιο του εύρους του σήματος πληροφορίας:</p>
+        <p><code>B_trans = 2 · B_info</code></p>
+        <p>Το φάσμα καταλαμβάνεται κατά το ήμισυ από την <strong>Άνω Πλευρική Ζώνη (USB)</strong> και κατά το άλλο ήμισυ από την <strong>Κάτω Πλευρική Ζώνη (LSB)</strong>.</p>
+        <p>Λόγω της συμμετρίας γύρω από τη συχνότητα του φέροντος (<code>fc</code>), και οι δύο ζώνες περιέχουν την ίδια ακριβώς πληροφορία.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>19. Το σύστημα απλής πλευρικής ζώνης (SSB)</h3>
+        <p>Η τεχνική SSB εκμεταλλεύεται τη συμμετρία αυτή, μεταδίδοντας μόνο τη μία από τις δύο πλευρικές ζώνες.</p>
+        <ul>
+            <li><strong>Πλεονέκτημα εύρους ζώνης:</strong> Ο δίαυλος απαιτεί εύρος ίσο μόνο με αυτό του σήματος βασικής ζώνης (<code>B_trans = B_info</code>).</li>
+            <li><strong>Οικονομία ισχύος:</strong> Μειώνεται η ισχύς μετάδοσης, καθώς δεν σπαταλάται ενέργεια για περιττή (διπλή) πληροφορία.</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>20. Μέθοδος φιλτραρίσματος (frequency discrimination)</h3>
+        <p>Ένα σήμα SSB μπορεί να δημιουργηθεί αν περάσουμε ένα σήμα DSB-SC από ένα ιδανικό φίλτρο που επιλέγει την επιθυμητή ζώνη.</p>
+        <p>Το φάσμα του σήματος DSB-SC:</p>
+        <p><code>X_DSB(f) = (1/2) · Ac · [M(f - fc) + M(f + fc)]</code></p>
+        <p><strong>Τύποι φίλτρων επιλογής:</strong></p>
+        <ul>
+            <li><strong>Άνω πλευρική ζώνη (USB):</strong> υψηλοπερατό φίλτρο (high-pass) — επιτρέπει συχνότητες πάνω από <code>fc</code>. <code>Hu(f) = 1</code> για <code>|f| &gt; fc</code>, <code>0</code> αλλού.</li>
+            <li><strong>Κάτω πλευρική ζώνη (LSB):</strong> βαθυπερατό φίλτρο (low-pass) — επιτρέπει συχνότητες κάτω από <code>fc</code>. <code>Hl(f) = 1</code> για <code>|f| &lt; fc</code>, <code>0</code> αλλού.</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>21. Μαθηματική έκφραση στον χρόνο (μετασχηματισμός Hilbert)</h3>
+        <p>Στο πεδίο του χρόνου, η έκφραση του σήματος <code>x_SSB(t)</code> είναι πιο σύνθετη από την απλή AM, διότι βασίζεται στον <strong>μετασχηματισμό Hilbert</strong>.</p>
+        <p>Έστω σήμα πληροφορίας <code>m(t)</code>. Το διαμορφωμένο σήμα SSB:</p>
+        <p><code>x_SSB(t) = Ac·m(t)·cos(2π·fc·t) ∓ Ac·m_hat(t)·sin(2π·fc·t)</code></p>
+        <p>Όπου:</p>
+        <ul>
+            <li><code>Ac</code> — πλάτος φέροντος</li>
+            <li><code>fc</code> — συχνότητα φέροντος</li>
+            <li><code>m_hat(t)</code> — μετασχηματισμός Hilbert του <code>m(t)</code> (μετατόπιση φάσης -90° σε όλες τις συχνότητες)</li>
+        </ul>
+        <p><strong>Το πρόσημο (∓):</strong></p>
+        <ul>
+            <li><strong>Πλην (−):</strong> Άνω πλευρική ζώνη (USB)</li>
+            <li><strong>Συν (+):</strong> Κάτω πλευρική ζώνη (LSB)</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>22. Παράδειγμα — Μετασχηματισμός Hilbert (απλό σήμα)</h3>
+        <p>Στο MATLAB, ο μετασχηματισμός Hilbert <code>m_hat(t)</code> προκύπτει από το φανταστικό μέρος της <code>hilbert(m)</code> (δες <code>help hilbert</code>).</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Hilbert σε cos</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fc = 100;                            % Συχνότητα (Hz)
+t = (0:0.02:20) * 1e-3;              % Χρονικός άξονας (sec)
+signal = cos(2*pi*fc*5*t);           % Σήμα εισόδου
+H1 = imag(hilbert(signal));          % Μετασχηματισμός Hilbert (φανταστικό μέρος)
+
+subplot(2,1,1);                      % Πάνω subplot
+plot(t, signal);                     % Αρχικό σήμα
+
+subplot(2,1,2);                      % Κάτω subplot
+plot(t, H1);                         % Hilbert του σήματος</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>23. Παράδειγμα — Hilbert πολυτονικού σήματος</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Hilbert σε sin + 3η αρμονική</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fc = 100;                            % Βασική συχνότητα (Hz)
+t = [0:0.02:20] * 1e-3;              % Χρονικός άξονας (sec)
+s = sin(2*pi*fc*t) + (1/3)*sin(2*pi*3*fc*t);   % Πολυτονικό σήμα
+H = imag(hilbert(s));                % Μετασχηματισμός Hilbert
+
+figure;                              % Νέο παράθυρο γραφήματος
+plot(t, s);                          % Αρχικό σήμα
+hold on;                             % Κράτηση για δεύτερη καμπύλη
+plot(t, H, 'r');                     % Hilbert (κόκκινο)
+legend('signal', 'hilbert');</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>24. Παράδειγμα — LSB με φιλτράρισμα (πεδίο συχνότητας)</h3>
+        <p>Κάτω πλευρική ζώνη (LSB) με βαθυπερατό ιδανικό φίλτρο στο πεδίο της συχνότητας. Χρειάζεται η συνάρτηση βήματος <code>us</code>.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — us.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">function u = us(t)
+% us.m — συνάρτηση βήματος u(t)
+u = 0.*(t &lt; 0) + 1.*(t &gt;= 0);      % 0 για t&lt;0, 1 για t&gt;=0</code></pre>
+        </div>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Φιλτράρισμα LSB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% Προετοιμασία: φάσμα DSB-SC (K) και άξονας συχνοτήτων (freq)
+N = 256;                             % Αριθμός δειγμάτων
+fs = 1000;                           % Ρυθμός δειγματοληψίας (Hz)
+t = (0:N-1) / fs;                    % Χρονικός άξονας
+fm = 20;                             % Συχνότητα μηνύματος (Hz)
+fc = 100;                            % Συχνότητα φέροντος (Hz)
+m = cos(2*pi*fm*t);                  % Μήνυμα
+u_dsb = m .* cos(2*pi*fc*t);         % DSB-SC στον χρόνο
+K = fftshift(fft(u_dsb));            % Φάσμα DSB-SC
+freq = fs * (-N/2 : N/2-1) / N;      % Άξονας συχνοτήτων (Hz)
+
+filter2 = us(freq + fc) - us(freq - fc);   % LPF για κάτω πλευρική ζώνη (LSB)
+xlower = K .* filter2;                       % Πολλαπλασιασμός φάσματος με φίλτρο
+Xlsb = real(ifft(xlower));                   % Επιστροφή στον χρόνο (LSB)
+
+subplot(3,1,1);                      % Πάνω subplot
+plot(freq, filter2);                 % Απόκριση LPF
+title('LP filter');
+
+subplot(3,1,2);                      % Μεσαίο subplot
+plot(abs(xlower));                   % Φάσμα κάτω πλευρικής ζώνης
+title('Spectrum lower side band');
+
+subplot(3,1,3);                      % Κάτω subplot
+plot(Xlsb);                          % Σήμα SSB (LSB) στον χρόνο
+title('SSB for the Lower sideband');</code></pre>
+        </div>
+    </div>
+
+    <h3 class="lab-period-title">Αποδιαμόρφωση AM — Σύγχρονη φώραση</h3>
+
+    <div class="materials-category">
+        <h3>25. Ορισμός και σκοπός</h3>
+        <p>Η αποδιαμόρφωση είναι η αντίστροφη διαδικασία της διαμόρφωσης. Σκοπός της είναι η ανάκτηση του σήματος πληροφορίας βασικής ζώνης <code>m(t)</code> από το διαμορφωμένο σήμα <code>s(t)</code>.</p>
+        <p>Επειδή κατά τη διαμόρφωση το φάσμα μετατοπίστηκε γύρω από τη συχνότητα του φέροντος (<code>fc</code>), στην αποδιαμόρφωση πρέπει να μετατοπιστεί πίσω στην περιοχή των χαμηλών συχνοτήτων (γύρω από το 0).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>26. Η διαδικασία της σύγχρονης φώρασης (coherent detection)</h3>
+        <p>Η μέθοδος αυτή ονομάζεται «σύγχρονη» γιατί απαιτεί στον δέκτη ένα τοπικό σήμα που να έχει την ίδια ακριβώς συχνότητα και φάση με τον φέροντα που χρησιμοποιήθηκε στον πομπό.</p>
+        <p><strong>Βήματα υλοποίησης:</strong></p>
+        <ul>
+            <li><strong>Πολλαπλασιασμός:</strong> Το λαμβανόμενο σήμα <code>s(t)</code> πολλαπλασιάζεται με ένα τοπικά παραγόμενο ημίτονο <code>cos(2π·fc·t)</code>.</li>
+            <li><strong>Φιλτράρισμα:</strong> Το αποτέλεσμα περνάει από βαθυπερατό φίλτρο (LPF) για να κρατήσουμε μόνο την πληροφορία και να απορρίψουμε τις υψηλές συχνότητες.</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>27. Μαθηματική ανάλυση</h3>
+        <p>Έστω το διαμορφωμένο σήμα AM:</p>
+        <p><code>s(t) = Ac · [1 + ka·m(t)] · cos(2π·fc·t)</code></p>
+        <p>Μετά τον πολλαπλασιασμό με το τοπικό σήμα <code>cos(2π·fc·t)</code>:</p>
+        <p><code>U(t) = s(t) · cos(2π·fc·t)</code></p>
+        <p><code>U(t) = Ac · [1 + ka·m(t)] · cos²(2π·fc·t)</code></p>
+        <p>Με την ταυτότητα <code>cos²(θ) = (1 + cos(2θ)) / 2</code>:</p>
+        <p><code>U(t) = (1/2) · Ac · [1 + ka·m(t)] · [1 + cos(4π·fc·t)]</code></p>
+        <p>Το <code>U(t)</code> αποτελείται από δύο κύρια μέρη:</p>
+        <ul>
+            <li><strong>Όρος βασικής ζώνης:</strong> <code>(1/2)·Ac + (1/2)·Ac·ka·m(t)</code> — περιέχει την πληροφορία</li>
+            <li><strong>Όρος υψηλής συχνότητας:</strong> <code>(1/2)·Ac · [1 + ka·m(t)] · cos(4π·fc·t)</code> — γύρω από τη συχνότητα <code>2·fc</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>28. Ο ρόλος του βαθυπερατού φίλτρου (LPF)</h3>
+        <p>Το σήμα <code>U(t)</code> περιέχει την πληροφορία <code>m(t)</code> αλλά και ανεπιθύμητα στοιχεία σε διπλάσια συχνότητα (<code>2·fc</code>).</p>
+        <p>Εφαρμόζοντας βαθυπερατό φίλτρο, ο όρος στο <code>2·fc</code> κόβεται. Στην έξοδο:</p>
+        <p><code>y_out(t) = (1/2)·Ac + (1/2)·Ac·ka·m(t)</code></p>
+        <p>Με πυκνωτή σύζευξης (αφαίρεση της DC συνιστώσας <code>Ac/2</code>) και ενισχυτή, ανακτούμε το αρχικό σήμα <code>m(t)</code>.</p>
+    </div>
+
+    <h2 class="lab-main-title">Διαμόρφωση γωνίας (FM &amp; PM)</h2>
+    <p class="course-desc">Θεωρητικές σημειώσεις — διαμόρφωση φάσης και συχνότητας</p>
+
+    <div class="materials-category">
+        <h3>1. Γενική μορφή και ορισμοί</h3>
+        <p>Στη διαμόρφωση γωνίας, το πλάτος του φέροντος παραμένει σταθερό (<code>Ac</code>), αλλά η γωνία <code>θ_i(t)</code> μεταβάλλεται ανάλογα με το σήμα πληροφορίας <code>m(t)</code>.</p>
+        <p>Γενική μορφή διαμορφωμένου σήματος:</p>
+        <p><code>s(t) = Ac · cos(θ_i(t))</code></p>
+        <p>Σχέση στιγμιαίας γωνίας και στιγμιαίας συχνότητας:</p>
+        <p><code>f_i(t) = (1 / 2π) · dθ_i(t) / dt</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Διαμόρφωση φάσης (PM)</h3>
+        <p>Στην PM, η στιγμιαία γωνία μεταβάλλεται γραμμικά με το <code>m(t)</code>:</p>
+        <p><code>θ_i(t) = 2π·fc·t + kp·m(t)</code></p>
+        <ul>
+            <li><code>kp</code> — ευαισθησία φάσης (rad/volt)</li>
+        </ul>
+        <p>Τύπος σήματος PM:</p>
+        <p><code>s(t) = Ac · cos[2π·fc·t + kp·m(t)]</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Διαμόρφωση συχνότητας (FM)</h3>
+        <p>Στην FM, η στιγμιαία συχνότητα μεταβάλλεται γραμμικά με το <code>m(t)</code>:</p>
+        <p><code>f_i(t) = fc + kf·m(t)</code></p>
+        <ul>
+            <li><code>kf</code> — ευαισθησία συχνότητας (Hz/volt)</li>
+        </ul>
+        <p>Ολοκληρώνοντας τη συχνότητα για την γωνία:</p>
+        <p><code>θ_i(t) = 2π·fc·t + 2π·kf · ∫ m(τ) dτ</code> (από 0 έως t)</p>
+        <p>Τύπος σήματος FM:</p>
+        <p><code>s(t) = Ac · cos[2π·fc·t + 2π·kf · ∫ m(τ) dτ]</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Χαρακτηριστικά και διαφορές από την AM</h3>
+        <ul>
+            <li><strong>Περιβάλλουσα:</strong> Στην PM και FM η περιβάλλουσα είναι σταθερή (<code>Ac</code>). Στην AM μεταβάλλεται με την πληροφορία.</li>
+            <li><strong>Μηδενισμοί (zero crossings):</strong> Λόγω μεταβολής της γωνίας, οι στιγμές μηδενισμού δεν έχουν σταθερές αποστάσεις — βασικό γνώρισμα διαμορφώσεων γωνίας.</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Διαμόρφωση FM από απλό τόνο</h3>
+        <p>Έστω <code>m(t) = Am · cos(2π·fm·t)</code>.</p>
+
+        <h4>Α. Απόκλιση συχνότητας (Δf)</h4>
+        <p>Μέγιστη μετατόπιση από τη συχνότητα φέροντος:</p>
+        <p><code>Δf = kf · Am</code></p>
+        <p>Στιγμιαία συχνότητα:</p>
+        <p><code>f_i(t) = fc + Δf · cos(2π·fm·t)</code></p>
+
+        <h4>Β. Δείκτης διαμόρφωσης (β)</h4>
+        <p><code>β = Δf / fm</code></p>
+
+        <h4>Γ. Τελική κυματομορφή FM (απλός τόνος)</h4>
+        <p><code>θ_i(t) = 2π·fc·t + β · sin(2π·fm·t)</code></p>
+        <p><code>s(t) = Ac · cos[2π·fc·t + β · sin(2π·fm·t)]</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Συμπεράσματα</h3>
+        <ul>
+            <li>Η απόκλιση συχνότητας <code>Δf</code> εξαρτάται μόνο από το <code>Am</code> και είναι ανεξάρτητη από το <code>fm</code>.</li>
+            <li>Ο δείκτης διαμόρφωσης <code>β</code> καθορίζει το εύρος ζώνης του FM στο φάσμα.</li>
+            <li><code>kf = Δf / Am</code> ή <code>kf = β · fm / Am</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. Φάσμα FM και ρόλος του β</h3>
+        <p>Δοκίμασε να αλλάξεις την τιμή του συντελεστή <code>β</code> και παρατήρησε πώς αλλάζει το φάσμα.</p>
+        <p>Το φάσμα της κυματομορφής FM περιέχει:</p>
+        <ul>
+            <li>μία συνιστώσα που οφείλεται στο φέρον (<code>fc</code>)</li>
+            <li>πλευρικές συχνότητες συμμετρικά εκατέρωθεν του φέροντος, σε διαστήματα <code>fm</code>, <code>2·fm</code>, <code>3·fm</code>, …</li>
+        </ul>
+        <p>Στην ειδική περίπτωση <strong>μικρού β</strong> (β &lt;&lt; 1), η FM αποτελείται ουσιαστικά από ένα ζεύγος πλευρικών συχνοτήτων: <code>fc ± fm</code>.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>8. Παράδειγμα — Σήμα FM και φάσμα (DFT)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — FM σήμα και φάσμα</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fm = 25;                             % Συχνότητα μηνύματος (Hz)
+fc = 400;                            % Συχνότητα φέροντος (Hz)
+t = 0:0.0001:0.1;                    % Χρονικός άξονας (sec)
+fs = 1 / (t(2) - t(1));              % Ρυθμός δειγματοληψίας (Hz)
+
+m = cos(2*pi*fm*t);                  % Μήνυμα m(t)
+c = cos(2*pi*fc*t);                  % Φέρον c(t)
+
+subplot(3,1,1);                      % Πάνω subplot — μήνυμα
+plot(t, m);                          % Σχεδίαση μηνύματος
+xlabel('Time');                      % Ετικέτα άξονα x
+ylabel('Amplitude');                 % Ετικέτα άξονα y
+title('Message Signal');             % Τίτλος γραφήματος
+grid on;                             % Ενεργοποίηση πλέγματος
+
+subplot(3,1,2);                      % Μεσαίο subplot — φέρον
+plot(t, c);                          % Σχεδίαση φέροντος
+xlabel('Time');                      % Ετικέτα άξονα x
+ylabel('Amplitude');                 % Ετικέτα άξονα y
+title('Carrier Signal');             % Τίτλος γραφήματος
+grid on;                             % Ενεργοποίηση πλέγματος
+
+beta = 10;                           % Δείκτης διαμόρφωσης β
+y = cos(2*pi*fc*t + beta.*sin(2*pi*fm*t));   % Σήμα FM y(t)
+
+subplot(3,1,3);                      % Κάτω subplot — FM
+plot(t, y);                          % Σχεδίαση σήματος FM
+xlabel('Time');                      % Ετικέτα άξονα x
+ylabel('Amplitude');                 % Ετικέτα άξονα y
+title('FM Signal');                  % Τίτλος γραφήματος
+grid on;                             % Ενεργοποίηση πλέγματος
+
+X = abs(fftshift(fft(y)));           % Μέτρο FFT (κεντραρισμένο φάσμα)
+NFFT = length(X);                    % Αριθμός σημείων FFT
+fVals = fs * (-NFFT/2 : NFFT/2-1) / NFFT;   % Άξονας συχνοτήτων σε Hz
+
+figure;                              % Νέο παράθυρο για φάσμα
+plot(fVals, X);                      % Σχεδίαση φάσματος
+xlabel('Frequency in Hz');           % Ετικέτα συχνότητας
+ylabel('|DFT values|');               % Ετικέτα μέτρου DFT</code></pre>
+        </div>
+        <p><strong>Σημείωση:</strong> Ο άξονας συχνοτήτων πολλαπλασιάζεται με <code>fs</code> και χωρίζεται με <code>NFFT/2</code> για να εμφανιστούν και οι αρνητικές συχνότητες. Δοκίμασε διαφορετικές τιμές <code>beta</code> (π.χ. 0.5, 2, 10).</p>
     </div>
 </div>
 
