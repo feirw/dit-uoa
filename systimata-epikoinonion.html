@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Συστήματα Επικοινωνιών</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <a href="index.html" class="back">&larr; Μαθήματα</a>
+    <span class="title">Συστήματα Επικοινωνιών</span>
+</div>
+
+<div class="materials-page">
+    <h2>Συστήματα Επικοινωνιών</h2>
+    <p class="course-desc">4ο Εξάμηνο — MATLAB</p>
+
+    <h2 class="lab-main-title">Εργαστήριο 1 — Βασικές σημειώσεις MATLAB</h2>
+    <p class="course-desc">Περιβάλλον, πίνακες, πράξεις, γραφικά, M-files, flow control</p>
+
+    <div class="materials-category">
+        <h3>1. Το περιβάλλον εργασίας (MATLAB Desktop)</h3>
+        <p><strong>Command Window</strong>: εκτέλεση εντολών και εμφάνιση αποτελεσμάτων. Με το πλήκτρο ↑ ανακαλείς προηγούμενες εντολές.</p>
+        <p><strong>Command History</strong>: λίστα πρόσφατων εντολών.</p>
+        <p><strong>Workspace</strong>: ενεργές μεταβλητές με όνομα, μέγεθος και τιμή.</p>
+        <p><strong>Variable Editor</strong>: προβολή/επεξεργασία μεταβλητών σε μορφή πίνακα.</p>
+
+        <p><code>clc</code> - Καθαρίζει το Command Window χωρίς να σβήνει μεταβλητές.</p>
+        <p><code>clear</code> - Διαγράφει όλες τις μεταβλητές από το Workspace.</p>
+        <p><code>help sin</code> - Εμφανίζει βοήθεια για συγκεκριμένη συνάρτηση (π.χ. <code>help cos</code>).</p>
+        <p><code>who</code> - Εμφανίζει μόνο τα ονόματα των μεταβλητών στο Workspace.</p>
+        <p><code>whos</code> - Εμφανίζει αναλυτικά στοιχεία μεταβλητών (τύπος, bytes, μέγεθος).</p>
+        <p><code>ans</code> - Προκαθορισμένη μεταβλητή που κρατά το τελευταίο αποτέλεσμα όταν δεν ορίζεις όνομα μεταβλητής.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Διαχείριση και ορισμός πινάκων</h3>
+        <p><strong>Απλός πίνακας</strong>: <code>B = [3 5; 9 7]</code> (στήλες με κενό/κόμμα, γραμμές με <code>;</code>).</p>
+        <p><strong>Διάνυσμα</strong>: πίνακας μίας γραμμής ή μίας στήλης.</p>
+        <p><strong>Ανάστροφος πίνακας</strong>: <code>y = x'</code>.</p>
+        <p><strong>Με βήμα</strong>: <code>A = [αρχή:βήμα:τέλος]</code> ή <code>A = [αρχή:τέλος]</code>.</p>
+
+        <p><code>linspace(a, b, n)</code> - Δημιουργεί ακριβώς n ισαπέχουσες τιμές από a έως b.</p>
+        <p><code>zeros(M, N)</code> - Πίνακας MxN γεμάτος με μηδενικά.</p>
+        <p><code>ones(M, N)</code> - Πίνακας MxN γεμάτος με μονάδες.</p>
+        <p><code>rand(M, N)</code> - Πίνακας MxN με τυχαίες τιμές στο διάστημα (0,1).</p>
+
+        <p><strong>Indexing (ξεκινά από 1)</strong>:</p>
+        <p><code>X(i, j)</code> στοιχείο γραμμής i, στήλης j.</p>
+        <p><code>X(i, :)</code> ολόκληρη γραμμή i.</p>
+        <p><code>X(:, j)</code> ολόκληρη στήλη j.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Πράξεις και συναρτήσεις</h3>
+        <p><strong>Βασικές πράξεις</strong>: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code>.</p>
+        <p><strong>Στοιχείο-προς-στοιχείο</strong>: <code>.*</code>, <code>./</code>, <code>.^</code>.</p>
+
+        <p><code>size(A)</code> - Επιστρέφει διαστάσεις πίνακα A, δηλαδή [γραμμές, στήλες].</p>
+        <p><code>length(A)</code> - Επιστρέφει το μέγεθος της μεγαλύτερης διάστασης του A.</p>
+
+        <p><strong>Συχνές συναρτήσεις</strong>: <code>sin</code>, <code>cos</code>, <code>exp</code>, <code>log</code>, <code>sqrt</code>, <code>mean</code>, <code>sum</code>, <code>max</code>, <code>min</code>, <code>round</code>, <code>floor</code>, <code>ceil</code>, <code>fix</code>.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Γραφικά (MATLAB Graphics)</h3>
+        <p><code>plot(x, y)</code> - Σχεδιάζει συνεχή καμπύλη από τα δεδομένα x και y.</p>
+        <p><code>stem(n, x)</code> - Σχεδιάζει διακριτά δείγματα (σήματα δειγματοληψίας).</p>
+        <p><code>title('...')</code> - Ορίζει τίτλο γραφήματος.</p>
+        <p><code>xlabel('...')</code> - Ορίζει ετικέτα άξονα x.</p>
+        <p><code>ylabel('...')</code> - Ορίζει ετικέτα άξονα y.</p>
+        <p><code>grid on</code> - Ενεργοποιεί πλέγμα στο γράφημα.</p>
+        <p><code>legend('...')</code> - Προσθέτει υπόμνημα.</p>
+        <p><code>subplot(m,n,p)</code> - Χωρίζει το figure σε m x n θέσεις και ενεργοποιεί την p.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Αρχεία M-files και έλεγχος ροής</h3>
+        <p><strong>Script files</strong>: σειρά εντολών που εκτελείται διαδοχικά.</p>
+        <p><strong>Function files</strong>: ορισμός συνάρτησης με λέξη <code>function</code>, και ίδιο όνομα αρχείου-συνάρτησης.</p>
+
+        <p><code>for k = 1:10</code> - Επανάληψη συγκεκριμένου αριθμού φορών.</p>
+        <p><code>if ... elseif ... else ... end</code> - Εκτέλεση με συνθήκες (<code>==</code>, <code>~=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>).</p>
+        <p><code>while condition</code> - Επανάληψη όσο η συνθήκη είναι αληθής.</p>
+        <p>Σημείωση: όπου γίνεται, προτιμάμε διανυσματικοποίηση και συναρτήσεις όπως <code>find</code> αντί για loops για καλύτερη απόδοση.</p>
+    </div>
+
+    <h2 class="lab-main-title">Εργαστήριο 2 — Αναπαράσταση σημάτων στο MATLAB</h2>
+    <p class="course-desc">Εισαγωγή στην αναπαράσταση και επεξεργασία σημάτων συνεχούς και διακριτού χρόνου</p>
+
+    <div class="materials-category">
+        <h3>1. Ταξινόμηση σημάτων</h3>
+        <p><strong>Σήματα συνεχούς χρόνου (αναλογικά)</strong>: ορίζονται για κάθε χρονική στιγμή και η τιμή τους μπορεί να είναι οποιοσδήποτε πραγματικός αριθμός.</p>
+        <p><strong>Σήματα διακριτού χρόνου</strong>: ορίζονται μόνο σε συγκεκριμένα χρονικά δείγματα.</p>
+        <p><strong>Ψηφιακά σήματα</strong>: είναι διακριτού χρόνου και διακριτού πλάτους, δηλαδή παίρνουν τιμές από πεπερασμένο σύνολο (π.χ. 0 ή 1).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Περιοδικότητα</h3>
+        <p><strong>Περιοδικά σήματα</strong>: υπάρχει θετικός αριθμός T (ή N για διακριτά) ώστε x(t)=x(t+T) για όλα τα t.</p>
+        <p><strong>Απεριοδικά σήματα</strong>: δεν παρουσιάζουν επανάληψη.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Ενέργεια και ισχύς</h3>
+        <p><strong>Σήματα ενέργειας</strong>: πεπερασμένη ενέργεια και μηδενική ισχύς.</p>
+        <p><strong>Σήματα ισχύος</strong>: άπειρη ενέργεια και πεπερασμένη μη μηδενική ισχύς (τυπικά περιοδικά σήματα).</p>
+        <p>Ένα σήμα δεν ανήκει ταυτόχρονα και στις δύο κατηγορίες.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Βασικά σήματα και υλοποίηση στο MATLAB</h3>
+        <p>Για τμηματικά σήματα χρησιμοποιούμε λογικούς τελεστές (<code>&gt;=</code>, <code>&lt;=</code>, <code>&amp;</code>) που δημιουργούν μάσκες 0/1.</p>
+
+        <p><strong>Βηματική συνάρτηση u(t)</strong>: 1 για t&gt;=0 και 0 αλλού.</p>
+        <p><code>(t &gt;= 0)</code> - Επιστρέφει 1 όπου ισχύει η συνθήκη, αλλιώς 0.</p>
+
+        <p><strong>Συνάρτηση ράμπας r(t)</strong>: t για t&gt;=0 και 0 για t&lt;0.</p>
+        <p><code>t .* (t &gt;= 0)</code> - Πολλαπλασιασμός στοιχείο-προς-στοιχείο με τη μάσκα.</p>
+
+        <p><strong>Ημιτονοειδή σήματα</strong>: x(t)=A*cos(Omega*t + theta), όπου A πλάτος, Omega κυκλική συχνότητα, theta φάση.</p>
+        <p>Για ομαλή σχεδίαση χρησιμοποιούμε μικρό βήμα χρόνου (π.χ. <code>pi/30</code>).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Βασικές συναρτήσεις (Function Files)</h3>
+        <p>Αποθήκευση σε ξεχωριστά αρχεία .m με ίδιο όνομα συνάρτησης.</p>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — step_function.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">function x = step_function(t)
+    x = 1 * (t >= 0);
+end</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — ramp_function.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">function x = ramp_function(t)
+    x = t .* (t >= 0);
+end</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Παραδείγματα σημάτων (Command Window / Scripts)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Κλήση βηματικής</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [0:1:10];
+x = step_function(t);
+plot(t,x)</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Κλήση ράμπας</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [0:1:10];
+x = ramp_function(t);
+plot(t,x)</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Εκθετικό σήμα</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = 0:0.1:10;
+y = exp(2 * t);
+plot(t,y);
+ylabel('Amplitude');
+xlabel('Time Index');
+title('Exponential Signal');</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Σύγκριση εκθετικών (subplot)</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = -10:0.1:10;
+a1 = 0.8;
+a2 = 1.2;
+subplot(211); plot(t, a1.^t)
+subplot(212); plot(t, a2.^t)</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Ημιτονοειδές σήμα</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">x = 0:pi/30:2*pi;
+y = sin(3*x);
+plot(x,y)
+xlabel('x (radians)');
+ylabel('sine function');
+title('y = sin(3*x)', 'FontSize', 12);</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. Έτοιμα scripts (matex)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — matex_1_1a</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = linspace(0,5,1000);
+x1 = 5*sin(12*t);
+clf;
+plot(t,x1);
+xlabel('Time (sec)');
+ylabel('x_1(t)');</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — matex_1_1b</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [0:0.01:5];
+x2 = (exp(-3*t) - exp(-6*t));
+clf;
+plot(t,x2);
+xlabel('Time (sec)');
+ylabel('x_2(t)');</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — matex_1_1c</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [0:0.01:5];
+x2 = (exp(-3*t) - exp(-6*t)) .* (t >= 0);
+clf;
+plot(t,x2);
+xlabel('Time (sec)');
+ylabel('x_2(t)');</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — matex_1_1d.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [-2:0.01:3];
+x3 = (exp(-3*t) - exp(-6*t)) .* ((t >= 0) & (t <= 1));
+clf;
+plot(t,x3);
+xlabel('t (sec)');
+ylabel('x_{3}(t)');
+grid;</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>8. Τεχνική περιορισμού σήματος (Logical Operators)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Περιορισμός για t &gt;= 0</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [-2:0.01:3];
+w = (t >= 0);
+x2 = (exp(-3*t) - exp(-6*t)) .* w;
+plot(t, x2)</code></pre>
+        </div>
+
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Περιορισμός για 0 &lt;= t &lt;= 1</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t = [-2:0.01:3];
+w = (t >= 0) & (t <= 1);
+x2 = (exp(-3*t) - exp(-6*t)) .* w;
+plot(t, x2)</code></pre>
+        </div>
+    </div>
+
+    <h2 class="lab-main-title">Εργαστήριο 3 — Γραμμικότητα και χρονική αμεταβλητότητα</h2>
+    <p class="course-desc">Θεωρία και υλοποίηση ελέγχων ιδιοτήτων συστημάτων στο MATLAB</p>
+
+    <div class="materials-category">
+        <h3>1. Ορισμός συστήματος</h3>
+        <p>Σύστημα είναι κάθε διάταξη που δέχεται ένα σήμα εισόδου (excitation) και παράγει ένα σήμα εξόδου (response).</p>
+        <p>Η σχέση εισόδου-εξόδου περιγράφεται από συνάρτηση της μορφής <code>y(t) = f(x(t))</code>.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Γραμμικότητα (Linearity)</h3>
+        <p>Ένα σύστημα είναι γραμμικό όταν ικανοποιεί την Αρχή της Υπέρθεσης.</p>
+        <p><strong>Προσθετικότητα</strong>: η απόκριση στο άθροισμα δύο σημάτων ισούται με το άθροισμα των αποκρίσεων.</p>
+        <p><strong>Ομογένεια</strong>: αν πολλαπλασιάσουμε την είσοδο με σταθερά alpha, η έξοδος πολλαπλασιάζεται με την ίδια σταθερά.</p>
+        <p><code>Sys{alpha1*x1(t) + alpha2*x2(t)} = alpha1*Sys{x1(t)} + alpha2*Sys{x2(t)}</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Χρονική αμεταβλητότητα (Time-Invariance)</h3>
+        <p>Σύστημα χρονικά αμετάβλητο σημαίνει ότι τα χαρακτηριστικά του δεν αλλάζουν με τον χρόνο.</p>
+        <p>Αν καθυστερήσουμε την είσοδο κατά tau: <code>x(t-tau)</code>, η έξοδος πρέπει να είναι η αρχική έξοδος με ίδια καθυστέρηση: <code>y(t-tau)</code>.</p>
+        <p>Αν ο χρόνος t εμφανίζεται ρητά στην περιγραφή του συστήματος (π.χ. <code>y(t)=t*x(t)</code>), τότε το σύστημα είναι χρονικά μεταβαλλόμενο.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Υλοποίηση στο MATLAB</h3>
+        <p><code>@(x)...</code> (anonymous functions) για γρήγορο ορισμό συστημάτων σε μία γραμμή.</p>
+        <p><code>subplot(m,n,p)</code> για ταυτόχρονη οπτική σύγκριση αναμενόμενης και πραγματικής απόκρισης.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Κώδικας — Έλεγχος γραμμικότητας (linearity.m)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — linearity.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% Script : linearity.m
+t = [0:0.01:4];          % Διάνυσμα χρόνου
+x1 = cos(2*pi*5*t);      % Σήμα δοκιμής 1
+x2 = exp(-0.5*t);        % Σήμα δοκιμής 2
+alpha1 = 2;              % Σταθερά 1
+alpha2 = 1.25;           % Σταθερά 2
+
+% Σύνθετο σήμα εισόδου
+x = alpha1*x1 + alpha2*x2;
+
+% Ορισμός συστημάτων προς έλεγχο
+sys_a = @(x) 5*x;        % Γραμμικό
+sys_b = @(x) 5*x + 3;    % Μη γραμμικό (+3)
+sys_c = @(x) 3*x.*x;     % Μη γραμμικό (τετράγωνο)
+
+% Έλεγχος για το σύστημα (a)
+y1 = sys_a(x1);
+y2 = sys_a(x2);
+y_exp = alpha1*y1 + alpha2*y2; % Αναμενόμενη απόκριση
+y_act = sys_a(x);              % Πραγματική απόκριση
+
+% Γραφική σύγκριση
+clf;
+subplot(1,2,1);
+plot(t, y_exp);
+title('y_{exp} = \alpha_1 y_1 + \alpha_2 y_2');
+xlabel('t (sec)'); ylabel('Amplitude');
+
+subplot(1,2,2);
+plot(t, y_act);
+title('y_{act} = Sys_a\{\alpha_1 x_1 + \alpha_2 x_2\}');
+xlabel('t (sec)'); ylabel('Amplitude');</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Κώδικας — Έλεγχος χρονικής αμεταβλητότητας (time_invariant_a.m)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — time_invariant_a.m</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% Script: time_invariant_a.m
+t = [0:0.01:10];                       % Διάνυσμα χρόνου
+x = @(t) exp(-0.5*t).*(t>=0);         % Σήμα εισόδου x(t)
+
+% Ορισμός συστημάτων
+sys_a = @(x) 5*x;                      % Χρονικά αμετάβλητο
+sys_c = @(x) 3*cos(t).*x;              % Χρονικά μεταβαλλόμενο (λόγω cos(t))
+
+% Έλεγχος για το σύστημα (a)
+y1 = sys_a(x(t));                      % Έξοδος στο x(t)
+y2 = sys_a(x(t-2));                    % Έξοδος στο καθυστερημένο x(t-2)
+
+% Γραφική παράσταση
+clf;
+plot(t, y1, 'b-', t, y2, 'r--');       % Μπλε συνεχής και κόκκινη διακεκομμένη
+title('Responses to x(t) and x(t-2)');
+xlabel('t (sec)'); ylabel('Amplitude');
+legend('Sys\{x(t)\}', 'Sys\{x(t-2)\}');
+grid on;</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. Παρατήρηση</h3>
+        <p>Αν τρέξεις τον έλεγχο γραμμικότητας για <code>sys_b</code> ή <code>sys_c</code>, τα δύο subplots δεν θα ταυτίζονται, άρα τα συστήματα αυτά είναι μη γραμμικά.</p>
+    </div>
+
+    <h2 class="lab-main-title">Εργαστήριο 5 — Τυχαία σήματα</h2>
+    <p class="course-desc">Από το πιο απλό στο πιο σύνθετο</p>
+
+    <div class="materials-category">
+        <h3>1. Τυχαίοι αριθμοί και κατανομές</h3>
+        <p>Στο Matlab, οι τυχαίοι αριθμοί είναι ψευδοτυχαίοι και ακολουθούν συγκεκριμένες στατιστικές κατανομές.</p>
+
+        <p><strong>Ομοιόμορφη κατανομή (Uniform)</strong>: τιμές με ίδια πιθανότητα στο επιλεγμένο διάστημα.</p>
+        <p><code>rand(rows, cols)</code> - Επιστρέφει πίνακα διαστάσεων rows x cols με τιμές στο (0,1).</p>
+        <p><code>unifrnd(a, b, M, N)</code> - Επιστρέφει πίνακα M x N με ομοιόμορφες τιμές στο [a,b].</p>
+
+        <p><strong>Κανονική κατανομή (Gaussian/Normal)</strong>: κατανομή με μέση τιμή mu και τυπική απόκλιση sigma.</p>
+        <p><code>randn(M, N)</code> - Επιστρέφει πίνακα M x N από την τυπική κανονική (mu=0, sigma=1).</p>
+        <p><code>normrnd(mu, sigma, M, N)</code> - Επιστρέφει πίνακα M x N από κανονική με παραμέτρους mu και sigma.</p>
+
+        <p><strong>Άλλες κατανομές</strong>:</p>
+        <p><code>exprnd(mu, ...)</code> - Τυχαίες τιμές από εκθετική κατανομή με μέση τιμή mu.</p>
+        <p><code>binornd(n, p, ...)</code> - Τυχαίες τιμές από διωνυμική κατανομή (n δοκιμές, πιθανότητα επιτυχίας p).</p>
+        <p><code>poissrnd(lambda, ...)</code> - Τυχαίες τιμές από κατανομή Poisson με παράμετρο lambda.</p>
+
+        <p><strong>Οπτικοποίηση</strong>:</p>
+        <p><code>stem(x)</code> - Διακριτή γραφική παράσταση (δείγματα με κάθετες ράβδους).</p>
+        <p><code>hist(x, n)</code> - Ιστόγραμμα με n κάδους (πλήθος τιμών ανά διάστημα).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Στατιστικά μεγέθη (περιγραφική στατιστική)</h3>
+        <p><strong>Μέση τιμή</strong>: μέσος όρος των τιμών.</p>
+        <p><code>mean(x)</code> - Υπολογίζει τη μέση τιμή του x.</p>
+
+        <p><strong>Διασπορά</strong>: μέσο τετράγωνο απόκλισης από τη μέση τιμή.</p>
+        <p><code>var(x)</code> - Υπολογίζει τη διασπορά του x.</p>
+
+        <p><strong>Τυπική απόκλιση</strong>: τετραγωνική ρίζα της διασποράς.</p>
+        <p><code>std(x)</code> - Υπολογίζει την τυπική απόκλιση του x.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Σχέση μεταξύ τυχαίων μεταβλητών</h3>
+        <p><strong>Συμμεταβολή (Covariance)</strong>: μέτρο κοινής μεταβολής δύο μεταβλητών X και Y.</p>
+        <p><code>cov(X, Y)</code> - Επιστρέφει τη συμμεταβολή (και πίνακα συμμεταβολών όταν δοθεί πίνακας εισόδου).</p>
+
+        <p><strong>Συντελεστής συσχέτισης</strong>: μετρά γραμμική συνάφεια δύο μεταβλητών.</p>
+        <p><code>corrcoef(X, Y)</code> - Επιστρέφει συντελεστή συσχέτισης rho στο διάστημα [-1,1].</p>
+        <p>rho = 1: τέλεια θετική συσχέτιση (αυξάνουν μαζί).</p>
+        <p>rho = -1: τέλεια αρνητική συσχέτιση (όταν αυξάνει η μία, μειώνεται η άλλη).</p>
+        <p>rho = 0: ασυσχέτιστες μεταβλητές (χωρίς γραμμική συσχέτιση).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Τυχαίες διαδικασίες και σήματα</h3>
+        <p><strong>Τυχαίο σήμα</strong>: σήμα που εξελίσσεται στον χρόνο με μη απολύτως προβλέψιμο τρόπο.</p>
+        <p><strong>Πραγματοποίηση (Realization)</strong>: μία συγκεκριμένη χρονική κυματομορφή από ένα τυχαίο πείραμα.</p>
+        <p><strong>Σύνολο (Ensemble)</strong>: το σύνολο όλων των δυνατών πραγματοποιήσεων της ίδιας διαδικασίας.</p>
+
+        <p><strong>Κατηγορίες τυχαίων ημιτόνων</strong>:</p>
+        <p>PAM - Τυχαίο πλάτος, σταθερή συχνότητα και φάση.</p>
+        <p>Τυχαία φάση - Η φάση επιλέγεται συνήθως ομοιόμορφα στο [-pi, pi].</p>
+        <p>FSK - Τυχαία συχνότητα ανά πραγματοποίηση.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Πυκνότητα φάσματος ισχύος (PSD)</h3>
+        <p><strong>PSD</strong>: δείχνει πώς κατανέμεται η ισχύς ενός σήματος ως προς τη συχνότητα.</p>
+        <p><strong>Θεώρημα Wiener-Khinchin</strong>: η PSD είναι ο μετασχηματισμός Fourier της αυτοσυσχέτισης.</p>
+        <p><strong>Περιοδόγραμμα</strong>: απλός μη παραμετρικός εκτιμητής της PSD.</p>
+        <p><code>periodogram(x, [], Nfft, Fs)</code> - Εκτιμά PSD του x με Nfft σημεία FFT και συχνότητα δειγματοληψίας Fs.</p>
+
+        <p><strong>Λευκός θόρυβος</strong>: επίπεδη PSD (ίση ισχύς σε όλες τις συχνότητες), ασυσχέτιστα δείγματα.</p>
+        <p><strong>WGN</strong>: λευκός θόρυβος με Gaussian κατανομή στο πλάτος.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Φιλτράρισμα τυχαίων σημάτων</h3>
+        <p>Το φιλτράρισμα χρησιμοποιείται για να κρατήσουμε ή να απορρίψουμε συγκεκριμένες ζώνες συχνοτήτων.</p>
+
+        <p><code>fir1(N, Wn)</code> - Σχεδιάζει χαμηλοπερατό FIR φίλτρο τάξης N με κανονικοποιημένη αποκοπή Wn (0..1).</p>
+        <p><code>fir1(N, Wn, 'high')</code> - Σχεδιάζει υψηλοπερατό FIR φίλτρο με ίδια λογική παραμέτρων.</p>
+        <p>Wn = 1 αντιστοιχεί στη συχνότητα Nyquist (Fs/2).</p>
+
+        <p><code>filter(b, a, x)</code> - Εφαρμόζει το φίλτρο με συντελεστές αριθμητή b και παρονομαστή a στο σήμα x.</p>
+        <p>Για FIR φίλτρα από τη fir1, συνήθως a = 1.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>1. Πραγματοποιήσεις λευκού Gaussian θορύβου (WGN)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">NUM_REAL = 4;
+SIMULATION_LENGTH = 1024;
+t = 0:(1/SIMULATION_LENGTH):(1-1/SIMULATION_LENGTH);
+realizations = zeros(NUM_REAL, SIMULATION_LENGTH);
+figure(1);
+clf;
+
+for n = 1:NUM_REAL
+    realizations(n,:) = randn(1, SIMULATION_LENGTH);
+    subplot(NUM_REAL, 1, n);
+    plot(t, realizations(n,:));
+end
+subplot(NUM_REAL, 1, 1);
+title('Realizations of WGN process')</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Πραγματοποιήσεις ημιτονοειδούς με τυχαία φάση</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">NUM_REAL = 4;
+SIM_LEN = 1024;
+t = 0:(1/SIM_LEN):(1-1/SIM_LEN);
+realizations = zeros(NUM_REAL, SIM_LEN);
+figure(1);
+clf;
+
+for n = 1:NUM_REAL
+    realizations(n,:) = cos(2*pi*4*t + random('Unif', -pi, pi, 1, 1));
+    subplot(4, 1, n)
+    plot(t, realizations(n,:));
+end
+subplot(NUM_REAL, 1, 1);</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Ημιτονοειδές με διακριτό τυχαίο πλάτος</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">NUM_REAL = 4;
+SIMULATION_LENGTH = 1024;
+t = 0:(1/SIMULATION_LENGTH):(1-1/SIMULATION_LENGTH);
+realizations = zeros(NUM_REAL, SIMULATION_LENGTH);
+figure(1);
+clf;
+
+for n = 1:NUM_REAL
+    realizations(n,:) = random('unid', 4, 1, 1) * cos(2*pi*4*t);
+    subplot(NUM_REAL, 1, n);
+    plot(t, realizations(n,:));
+end
+subplot(NUM_REAL, 1, 1);
+title('Realizations of Sinusoid of discrete random amplitude')</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Εκτίμηση PSD — Κανονικό &amp; Ομοιόμορφο σήμα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">N1 = 10000;
+X1 = randn(1, N1);
+X2 = 3.4641*rand(1, N1) - 1.7321;
+
+%% PSD estimation
+[S1, w] = periodogram(X1, [], 512, 1);
+[S2, w] = periodogram(X2, [], 512, 1);
+
+figure
+subplot(2,1,1), plot(w, S1), grid, ylabel('PSD'), title('NORMAL SIGNAL X1', 'FontSize', 12), xlabel('\omega', 'FontSize', 12)
+subplot(2,1,2), plot(w, S2), grid, ylabel('PSD'), title('UNIFORM SIGNAL X2', 'FontSize', 12), xlabel('\omega', 'FontSize', 12)</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Αυτοσυσχέτιση (ACF) — Κανονικό &amp; Ομοιόμορφο σήμα</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% Χρειάζεται πρώτα τα X1, X2 από το προηγούμενο script
+r1 = xcorr(X1, 'biased');
+r1 = r1';
+r2 = xcorr(X2, 'biased');
+r2 = r2';
+
+N = 100;
+figure
+subplot(2,1,1), stem(-N:N, r1((N1-N):N1+N), 'b'), ylabel('ACF', 'FontSize', 14), title('NORMAL SIGNAL X1', 'FontSize', 12), grid, axis([-N, N, -0.2, 1.2]);
+subplot(2,1,2), stem(-N:N, r2((N1-N):N1+N), 'r'), ylabel('ACF', 'FontSize', 14), title('UNIFORM SIGNAL X2', 'FontSize', 12), grid, axis([-N, N, -0.2, 1.2]);</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Ημιτονοειδή σε λευκό θόρυβο — Εκτίμηση PSD</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">Fs = 1000;                          % Συχνότητα δειγματοληψίας (1000 Hz)
+
+t = 0:1/Fs:.5;                     % Χρονικός άξονας από 0 έως 0.5 sec
+
+A1 = 3;                            % Πλάτος πρώτου ημιτόνου
+A2 = 8;                            % Πλάτος δεύτερου ημιτόνου
+
+f1 = 270;                          % Συχνότητα πρώτου ημιτόνου (270 Hz)
+f2 = 175;                          % Συχνότητα δεύτερου ημιτόνου (175 Hz)
+
+m = 3;                             % Μέση τιμή θορύβου (δεν χρησιμοποιείται άμεσα εδώ)
+VA = 25;                           % Διασπορά θορύβου (δεν χρησιμοποιείται άμεσα εδώ)
+
+x1 = A1*cos(2*pi*t*f1);           % 1ο ημιτονικό σήμα (270 Hz)
+x2 = A2*cos(2*pi*t*f2);           % 2ο ημιτονικό σήμα (175 Hz)
+
+X = 5*randn(size(t)) + 3 + x1 + x2;      % Τελικό σήμα: 2 ημίτονα + Gaussian white noise (μ=3, σ²=25)
+
+figure                           % Νέο παράθυρο γραφήματος
+plot(t, X), xlabel('t'), title('SINUSOIDAL SIGNALS IN WHITE NOISE'), grid
+                                 % Σχεδίαση σήματος στο χρόνο
+
+[S, w] = periodogram(X, [], 1024, 1); % Υπολογισμός PSD με periodogram
+
+figure                           % Νέο figure για PSD
+
+subplot(2,1,1)                  % Πρώτο subplot (πάνω)
+plot(-2*w, S, 2*w, S)              % PSD και για αρνητικές και θετικές συχνότητες
+grid                             % Ενεργοποίηση πλέγματος
+ylabel('PSD')                    % Ετικέτα άξονα y
+title('PSD of signal')          % Τίτλος γραφήματος
+xlabel('\omega/\pi')            % Ετικέτα άξονα x (κανονικοποιημένη συχνότητα)
+
+subplot(2,1,2)                  % Δεύτερο subplot (κάτω)
+semilogy(-2*w, S, 2*w, S)          % PSD σε λογαριθμική κλίμακα
+grid                             % Πλέγμα
+ylabel('PSD in dB')             % Ετικέτα y
+title('PSD (log scale)')        % Τίτλος γραφήματος</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. FIR φιλτράρισμα λευκού θορύβου (Low Pass / High Pass)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">% GENERATION OF SIGNALS:
+Fs=1000;                      % Συχνότητα δειγματοληψίας
+t=0:1/Fs:.5;                 % Χρονικός άξονας από 0 έως 0.5 sec
+
+m=4;                         % Μέση τιμή θορύβου
+VA=4;                        % Διασπορά θορύβου (θεωρητική, δεν χρησιμοποιείται άμεσα)
+
+X=2*randn(size(t))+4;        % Gaussian λευκός θόρυβος με μ=4 και σ^2=4
+
+% 1. LOW PASS FILTERING
+h=fir1(150,.5);              % Σχεδίαση χαμηλοπερατού FIR φίλτρου τάξης 150, Wn=0.5
+Y=filter(h,1,X);             % Φιλτράρισμα σήματος (έξοδος LP φίλτρου)
+
+[SX,w]=periodogram(X,[],1024,1); % PSD εισόδου (σήμα πριν το φίλτρο)
+[SY,w]=periodogram(Y,[],1024,1); % PSD εξόδου (μετά το LP φίλτρο)
+
+figure                        % Νέο figure
+
+subplot(2,1,1)
+plot(-2*w,SX,2*w,SX), grid    % PSD εισόδου (θετικές & αρνητικές συχνότητες)
+ylabel('PSD')
+title('LP filtering: Input signal')
+xlabel('\omega/\pi')
+
+subplot(2,1,2)
+plot(-2*w,SY,2*w,SY), grid    % PSD εξόδου φίλτρου
+ylabel('PSD')
+title('LP filtering: Output signal')
+xlabel('\omega/\pi')
+
+figure                        % Νέο figure για log scale
+
+subplot(2,1,1)
+semilogy(-2*w,SX,2*w,SX), grid  % PSD εισόδου σε λογαριθμική κλίμακα
+ylabel('PSD in dB')
+title('LP filtering: Input signal')
+xlabel('\omega/\pi')
+
+subplot(2,1,2)
+semilogy(-2*w,SY,2*w,SY), grid  % PSD εξόδου σε log scale
+ylabel('PSD in dB')
+title('LP filtering: Output signal')
+xlabel('\omega/\pi')
+
+% 2. HIGH PASS FILTERING
+
+h=fir1(150,.5,'high');       % Σχεδίαση υψηλοπερατού FIR φίλτρου
+Y=filter(h,1,X);             % Φιλτράρισμα σήματος (HP output)
+
+[SX,w]=periodogram(X,[],1024,1); % PSD εισόδου
+[SY,w]=periodogram(Y,[],1024,1); % PSD εξόδου
+
+figure                        % Νέο figure
+
+subplot(2,1,1)
+plot(-2*w,SX,2*w,SX), grid    % PSD εισόδου
+ylabel('PSD')
+title('HP filtering: Input signal')
+xlabel('\omega/\pi')
+
+subplot(2,1,2)
+plot(-2*w,SY,2*w,SY), grid    % PSD εξόδου HP φίλτρου
+ylabel('PSD')
+title('HP filtering: Output signal')
+xlabel('\omega/\pi')
+
+figure                        % Νέο figure (log scale)
+
+subplot(2,1,1)
+semilogy(-2*w,SX,2*w,SX), grid % PSD εισόδου (log)
+ylabel('PSD in dB')
+title('HP filtering: Input signal')
+xlabel('\omega/\pi')
+
+subplot(2,1,2)
+semilogy(-2*w,SY,2*w,SY), grid % PSD εξόδου (log)
+ylabel('PSD in dB')
+title('HP filtering: Output signal')
+xlabel('\omega/\pi')</code></pre>
+        </div>
+    </div>
+
+    <h2 class="lab-main-title">Εργαστήριο 6 &amp; 7 — Διαμόρφωση πλάτους (AM)</h2>
+    <p class="course-desc">Θεωρία διαμόρφωσης και παράδειγμα σήματος AM στο MATLAB</p>
+
+    <div class="materials-category">
+        <h3>1. Τι είναι διαμόρφωση</h3>
+        <p>Η διαμόρφωση μεταφέρει πληροφορία πάνω σε φέρουσα συχνότητα (carrier) ώστε το σήμα να μπορεί να μεταδίδεται αποδοτικά μέσα από ένα κανάλι επικοινωνίας.</p>
+        <p>Χωρίς διαμόρφωση, το σήμα δεν μπορεί να μεταφέρει πληροφορία (π.χ. μόνο έναν καθαρό ημίτονο σε υψηλή συχνότητα).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Διαμόρφωση πλάτους — AM</h3>
+        <p>Στην AM (Amplitude Modulation), το πλάτος του φέροντος μεταβάλλεται ανάλογα με το μήνυμα, ενώ η συχνότητα παραμένει σταθερή.</p>
+        <p><strong>Σήμα φέροντος (carrier)</strong>: υψηλής συχνότητας, συνήθως η κεντρική συχνότητα fc.</p>
+        <p><strong>Μήνυμα (modulating signal)</strong>: χαμηλότερης συχνότητας fm, ελέγχει το πόσο «δυνατά» γίνεται το φέρον.</p>
+        <p><strong>Δείκτη βάθους διαμόρφωσης</strong>: Mu (0 &lt;= Mu &lt;= 1) — βαθμός βάθους, όχι 100%.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Μαθηματική μορφή σήματος AM</h3>
+        <p>Το AM σήμα γράφεται ως:</p>
+        <p><code>x(t) = Ac * (1 + Mu*cos(2*pi*fm*t)) * cos(2*pi*fc*t)</code></p>
+        <p>Το πρώτο παράγονγο <code>(1 + Mu*cos(2*pi*fm*t))</code> είναι το περιβάλλον (envelope).</p>
+        <p>Το δεύτερο <code>cos(2*pi*fc*t)</code> είναι το φέρον υψηλής συχνότητας (carrier).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Περιβάλλον (envelope)</h3>
+        <p>Το περιβάλλον δείχνει πώς αλλάζει το πλάτος του σήματος στον χρόνο.</p>
+        <p><code>x_env(t) = abs(Ac * (1 + Mu*cos(2*pi*fm*t)))</code></p>
+        <p>Στην πράξη, η περιοχή AM «ακολουθεί» το σχήμα του μηνύματος, ακόμα κι αν το φέρον κρανεί την υψηλή συχνότητα.</p>
+        <p>Η ανάλυση περιβάλλοντος χρησιμοποιείται στον αποδιαμόρφωση AM (demodulation).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Δείκτης διαμόρφωσης μ (Mu)</h3>
+        <p>Ο δείκτης μ καθορίζει πόσο «βαθιά» διαμορφώνεται το φέρον από το μήνυμα. Η τιμή του επηρεάζει άμεσα το σχήμα του περιβάλλοντος και την ποιότητα της μετάδοσης.</p>
+
+        <h4>Μικρό μ (π.χ. 0.2)</h4>
+        <p>Όταν το μ είναι μικρό:</p>
+        <ul>
+            <li>το μήνυμα επηρεάζει λίγο το πλάτος του carrier</li>
+            <li>το envelope έχει μικρές μεταβολές</li>
+            <li>η πληροφορία μεταφέρεται αδύναμα</li>
+        </ul>
+        <p><strong>Αποτέλεσμα:</strong> χαμηλή απόδοση πληροφορίας αλλά χωρίς παραμόρφωση</p>
+
+        <h4>Μέτριο μ (π.χ. 0.7)</h4>
+        <p>Όταν το μ έχει μεσαία τιμή:</p>
+        <ul>
+            <li>το μήνυμα αποτυπώνεται καθαρά στο envelope</li>
+            <li>η μετάδοση είναι ισορροπημένη</li>
+            <li>η αποδιαμόρφωση γίνεται εύκολα και σωστά</li>
+        </ul>
+        <p><strong>Αποτέλεσμα:</strong> ιδανική και πρακτική λειτουργία AM</p>
+
+        <h4>μ = 1 (100% διαμόρφωση)</h4>
+        <p>Όταν μ = 1:</p>
+        <ul>
+            <li>το envelope φτάνει στο μηδέν στο ελάχιστο σημείο</li>
+            <li>το σήμα αξιοποιεί πλήρως το εύρος του carrier</li>
+        </ul>
+        <p><strong>Αποτέλεσμα:</strong> μέγιστη επιτρεπτή διαμόρφωση χωρίς παραμόρφωση</p>
+
+        <h4>μ &gt; 1 (υπερδιαμόρφωση — overmodulation)</h4>
+        <p>Όταν μ ξεπεράσει το 1:</p>
+        <ul>
+            <li>το envelope «αναστρέφεται» (δεν είναι πλέον σωστό περίγραμμα)</li>
+            <li>εμφανίζεται παραμόρφωση</li>
+            <li>ο δέκτης δεν μπορεί να ανακτήσει σωστά το μήνυμα</li>
+        </ul>
+        <p><strong>Αποτέλεσμα:</strong> αποτυχία αποδιαμόρφωσης και απώλεια πληροφορίας</p>
+
+        <h4>Συμπέρασμα</h4>
+        <p>Ο δείκτης διαμόρφωσης μ καθορίζει την ποιότητα της AM μετάδοσης:</p>
+        <ul>
+            <li>μικρό μ → αδύναμο σήμα</li>
+            <li>μέτριο μ → σωστή λειτουργία</li>
+            <li>μ = 1 → μέγιστο χωρίς παραμόρφωση</li>
+            <li>μ &gt; 1 → αποτυχία (παραμόρφωση)</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Αναλογικό σήμα και δειγματοληψία στο MATLAB</h3>
+
+        <h4>Το σήμα στη φύση είναι αναλογικό</h4>
+        <p>Στην πραγματικότητα το AM σήμα είναι:</p>
+        <ul>
+            <li>συνεχές στον χρόνο</li>
+            <li>υπάρχει για κάθε t (άπειρες τιμές)</li>
+        </ul>
+
+        <h4>Ο υπολογιστής δεν μπορεί να δουλέψει με συνεχές χρόνο</h4>
+        <p>Στο MATLAB:</p>
+        <ul>
+            <li>δεν υπάρχει «συνεχές t»</li>
+            <li>υπάρχουν μόνο δείγματα (samples)</li>
+        </ul>
+        <p>Άρα το σήμα γίνεται <code>t = n·Ts</code> και <code>s[n]</code> — δηλαδή «σπασμένο» σε κομμάτια.</p>
+
+        <h4>Τι σημαίνει δειγματοληψία εδώ;</h4>
+        <p>Όταν λέμε <code>Ts = 1/fs</code>, σημαίνει:</p>
+        <ul>
+            <li>κάθε πόσο χρόνο παίρνουμε μια τιμή του σήματος</li>
+        </ul>
+        <p>Παράδειγμα:</p>
+        <ul>
+            <li><code>fs = 1 MHz</code></li>
+            <li><code>Ts = 1 μs</code></li>
+        </ul>
+        <p>δηλαδή κάθε 1 μικροδευτερόλεπτο παίρνουμε ένα δείγμα.</p>
+
+        <h4>Θεώρημα Nyquist</h4>
+        <p>Για να μπορούμε να ανακατασκευάσουμε σωστά το σήμα από τα δείγματα, ο ρυθμός δειγματοληψίας πρέπει να ικανοποιεί:</p>
+        <p><code>fs &gt;= 2·f_max</code></p>
+        <ul>
+            <li><code>fs</code> — ρυθμός δειγματοληψίας</li>
+            <li><code>f_max</code> — μεγαλύτερη συχνότητα που περιέχει το σήμα</li>
+        </ul>
+        <p>Αν <code>fs</code> είναι μικρότερο από <code>2·f_max</code>, εμφανίζεται aliasing (παραμόρφωση λόγω ανεπαρκών δειγμάτων).</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. Παράμετροι στο MATLAB (σύνοψη)</h3>
+        <ul>
+            <li><code>Ac</code> — πλάτος φέροντος (amplitude carrier)</li>
+            <li><code>Mu</code> — δείκτης βάθους διαμόρφωσης (modulation index)</li>
+            <li><code>fc</code> — συχνότητα φέροντος (carrier frequency)</li>
+            <li><code>fm</code> — συχνότητα μηνύματος (message frequency)</li>
+            <li><code>fs</code> — ρυθμός δειγματοληψίας</li>
+            <li><code>Ts = 1/fs</code> — περίοδος δειγματοληψίας</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>8. Παράδειγμα — Σήμα AM και περιβάλλον</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — AM signal and envelope</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">Ac = 2;
+Mu = 0.7;
+fc = 25e3;
+fm = 2e3;
+
+fs = 1e6;          % sampling frequency (1 MHz)
+Ts = 1/fs;
+
+t = 0:Ts:1e-3;     % time vector (1 ms duration)
+
+% AM signal
+x_am = Ac*(1 + Mu*cos(2*pi*fm*t)) .* cos(2*pi*fc*t);
+
+% envelope
+x_env = abs(Ac*(1 + Mu*cos(2*pi*fm*t)));
+
+% plot
+plot(t, x_am, 'b', t, x_env, 'm--');
+xlabel('Time (s)');
+ylabel('Amplitude');
+legend('AM signal', 'Envelope');
+grid on;
+
+title('AM Modulated Signal and Envelope');</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>9. Παράδειγμα — AM με δείκτη n (δειγματοληψία)</h3>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — AM με n, Ts και περιβάλλον</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">Ac = 2;                              % Πλάτος φέροντος
+Fc = 25;                             % Συχνότητα φέροντος (Hz)
+Fm = 2;                              % Συχνότητα μηνύματος (Hz)
+M = 0.7;                             % Δείκτης διαμόρφωσης
+tmin = 0;                            % Αρχή χρονικού διαστήματος
+tmax = 1;                            % Τέλος χρονικού διαστήματος
+Fs = 1000;                           % Ρυθμός δειγματοληψίας (Hz)
+Ts = 1/Fs;                           % Περίοδος δειγματοληψίας
+nmin = ceil(tmin/Ts);                % Πρώτος δείκτης δείγματος
+nmax = floor(tmax/Ts);               % Τελευταίος δείκτης δείγματος
+n = nmin:nmax;                       % Δείκτης δειγμάτων
+x_am = Ac*(1+M*cos(2*pi*Fm*n*Ts)).*cos(2*pi*Fc*n*Ts);   % Σήμα AM
+x_env = abs(Ac*(1+M*cos(2*pi*Fm*n*Ts)));                % Περιβάλλον
+plot(n*Ts, x_am)                     % Σχεδίαση AM στον χρόνο
+hold on;                             % Κράτηση figure για δεύτερη καμπύλη
+plot(n*Ts, x_env)                    % Σχεδίαση περιβάλλοντος
+title('AM — Σήμα και περιβάλλον (δειγματοληψία)');</code></pre>
+        </div>
+    </div>
+</div>
+
+<footer>2026</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/matlab.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

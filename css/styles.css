@@ -454,6 +454,20 @@ footer {
     margin-bottom: 2.5rem;
 }
 
+.lab-main-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #2d1a23;
+    margin: 2rem 0 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #f0d4dc;
+}
+
+.lab-main-title:first-of-type {
+    margin-top: 0;
+}
+
 .materials-category {
     margin-bottom: 2.2rem;
 }
@@ -465,6 +479,19 @@ footer {
     color: #c4929e;
     margin-bottom: 1rem;
     font-weight: 500;
+}
+
+.materials-category p {
+    margin-bottom: 0.7rem;
+    line-height: 1.6;
+}
+
+.materials-category ul {
+    margin: 0.2rem 0 0.8rem 1.2rem;
+}
+
+.materials-category li {
+    margin-bottom: 0.35rem;
 }
 
 .file-list {
