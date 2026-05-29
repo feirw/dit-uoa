@@ -77,6 +77,8 @@
         <p><code>ylabel('...')</code> - Ορίζει ετικέτα άξονα y.</p>
         <p><code>grid on</code> - Ενεργοποιεί πλέγμα στο γράφημα.</p>
         <p><code>legend('...')</code> - Προσθέτει υπόμνημα.</p>
+        <p><code>hold on</code> - Κρατά το τρέχον γράφημα ενεργό ώστε το επόμενο <code>plot</code> να σχεδιαστεί πάνω στο ίδιο axes (πολλές καμπύλες μαζί).</p>
+        <p><code>hold off</code> - Απενεργοποιεί το hold· τα επόμενα plots ξανά αντικαθιστούν το προηγούμενο.</p>
         <p><code>figure</code> - Δημιουργεί νέο παράθυρο γραφήματος (figure). Χωρίς αυτό, νέα plots μπορεί να αντικαθιστούν το προηγούμενο. Με <code>figure(2)</code> επιλέγεις συγκεκριμένο παράθυρο.</p>
         <p><code>subplot(m,n,p)</code> - Χωρίζει το figure σε m x n θέσεις και ενεργοποιεί την p.</p>
     </div>
@@ -1407,6 +1409,336 @@ xlabel('Frequency in Hz');           % Ετικέτα συχνότητας
 ylabel('|DFT values|');               % Ετικέτα μέτρου DFT</code></pre>
         </div>
         <p><strong>Σημείωση:</strong> Ο άξονας συχνοτήτων πολλαπλασιάζεται με <code>fs</code> και χωρίζεται με <code>NFFT/2</code> για να εμφανιστούν και οι αρνητικές συχνότητες. Δοκίμασε διαφορετικές τιμές <code>beta</code> (π.χ. 0.5, 2, 10).</p>
+    </div>
+
+    <h2 class="lab-main-title">Εργαστήριο 8 &amp; 9 — Κβάντιση και Δειγματοληψία</h2>
+    <p class="course-desc">Δειγματοληψία · ανακατασκευή · ομοιόμορφη κβάντιση · SNR</p>
+
+    <div class="materials-category">
+        <h3>1. Η διαδικασία της δειγματοληψίας (sampling)</h3>
+        <p>Η δειγματοληψία είναι η γέφυρα μεταξύ του αναλογικού και του ψηφιακού κόσμου: μετατρέπει συνεχές σήμα <code>x(t)</code> σε ακολουθία δειγμάτων.</p>
+        <ul>
+            <li><strong>Περίοδος δειγματοληψίας (Ts):</strong> χρονικό διάστημα ανάμεσα σε δύο διαδοχικές μετρήσεις</li>
+            <li><strong>Συχνότητα δειγματοληψίας (fs):</strong> ρυθμός λήψης δειγμάτων, <code>fs = 1 / Ts</code></li>
+            <li><strong>Κριτήριο Nyquist:</strong> για αποφυγή aliasing, <code>fs &gt;= 2 · f_max</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>2. Μαθηματική αναπαράσταση</h3>
+        <p>Το δειγματοληπτημένο σήμα <code>x_delta(t)</code> αναπαρίσταται ως σειρά συναρτήσεων δέλτα:</p>
+        <p><code>x_delta(t) = Σ x(n·Ts) · δ(t - n·Ts)</code> (για όλα τα n)</p>
+        <p><strong>Φάσμα δειγματοληπτημένου σήματος</strong></p>
+        <p>Ο μετασχηματισμός Fourier δείχνει περιοδική επανάληψη του φάσματος του αρχικού σήματος στο πλέγμα συχνοτήτων <code>k / Ts</code> (k ακέραιος):</p>
+        <p><code>X_delta(f) = (1/Ts) · Σ X(f - k/Ts)</code> (για όλα τα k)</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>3. Θεώρημα Nyquist-Shannon</h3>
+        <p>Καθορίζει το ελάχιστο πλήθος δειγμάτων για πλήρη ανακατασκευή του αναλογικού σήματος χωρίς σφάλμα.</p>
+        <p><strong>Βασική προϋπόθεση:</strong> Για σήμα περιορισμένου φάσματος με μέγιστη συχνότητα <code>f_max</code>:</p>
+        <p><code>fs &gt;= 2 · f_max</code></p>
+        <p><strong>Συχνότητα Nyquist:</strong> <code>2 · f_max</code></p>
+    </div>
+
+    <div class="materials-category">
+        <h3>4. Επικάλυψη (aliasing)</h3>
+        <p>Αν <code>fs &lt; 2 · f_max</code> (δεν τηρείται το κριτήριο Nyquist), εμφανίζεται <strong>aliasing</strong>.</p>
+        <ul>
+            <li>οι περιοδικές επαναλήψεις του φάσματος επικαλύπτονται</li>
+            <li>χάνεται πληροφορία</li>
+            <li>δεν είναι δυνατή ακριβής ανακατασκευή του αρχικού <code>x(t)</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>5. Ανακατασκευή σήματος (reconstruction)</h3>
+        <p>Η ανακατασκευή επιστρέφει από τα ψηφιακά δείγματα στο αρχικό αναλογικό σήμα.</p>
+        <ul>
+            <li><strong>Μετατροπή D/A:</strong> ο μετατροπέας παράγει στενούς παλμούς (κρούσεις) με ύψος ανάλογο της τιμής κάθε δείγματος</li>
+            <li><strong>Ιδανικό βαθυπερατό φίλτρο (LPF):</strong> «κόβει» τις υψηλές συχνότητες και κρατά μόνο τη βασική ζώνη πληροφορίας</li>
+            <li><strong>Συνθήκη φίλτρου:</strong> το εύρος διέλευσης <code>W</code> πρέπει να ικανοποιεί <code>f_max &lt;= W &lt; fs/2</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>6. Φίλτρο ανακατασκευής και σφάλμα αποκοπής</h3>
+        <p>Η ανακατασκευή στον χρόνο:</p>
+        <p><code>x(t) = Σ x(n·Ts) · sinc((t - n·Ts) / Ts)</code> (για όλα τα n)</p>
+        <p><strong>Συνάρτηση sinc:</strong> συνδέει τα δείγματα — κάθε <code>x(n·Ts)</code> πολλαπλασιάζεται με μετατοπισμένη <code>sinc</code> και το άθροισμα δίνει το συνεχές σήμα.</p>
+        <p><strong>Σφάλμα αποκοπής (truncation error):</strong></p>
+        <ul>
+            <li>θεωρητικά η άθροιση είναι από <code>-∞</code> έως <code>+∞</code></li>
+            <li>στην πράξη χρησιμοποιούμε πεπερασμένο πλήθος δειγμάτων <code>N</code></li>
+            <li>χάνεται η συνεισφορά δειγμάτων εκτός του παραθύρου παρατήρησης</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>7. Σύνοψη στο πεδίο της συχνότητας</h3>
+        <p>Η δειγματοληψία προκαλεί περιοδική επανάληψη του φάσματος ανά διαστήματα <code>fs</code>.</p>
+        <p>Το ιδανικό βαθυπερατό φίλτρο ανακατασκευής απομονώνει την κεντρική επανάληψη (γύρω από το 0) και επαναφέρει το σήμα στην αρχική μορφή.</p>
+        <ul>
+            <li><strong>Αναλογικό σήμα:</strong> συνεχές <code>x(t)</code></li>
+            <li><strong>Διακριτό σήμα:</strong> ακολουθία <code>S(n·Ts)</code></li>
+            <li><strong>Κριτήριο Nyquist:</strong> <code>fs &gt;= 2 · f_max</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>8. Παράδειγμα — Συνεχές σήμα και δειγματοληψία</h3>
+        <p>Σύγκριση συνεχούς ημιτόνου με τα δείγματά του στον ίδιο άξονα (<code>hold on</code>).</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Συνεχές vs δείγματα</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">f = 50;                              % Συχνότητα σήματος (Hz)
+tmin = -0.05;                        % Αρχή χρονικού διαστήματος (sec)
+tmax = 0.05;                         % Τέλος χρονικού διαστήματος (sec)
+t = linspace(tmin, tmax, 400);       % Πυκνός συνεχής χρονικός άξονας
+x_c = cos(2*pi*f*t);                 % Συνεχές σήμα x(t)
+
+plot(t, x_c);                        % Σχεδίαση συνεχούς καμπύλης
+xlabel('t (seconds)');                 % Ετικέτα άξονα χρόνου
+
+T = 1/1000;                          % Περίοδος δειγματοληψίας Ts (sec), fs = 1000 Hz
+nmin = ceil(tmin / T);               % Πρώτος δείκτης δείγματος
+nmax = floor(tmax / T);              % Τελευταίος δείκτης δείγματος
+n = nmin:nmax;                       % Δείκτες δειγμάτων
+
+hold on;                             % Κράτηση γραφήματος για δεύτερη καμπύλη
+x1 = cos(2*pi*f*n*T);                % Τιμές σήματος στα σημεία δειγματοληψίας
+plot(n*T, x1, '.');                  % Σχεδίαση δειγμάτων (κουκίδες)
+hold off;                            % Απενεργοποίηση hold</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>9. Παράδειγμα — Χαμηλός ρυθμός δειγματοληψίας (κάτω από Nyquist)</h3>
+        <p>Ίδιο σήμα με <code>f = 50 Hz</code>, αλλά <code>T = 1/50</code> (δηλαδή <code>fs = 50 Hz</code>). Εδώ <code>fs &lt; 2·f_max</code> — δεν ικανοποιείται το κριτήριο Nyquist και τα δείγματα δεν αναπαριστούν σωστά το σήμα.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Υποδειγματοληψία / aliasing</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">f = 50;                              % Συχνότητα σήματος (Hz)
+tmin = -0.05;                        % Αρχή χρονικού διαστήματος (sec)
+tmax = 0.05;                         % Τέλος χρονικού διαστήματος (sec)
+t = linspace(tmin, tmax, 400);       % Πυκνός συνεχής χρονικός άξονας
+x_c = cos(2*pi*f*t);                 % Συνεχές σήμα x(t)
+
+T = 1/50;                            % Ts: fs = 50 Hz (Nyquist απαιτεί 100 Hz)
+nmin = ceil(tmin / T);               % Πρώτος δείκτης δείγματος
+nmax = floor(tmax / T);              % Τελευταίος δείκτης δείγματος
+n = nmin:nmax;                       % Δείκτες δειγμάτων
+x1 = cos(2*pi*f*n*T);                % Δειγματοληπτημένο σήμα
+
+plot(t, x_c);                        % Συνεχής καμπύλη
+hold on;                             % Κράτηση γραφήματος
+plot(n*T, x1, 'o');                  % Δείγματα (κύκλοι)
+hold off;                            % Απενεργοποίηση hold
+xlabel('t (seconds)');                 % Ετικέτα άξονα χρόνου</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>10. Παράδειγμα — Σύνθετο σήμα (πολλαπλές συχνότητες)</h3>
+        <p>Τρία ημιτονοειδή (3 Hz, 7 Hz, 13 Hz) και το άθροισμά τους, δειγματοληπτημένα με <code>fs = 1000 Hz</code>.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — g1, g2, g3 και g = g1+g2+g3</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fs = 1000;                           % Ρυθμός δειγματοληψίας (Hz)
+Ts = 1/fs;                           % Περίοδος δειγματοληψίας (sec)
+n = 0:Ts:1;                          % Χρονικός άξονας (0 έως 1 sec)
+
+g1 = cos(6*pi*n);                    % Συνιστώσα 1 (f ≈ 3 Hz)
+g2 = cos(14*pi*n);                   % Συνιστώσα 2 (f ≈ 7 Hz)
+g3 = cos(26*pi*n);                   % Συνιστώσα 3 (f ≈ 13 Hz)
+g = g1 + g2 + g3;                    % Σύνθετο σήμα
+
+subplot(4,1,1);                      % 1ο subplot
+plot(n, g1);                         % Σχεδίαση g1
+
+subplot(4,1,2);                      % 2ο subplot
+plot(n, g2);                         % Σχεδίαση g2
+
+subplot(4,1,3);                      % 3ο subplot
+plot(n, g3);                         % Σχεδίαση g3
+
+subplot(4,1,4);                      % 4ο subplot
+plot(n, g);                          % Σχεδίαση άθροισμα g</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>11. Παράδειγμα — Επίδραση του χρόνου δειγματοληψίας (Ts)</h3>
+        <p>Το ίδιο σήμα με μικρό <code>Ts = 0.05</code> (πυκνά δείγματα) και μεγάλο <code>Ts = 0.5</code> (αραιά δείγματα) στο ίδιο γράφημα.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Effect of Sample Time on Plots</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">t1 = 0:0.05:10;                    % Πυκνός χρονικός άξονας (Ts = 0.05 sec)
+s1 = 5*sin(5*t1 + pi/3) + 2*cos(6*t1 - (2*pi)/3);   % Σήμα με πυκνή δειγματοληψία
+
+t2 = 0:0.5:10;                       % Αραιός χρονικός άξονας (Ts = 0.5 sec)
+s2 = 5*sin(5*t2 + pi/3) + 2*cos(6*t2 - (2*pi)/3);   % Ίδιο σήμα, αραιότερα δείγματα
+
+figure;                              % Νέο παράθυρο γραφήματος
+plot(t1, s1, t2, s2, '*-');          % Συνεχής γραμμή + δείγματα με αστερίσκο
+xlabel('Independent Variable: time, t');   % Ετικέτα άξονα x
+ylabel('s(t)');                      % Ετικέτα άξονα y
+title('Effect of Sample Time on Plots');   % Τίτλος γραφήματος</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>12. Παράδειγμα — Ανακατασκευή με sinc</h3>
+        <p>Ανακατασκευή δειγματοληπτημένου σήματος με τον τύπο sinc (άθροισμα παλμών).</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Ανακατασκευή gr με sinc</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">fs = 1000;                           % Ρυθμός δειγματοληψίας (Hz)
+Ts = 1/fs;                           % Περίοδος δειγματοληψίας
+n = 0:Ts:1;                          % Στιγμές δειγματοληψίας
+
+g1 = cos(6*pi*n);                    % Συνιστώσα 1
+g2 = cos(14*pi*n);                   % Συνιστώσα 2
+g3 = cos(26*pi*n);                   % Συνιστώσα 3
+g = g1 + g2 + g3;                    % Δειγματοληπτημένο σήμα
+
+G = g;                               % Τιμές δειγμάτων
+n1 = n;                              % Άξονας χρόνου δειγμάτων
+gr = zeros(size(g));                 % Ανακατασκευασμένο σήμα (ίδιο μήκος)
+
+for i = 1:length(g)                  % Για κάθε σημείο χρόνου
+    gr(i) = sum(G .* sinc(fs*(n(i) - n1)));   % Άθροισμα sinc παλμών
+end
+
+subplot(2,1,1);                      % Πάνω subplot
+plot(n, g);                          % Αρχικά δείγματα
+title('Δείγματα g(n)');
+
+subplot(2,1,2);                      % Κάτω subplot
+plot(n, gr);                         % Ανακατασκευή
+title('Ανακατασκευή gr(n) με sinc');</code></pre>
+        </div>
+    </div>
+
+    <div class="materials-category">
+        <h3>13. Άσκηση — x(t) = cos(8t) + cos(26t) και 3 περίοδοι Ts</h3>
+        <p><strong>Θέμα:</strong> Δίνεται το αναλογικό σήμα <code>x(t) = cos(8t) + cos(26t)</code>. Χρησιμοποιήστε 3 διαφορετικές περιόδους δειγματοληψίας και μελετήστε την επίδρασή τους στην ανακατασκευή του σήματος.</p>
+        <p><strong>Λύση (παράδειγμα):</strong> Τρεις τιμές <code>Ts</code> — καλή, οριακή και κάτω από Nyquist.</p>
+        <div class="code-wrapper">
+            <div class="code-header">
+                <span class="code-label">MATLAB — Άσκηση ανακατασκευής</span>
+                <button class="copy-btn">Αντιγραφή</button>
+            </div>
+            <pre><code class="language-matlab">tmax = 2*pi;                         % Διάρκεια παρατήρησης (sec)
+Ts_vals = [0.02, 0.08, 0.25];        % 3 περίοδοι δειγματοληψίας (sec)
+
+figure;                              % Νέο figure για τα 3 πειράματα
+
+for k = 1:3                          % Για κάθε Ts
+    Ts = Ts_vals(k);                 % Τρέχουσα περίοδος δειγματοληψίας
+    fs = 1/Ts;                       % Συχνότητα δειγματοληψίας (Hz)
+    n = 0:Ts:tmax;                   % Στιγμές δειγματοληψίας
+    G = cos(8*n) + cos(26*n);        % Δείγματα x(n·Ts)
+
+    n1 = n;                          % Άξονας χρόνου δειγμάτων
+    gr = zeros(size(G));             % Ανακατασκευή
+
+    for i = 1:length(G)              % Βρόχος sinc ανακατασκευής
+        gr(i) = sum(G .* sinc(fs*(n(i) - n1)));
+    end
+
+    subplot(3,2,2*k-1);              % Αριστερά: δείγματα
+    plot(n, G, 'o-');
+    title(['Δείγματα, Ts = ', num2str(Ts), ', fs = ', num2str(fs), ' Hz']);
+    xlabel('n');
+    grid on;
+
+    subplot(3,2,2*k);                % Δεξιά: ανακατασκευή
+    plot(n, gr, '-');
+    title(['Ανακατασκευή gr, Ts = ', num2str(Ts)]);
+    xlabel('n');
+    grid on;
+end</code></pre>
+        </div>
+        <p><strong>Παρατήρηση:</strong> Με μικρό <code>Ts</code> (μεγάλο <code>fs</code>) η ανακατασκευή πλησιάζει το αρχικό σήμα. Με μεγαλύτερο <code>Ts</code> (μικρότερο <code>fs</code>, κάτω από Nyquist) εμφανίζεται παραμόρφωση.</p>
+    </div>
+
+    <h3 class="lab-period-title">Κβάντιση — Ομοιόμορφη (σταθερό βήμα Δ)</h3>
+
+    <div class="materials-category">
+        <h3>14. Βασικές έννοιες</h3>
+        <ul>
+            <li><strong>Δ (Delta):</strong> βήμα κβάντισης (σταθερό)</li>
+            <li><strong>L:</strong> αριθμός σταθμών κβάντισης</li>
+            <li><strong>R:</strong> αριθμός bit για αναπαράσταση των σταθμών στο δυαδικό</li>
+        </ul>
+        <p><strong>Βασική σχέση:</strong> <code>L = 2^R</code></p>
+        <p><strong>Παράδειγμα:</strong> Έστω <code>L = 70</code> στάθμες. Πόσα bit χρειάζονται;</p>
+        <ul>
+            <li><code>R = 6</code> bit → <code>2^6 = 64 &lt; 70</code> (απορρίπτεται)</li>
+            <li><code>R = 7</code> bit → <code>2^7 = 128 &gt; 70</code> (δεκτό)</li>
+        </ul>
+        <p>Άρα <strong>R = 7 bit</strong>.</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>15. Δυνάμεις του 2 (πρόχειρο)</h3>
+        <ul>
+            <li><code>2^0 = 1</code>, <code>2^1 = 2</code>, <code>2^2 = 4</code>, <code>2^3 = 8</code></li>
+            <li><code>2^4 = 16</code>, <code>2^5 = 32</code>, <code>2^6 = 64</code></li>
+            <li><code>2^7 = 128</code>, <code>2^8 = 256</code>, <code>2^9 = 512</code>, <code>2^10 = 1024</code></li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>16. Υπολογισμός βήματος κβάντισης (Δ)</h3>
+        <p><code>Δ = V_pp / L = (x_max - x_min) / L = (A - (-A)) / L = 2A / L</code></p>
+        <p><strong>SOS:</strong> <code>Δ = 2A / L</code></p>
+        <p><strong>Εύρος ζώνης (bitrate):</strong> <code>W = Fs · R</code> (bps)</p>
+    </div>
+
+    <div class="materials-category">
+        <h3>17. Mid-rise και Mid-tread κβαντιστής</h3>
+        <p><strong>Mid-rise κβαντιστής</strong></p>
+        <ul>
+            <li><code>L</code> = άρτιος αριθμός (2, 4, 6, 8, …)</li>
+            <li>δεν θεωρούμε στάθμη το 0</li>
+            <li>π.χ. <code>L = 8</code> στάθμες: <code>7Δ/2</code>, <code>5Δ/2</code>, <code>3Δ/2</code>, <code>Δ/2</code>, (κενό στο 0), <code>-Δ/2</code>, <code>-3Δ/2</code>, <code>-5Δ/2</code>, <code>-7Δ/2</code></li>
+            <li>απόσταση <code>Δ</code> μεταξύ σταθμών</li>
+        </ul>
+        <p><strong>Mid-tread κβαντιστής</strong></p>
+        <ul>
+            <li><code>L</code> = περιττός αριθμός (1, 3, 5, 7, …)</li>
+            <li>θεωρούμε στάθμη και το 0</li>
+            <li>π.χ. <code>L = 7</code> στάθμες: <code>3Δ</code>, <code>2Δ</code>, <code>Δ</code>, <code>0</code>, <code>-Δ</code>, <code>-2Δ</code>, <code>-3Δ</code></li>
+            <li>βήμα κβάντισης <code>Δ</code> ανάμεσα σε κάθε στάθμη</li>
+        </ul>
+    </div>
+
+    <div class="materials-category">
+        <h3>18. Σφάλμα κβάντισης και SNR</h3>
+        <p><code>q_i</code> = σφάλμα κβάντισης: <code>q_i = στόχος - x_i</code> (όπου <code>x_i</code> το δείγμα)</p>
+        <p><strong>SOS:</strong> <code>|q_i| &lt;= Δ / 2</code> (πάντα)</p>
+        <p><strong>SNR — θόρυβος κβάντισης (dB):</strong></p>
+        <p><code>SNR = 10 · log10(SQNR)</code></p>
+        <p><strong>SQNR</strong> (Signal-to-Quantization-Noise Ratio):</p>
+        <p><code>SQNR = σ_x^2 / σ_q^2 = (ισχύς σήματος) / (ισχύς σφάλματος)</code></p>
+        <p><strong>Πάντα (για ημίτονο πλάτους A):</strong> <code>σ_x^2 = A^2 / 2</code></p>
+        <p><strong>Υπολογισμός σ_q^2:</strong></p>
+        <ul>
+            <li><strong>Θεωρητικός:</strong> <code>σ_q^2 = Δ^2 / 12</code></li>
+            <li><strong>Πρακτικός:</strong> <code>σ_q^2 = (q_1^2 + q_2^2 + ... + q_n^2) / n</code></li>
+        </ul>
     </div>
 </div>
 
