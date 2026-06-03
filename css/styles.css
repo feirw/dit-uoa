@@ -410,6 +410,74 @@ footer {
     line-height: 1.7;
 }
 
+/* ── Εργασία 3 — βήματα ανάπτυξης ── */
+.hw-step-overview {
+    margin: 0.75rem 0 1.5rem 1.2rem;
+    font-size: 0.92rem;
+    color: #5c3d48;
+    line-height: 1.7;
+}
+
+.hw-step-overview li {
+    margin-bottom: 0.2rem;
+}
+
+.query-card > p {
+    font-size: 0.88rem;
+    color: #6b4f58;
+    margin: 0.5rem 0 0.75rem;
+    line-height: 1.55;
+}
+
+/* ── Quiz cards (Εργασία 3) ── */
+.quiz-card {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-radius: 10px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.quiz-card .quiz-q {
+    font-weight: 500;
+    color: #2d1a23;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+}
+
+.quiz-card .quiz-q .q-num {
+    display: inline-block;
+    min-width: 1.6rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    text-align: center;
+    background: #fce4ec;
+    color: #8b4a5c;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+}
+
+.quiz-options {
+    margin: 0.5rem 0 0.75rem 1.2rem;
+    font-size: 0.9rem;
+    color: #5c3d48;
+    line-height: 1.65;
+}
+
+.quiz-options li {
+    margin-bottom: 0.25rem;
+}
+
+.quiz-answer {
+    font-size: 0.85rem;
+    color: #6b8f71;
+    margin: 0;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #e8d4dc;
+}
+
 .query-card .copy-row {
     background: #fff;
     padding: 0 1rem 0.5rem;

@@ -42,6 +42,20 @@
     <h3>Εργασία 2 — Πτήσεις</h3>
     <a href="#hw2-schema">Σχήμα</a>
     <a href="#hw2-queries">Ερωτήματα (1–10)</a>
+
+    <h3>Παλιά θέματα</h3>
+    <a href="#old-exams">Επισκέπτες &amp; κρατήσεις (1–5)</a>
+
+    <h3>Εργασία 3 — Bottle &amp; Python</h3>
+    <a href="#hw3-basics">Βασικές έννοιες</a>
+    <a href="#hw3-methods">Μέθοδοι PyMySQL</a>
+    <a href="#hw3-flow">Ροή δεδομένων</a>
+    <a href="#hw3-acid">ACID</a>
+    <a href="#hw3-bottle">Bottle &amp; templates</a>
+    <a href="#hw3-steps">Βήματα ανάπτυξης</a>
+    <a href="#hw3-rules">Κανόνες αξιολόγησης</a>
+    <a href="#hw3-structure">Δομή project</a>
+    <a href="#hw3-quiz">Κουίζ (1–20)</a>
 </nav>
 
 <main class="content">
@@ -767,11 +781,636 @@ HAVING COUNT(*) > 1;</code></pre>
     </div>
 </section>
 
+<!-- ═══ ΠΑΛΙΑ ΘΕΜΑΤΑ ═══ -->
+<section class="db-section" id="old-exams">
+    <h2>Παλιά θέματα</h2>
+    <p class="db-desc">Ερωτήματα εξέτασης — ζεύξεις πινάκων, GROUP BY, HAVING, DISTINCT, EXISTS</p>
+
+    <div class="sub-section" id="old-exam-visitors">
+        <h3>Επισκέπτες &amp; κρατήσεις</h3>
+        <p>Σχετικοί πίνακες: <code>VISITOR</code> (<code>id</code>, <code>surname</code>), <code>KRATISIS</code> (<code>id</code> επισκέπτη, <code>property_id</code>, <code>date</code>), <code>PROPERTY</code> (<code>id</code>, <code>type</code>, …).</p>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">1</span> Επισκέπτες με πάνω από 2 κρατήσεις σε Apartment</div>
+            <p><strong>Εκφώνηση:</strong> Να βρείτε τα ονόματα των επισκεπτών που έχουν κάνει πάνω από 2 κρατήσεις σε ιδιοκτησίες τύπου <code>"Apartment"</code>. Να επιστρέφεται και ο συνολικός αριθμός κρατήσεων ανά επισκέπτη.</p>
+            <p><strong>Λύση:</strong> ζεύξη των τριών πινάκων, φίλτρο <code>type = 'Apartment'</code>, ομαδοποίηση ανά επισκέπτη, <code>HAVING COUNT(*) &gt; 2</code>.</p>
+            <pre><code class="language-sql">SELECT v.surname,
+       COUNT(*) AS plithos_kratiseon
+FROM VISITOR v,
+     KRATISIS k,
+     PROPERTY p
+WHERE v.id = k.id
+  AND k.property_id = p.id
+  AND p.type = 'Apartment'
+GROUP BY v.id, v.surname
+HAVING COUNT(*) > 2;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">2</span> <em>Εναλλακτικό</em> — Πάνω από 2 διαφορετικές ιδιοκτησίες</div>
+            <p><strong>Εκφώνηση:</strong> Να βρείτε τα ονόματα των επισκεπτών που έχουν κάνει κρατήσεις σε περισσότερες από 2 διαφορετικές ιδιοκτησίες.</p>
+            <p><strong>Λύση:</strong> <code>COUNT(DISTINCT property_id)</code> ανά επισκέπτη.</p>
+            <pre><code class="language-sql">SELECT v.surname
+FROM VISITOR v,
+     KRATISIS k
+WHERE v.id = k.id
+GROUP BY v.id, v.surname
+HAVING COUNT(DISTINCT k.property_id) > 2;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">3</span> <em>Εναλλακτικό</em> — Μόνο σε Apartment</div>
+            <p><strong>Εκφώνηση:</strong> Να βρείτε τα ονόματα των επισκεπτών που έχουν κάνει κρατήσεις <strong>μόνο</strong> σε ιδιοκτησίες τύπου <code>"Apartment"</code>.</p>
+            <p><strong>Λύση:</strong> τουλάχιστον μία κράτηση σε Apartment και καμία κράτηση σε άλλο τύπο — <code>EXISTS</code> + <code>NOT EXISTS</code>.</p>
+            <pre><code class="language-sql">SELECT v.surname
+FROM VISITOR v
+WHERE EXISTS (
+    SELECT *
+    FROM KRATISIS k, PROPERTY p
+    WHERE k.id = v.id
+      AND k.property_id = p.id
+      AND p.type = 'Apartment'
+)
+AND NOT EXISTS (
+    SELECT *
+    FROM KRATISIS k, PROPERTY p
+    WHERE k.id = v.id
+      AND k.property_id = p.id
+      AND p.type &lt;&gt; 'Apartment'
+);</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">4</span> <em>Εναλλακτικό</em> — Πάνω από 2 κρατήσεις στο ίδιο έτος</div>
+            <p><strong>Εκφώνηση:</strong> Να βρείτε τα ονόματα των επισκεπτών που έχουν πραγματοποιήσει περισσότερες από 2 κρατήσεις μέσα στο <strong>ίδιο</strong> έτος.</p>
+            <p><strong>Λύση:</strong> ομαδοποίηση ανά επισκέπτη <strong>και</strong> έτος (<code>YEAR(k.date)</code>), <code>HAVING COUNT(*) &gt; 2</code>.</p>
+            <pre><code class="language-sql">SELECT DISTINCT v.surname
+FROM VISITOR v,
+     KRATISIS k
+WHERE v.id = k.id
+GROUP BY v.id, v.surname, YEAR(k.date)
+HAVING COUNT(*) > 2;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card">
+            <div class="query-title"><span class="q-num">5</span> <em>Εναλλακτικό</em> — Ιδιοκτησίες με &gt; 5 διαφορετικούς επισκέπτες</div>
+            <p><strong>Εκφώνηση:</strong> Να βρείτε τις ιδιοκτησίες που έχουν δεχτεί περισσότερους από 5 διαφορετικούς επισκέπτες.</p>
+            <p><strong>Λύση:</strong> ομαδοποίηση ανά ιδιοκτησία, <code>COUNT(DISTINCT k.id)</code> για μοναδικούς επισκέπτες.</p>
+            <pre><code class="language-sql">SELECT p.id,
+       COUNT(DISTINCT k.id) AS plithos_episkepton
+FROM PROPERTY p,
+     KRATISIS k
+WHERE p.id = k.property_id
+GROUP BY p.id
+HAVING COUNT(DISTINCT k.id) > 5;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══ ΕΡΓΑΣΙΑ 3 — BOTTLE & PYTHON ═══ -->
+<section class="db-section" id="hw3">
+    <h2>Εργασία 3 — Web εφαρμογή (Bottle, Python, MySQL)</h2>
+    <p class="db-desc">Θεωρητικές σημειώσεις για την ανάπτυξη και αξιολόγηση της εργασίας</p>
+
+    <div class="sub-section" id="hw3-basics">
+        <h3>1. Βασικές έννοιες και τεχνολογίες</h3>
+        <p><strong>Προαπαιτούμενα:</strong> Python, βασική HTML (φόρμες, μέθοδοι HTTP GET και POST), αρχιτεκτονική MVC (Model-View-Controller).</p>
+        <p><strong>WSGI</strong> (Web Server Gateway Interface): προδιαγραφή για επικοινωνία μεταξύ web server και Python web εφαρμογών.</p>
+        <p><strong>Εργαλεία ανάπτυξης:</strong></p>
+        <ul>
+            <li><strong>Python</strong> — γλώσσα backend</li>
+            <li><strong>Bottle</strong> — micro web framework</li>
+            <li><strong>PyMySQL</strong> — επικοινωνία με MySQL</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="hw3-methods">
+        <h3>Βασικές μέθοδοι &amp; λειτουργίες (cursor)</h3>
+        <p><strong>Τι είναι το cursor;</strong> Μετά τη σύνδεση με τη βάση (<code>connection = pymysql.connect(...)</code>), δημιουργείς ένα <strong>cursor</strong> — αντικείμενο που «τρέχει» τα SQL ερωτήματα και φέρνει τα αποτελέσματα:</p>
+        <pre><code class="language-python">cursor = connection.cursor()  # Δημιουργία cursor από την ενεργή σύνδεση</code></pre>
+        <p>Όλες οι μέθοδοι παρακάτω καλούνται στο <code>cursor</code> (όχι απευθείας στη σύνδεση). Η σύνδεση κρατά το <code>commit()</code> / <code>rollback()</code> για τη δοσοληψία.</p>
+        <ul>
+            <li><strong><code>execute()</code></strong> — εκτελεί την εντολή SQL. Επιστρέφει iterator· οι γραμμές έρχονται ως Python tuples.</li>
+            <li><strong><code>fetchone()</code></strong> — φέρνει την επόμενη γραμμή (row) από το αποτέλεσμα του query.</li>
+            <li><strong><code>fetchall()</code></strong> — φέρνει όλες τις υπόλοιπες γραμμές από το αποτέλεσμα του query.</li>
+            <li><strong><code>rowcount</code></strong> — read-only ιδιότητα· αριθμός γραμμών που επηρεάστηκαν από την <code>execute()</code>.</li>
+            <li><strong><code>commit()</code></strong> — οριστικοποιεί τις αλλαγές στη βάση (απαραίτητο σε INSERT / UPDATE).</li>
+            <li><strong><code>rollback()</code></strong> — ακυρώνει τις αλλαγές σε περίπτωση σφάλματος (συνήθως στο <code>except</code> block).</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="hw3-flow">
+        <h3>2. Ροή δεδομένων (Data Flow / Architecture)</h3>
+        <p>Κύκλος ζωής ενός αιτήματος:</p>
+        <ol>
+            <li>Ο <strong>περιηγητής</strong> στέλνει HTTP Request (GET ή POST) μέσω HTML φόρμας</li>
+            <li>Το <strong>Bottle</strong> δρομολογεί (route) στο αντίστοιχο handler Python</li>
+            <li>Η <strong>Python</strong> εκτελεί SQL query στη MySQL μέσω PyMySQL</li>
+            <li>Τα δεδομένα επιστρέφουν και δημιουργείται <strong>HTML Response</strong> για τον χρήστη</li>
+        </ol>
+    </div>
+
+    <div class="sub-section" id="hw3-acid">
+        <h3>3. Δοσοληψίες (Transactions) και ACID</h3>
+        <p>Οι δοσοληψίες εξασφαλίζουν συνέπεια δεδομένων. Οι 4 ιδιότητες <strong>ACID</strong>:</p>
+        <ul>
+            <li><strong>Ατομικότητα (Atomicity):</strong> είτε ολοκληρώνεται πλήρως η δοσοληψία, είτε δεν εφαρμόζεται τίποτα</li>
+            <li><strong>Συνέπεια (Consistency):</strong> ξεκινά και τελειώνει με συνεπή κατάσταση της βάσης</li>
+            <li><strong>Απομόνωση (Isolation):</strong> ενδιάμεσα αποτελέσματα μη ορατά έξω από την τρέχουσα δοσοληψία</li>
+            <li><strong>Ανθεκτικότητα (Durability):</strong> μετά το commit, οι αλλαγές είναι μόνιμες ακόμα και με βλάβη συστήματος</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="hw3-bottle">
+        <h3>4. Bottle Framework και templates</h3>
+        <p>Το Bottle είναι <strong>micro web-framework</strong> — βασικά εργαλεία δόμησης, εστίαση στη λογική του έργου.</p>
+
+        <h4>Routing (δρομολόγηση)</h4>
+        <p>Η πιο σημαντική έννοια. Το decorator <code>@route('/hello')</code> αντιστοιχίζει URL με τον κώδικα Python που παράγει την HTML.</p>
+
+        <h4>Εντολή <code>return template()</code></h4>
+        <p>Κάνει τρία βήματα:</p>
+        <ol>
+            <li>Βρίσκει το αρχείο template (π.χ. <code>templates/result.tpl</code>)</li>
+            <li>Περνάει μεταβλητές στο template (διαθέσιμες ως <code>{{answer}}</code>)</li>
+            <li>Δημιουργεί (render) την τελική HTML αντικαθιστώντας τις μεταβλητές</li>
+        </ol>
+    </div>
+
+    <div class="sub-section" id="hw3-steps">
+        <h3>5. Βήματα ανάπτυξης — παραδείγματα κώδικα</h3>
+        <p class="db-desc">Λογική σειρά για web εφαρμογή με MySQL: πρώτα η βάση (<code>db.py</code>), μετά το Bottle (<code>app.py</code>), τέλος templates.</p>
+        <ol class="hw-step-overview">
+            <li>Σύνδεση &amp; έλεγχος βάσης</li>
+            <li>Ανάγνωση δεδομένων (SELECT)</li>
+            <li>Ενημέρωση &amp; δοσοληψία (UPDATE, commit)</li>
+            <li>Πρώτο route Bottle</li>
+            <li>Static αρχεία</li>
+            <li>Φόρμα login (GET / POST)</li>
+            <li>Δυναμικό HTML από Python</li>
+            <li>Έλεγχος στη βάση + template</li>
+            <li>Αρχείο template <code>result.tpl</code></li>
+        </ol>
+
+        <div class="query-card" id="hw3-step-1">
+            <div class="query-title"><span class="q-num">1</span> Σύνδεση με MySQL — έλεγχος έκδοσης</div>
+            <p>Βήμα εκκίνησης: ανοίγεις σύνδεση, δημιουργείς cursor, τρέχεις ένα απλό query, κλείνεις τη σύνδεση. Στην εργασία η σύνδεση μπαίνει συνήθως σε <code>db.py</code> ως <code>get_connection()</code>.</p>
+            <pre><code class="language-python">import pymysql  # Εισαγωγή βιβλιοθήκης PyMySQL
+
+db = pymysql.connect("localhost", "myuser", "mypassword", "TESTDB")  # Άνοιγμα σύνδεσης (host, user, password, database)
+cursor = db.cursor()  # Δημιουργία cursor για εκτέλεση SQL
+
+cursor.execute("SELECT VERSION()")  # Εκτέλεση ερωτήματος έκδοσης MySQL
+data = cursor.fetchone()  # Ανάκτηση μίας γραμμής αποτελέσματος
+print("Database version : %s " % data)  # Εκτύπωση έκδοσης στην κονσόλα
+
+db.close()  # Κλείσιμο σύνδεσης με τη βάση</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-2">
+            <div class="query-title"><span class="q-num">2</span> Ανάγνωση πινάκου — SELECT &amp; fetchall()</div>
+            <p>Διαβάζεις γραμμές με <code>fetchall()</code> και τις επεξεργάζεσαι σε βρόχο. <strong>Στην εργασία</strong> χρησιμοποίησε parameterized queries (βήμα 8), όχι <code>%</code> formatting όπως στο παρακάτω εκπαιδευτικό παράδειγμα.</p>
+            <pre><code class="language-python">import pymysql  # Εισαγωγή PyMySQL
+
+db = get_connection()  # Σύνδεση στη βάση (συνήθως από db.py)
+cursor = db.cursor()  # Cursor για queries
+
+sql = "SELECT * FROM EMPLOYEE WHERE INCOME > '%d'" % (1000)  # Κατασκευή SQL (εκπαιδευτικό — στην εργασία: parameters)
+try:  # Έναρξη χειρισμού σφαλμάτων
+    cursor.execute(sql)  # Εκτέλεση SELECT
+    results = cursor.fetchall()  # Όλες οι γραμμές αποτελέσματος
+    for row in results:  # Επανάληψη για κάθε εγγραφή
+        fname = row[0]  # 1η στήλη — όνομα
+        lname = row[1]  # 2η στήλη — επώνυμο
+        age = row[2]  # 3η στήλη — ηλικία
+        sex = row[3]  # 4η στήλη — φύλο
+        income = row[4]  # 5η στήλη — εισόδημα
+        print("fname = %s, lname = %s, age = %d, sex = %s, income = %d" %  # Εκτύπωση πεδίων
+              (fname, lname, age, sex, income))  # Τιμές για το print
+except:  # Αν αποτύχει το query
+    print("Error: unable to fetch data")  # Μήνυμα σφάλματος
+
+db.close()  # Κλείσιμο σύνδεσης</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-3">
+            <div class="query-title"><span class="q-num">3</span> Ενημέρωση — UPDATE, rollback &amp; commit</div>
+            <p>Οι αλλαγές στη βάση γίνονται μόνιμες με <code>commit()</code>. Σε σφάλμα, <code>rollback()</code> (σχέση με ACID — ατομικότητα).</p>
+            <pre><code class="language-python">#!/usr/bin/python3  # Διεύθυνση εκτελέσιμου Python 3
+import pymysql  # Βιβλιοθήκη MySQL
+
+db = get_connection()  # Σύνδεση στη βάση
+cursor = db.cursor()  # Cursor για εντολές SQL
+
+sql = "UPDATE EMPLOYEE SET AGE = AGE + 1 WHERE SEX = '%c'" % ('M')  # SQL ενημέρωσης ηλικίας (+1 για άνδρες)
+try:  # Προσπάθεια εκτέλεσης UPDATE
+    cursor.execute(sql)  # Εκτέλεση εντολής
+except:  # Σε σφάλμα κατά την execute
+    db.rollback()  # Αναίρεση μη οριστικοποιημένων αλλαγών
+
+try:  # Οριστικοποίηση αλλαγών
+    db.commit()  # Αποθήκευση μόνιμα στη βάση (Durability μετά από commit)
+except:  # Αν αποτύχει το commit
+    db.rollback()  # Αναίρεση
+
+db.close()  # Κλείσιμο σύνδεσης</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-4">
+            <div class="query-title"><span class="q-num">4</span> Πρώτη web σελίδα — routing στο Bottle</div>
+            <p>Το <code>@route</code> συνδέει URL με συνάρτηση. Ο χρήστης στο <code>/hello</code> καλεί τη <code>hello()</code>.</p>
+            <pre><code class="language-python">from bottle import route, run  # Εισαγωγή δρομολόγησης και εκκίνησης server
+
+@route('/hello')  # URL /hello → η συνάρτηση hello()
+def hello():  # Handler για το αίτημα
+    return "Hello World!"  # Κείμενο που επιστρέφεται στον browser
+
+run(host='localhost', port=8080, debug=True)  # Εκκίνηση Bottle (τοπικός server, θύρα 8080, debug)</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-5">
+            <div class="query-title"><span class="q-num">5</span> Static αρχεία — CSS, εικόνες</div>
+            <p>Τα static δεν περνούν από template· η <code>static_file()</code> τα σερβίρει από φάκελο στο δίσκο.</p>
+            <pre><code class="language-python">from bottle import route, static_file  # Δρομολόγηση + σερβίρισμα αρχείων
+
+@route('/static/&lt;filename&gt;')  # URL με παράμετρο όνομα αρχείου
+def server_static(filename):  # filename = το τμήμα &lt;filename&gt; από το URL
+    return static_file(filename, root='/path/to/your/static/files')  # Επιστροφή αρχείου από φάκελο static</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-6">
+            <div class="query-title"><span class="q-num">6</span> Φόρμα — GET (εμφάνιση) &amp; POST (υποβολή)</div>
+            <p>Η φόρμα στέλνει <strong>POST</strong> στο ίδιο URL. Τιμές πεδίων: <code>request.forms.get('όνομα_πεδίου')</code>.</p>
+            <pre><code class="language-python">from bottle import run, route, request  # run, routes, ανάγνωση φόρμας
+
+@route('/login')  # GET — εμφάνιση σελίδας login
+def login():  # Handler φόρμας
+    return '''  # HTML ως string (επιστρέφεται στον browser)
+    &lt;form action="/login" method="post"&gt;  &lt;!-- Φόρμα, υποβολή με POST στο /login --&gt;
+    Username: &lt;input name="username" type="text" /&gt;  &lt;!-- Πεδίο username --&gt;
+    Password: &lt;input name="password" type="password" /&gt;  &lt;!-- Πεδίο password --&gt;
+    &lt;input value="Login" type="submit" /&gt;  &lt;!-- Κουμπί υποβολής --&gt;
+    &lt;/form&gt;  &lt;!-- Τέλος φόρμας --&gt;
+    '''  # Τέλος HTML string
+
+@route('/login', method='POST')  # POST — επεξεργασία υποβολής φόρμας
+def do_login():  # Handler μετά το submit
+    username = request.forms.get('username')  # Τιμή πεδίου username από τη φόρμα
+    password = request.forms.get('password')  # Τιμή πεδίου password
+    return "&lt;p&gt;your login information was correct!&lt;/p&gt;"  # Απάντηση HTML στον χρήστη
+
+run(host='localhost', port=8080, debug=True)  # Εκκίνηση εφαρμογής</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-7">
+            <div class="query-title"><span class="q-num">7</span> Δυναμικό HTML — χωρίς template (ενδιάμεσο βήμα)</div>
+            <p>Χτίζεις HTML ως string στη Python. Στην εργασία προτιμάται template (<code>.tpl</code>) για καθαρότερο κώδικα.</p>
+            <pre><code class="language-python">@route('/display_list')  # URL για εμφάνιση λίστας
+def display_raw_html():  # Χωρίς template — HTML χτισμένο στη Python
+    my_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]  # Δεδομένα προς εμφάνιση
+    html = "&lt;h1&gt;The " + str(len(my_list)) + " list items are&lt;/h1&gt;\n&lt;ul&gt;"  # Αρχή HTML + τίτλος + άνοιγμα λίστας
+    for f in my_list:  # Για κάθε στοιχείο
+        html += "&lt;li&gt;" + str(f) + "&lt;/li&gt;\n"  # Προσθήκη &lt;li&gt; στη συμβολοσειρά
+    html += "&lt;/ul&gt;"  # Κλείσιμο λίστας
+    return html  # Αποστολή HTML στον browser</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-8">
+            <div class="query-title"><span class="q-num">8</span> Πλήρης ροή — φόρμα → βάση → template</div>
+            <p>Συνδυασμός όλων των προηγούμενων: POST, <strong>ασφαλές</strong> SQL με <code>%s</code> και tuple, αποτέλεσμα στο template. Χρειάζεται <code>DictCursor</code> για πρόσβαση με όνομα στήλης.</p>
+            <pre><code class="language-python">from bottle import route, request, template, run  # Web + φόρμα + templates
+import pymysql.cursors  # DictCursor για αποτελέσματα ως λεξικό
+
+@route('/check_property', method='POST')  # Μόνο POST από φόρμα ελέγχου
+def check_property():  # Έλεγχος αν υπάρχει ακίνητο στη βάση
+    location = request.forms.get('location')  # Τοποθεσία από τη φόρμα
+    property_type = request.forms.get('property_type')  # Τύπος ακινήτου από τη φόρμα
+
+    conn = get_connection()  # Σύνδεση MySQL
+    with conn.cursor(pymysql.cursors.DictCursor) as cur:  # Cursor με κλειδιά ονομάτων στηλών
+        # Ασφαλές query: placeholders %s, πίνακας Property, exists_flag = 1 αν υπάρχει εγγραφή
+        sql = """
+            SELECT COUNT(*) > 0 AS exists_flag
+            FROM Property
+            WHERE location = %s AND property_type = %s
+        """
+        cur.execute(sql, (location, property_type))  # Εκτέλεση με tuple παραμέτρων (anti SQL injection)
+        result = cur.fetchone()  # Μία γραμμή: {"exists_flag": 0 ή 1}
+    conn.close()  # Κλείσιμο σύνδεσης
+
+    answer = "yes" if result["exists_flag"] else "no"  # Μεταβλητή για το template
+    return template('result', answer=answer)  # Render templates/result.tpl με answer=yes/no</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <div class="query-card" id="hw3-step-9">
+            <div class="query-title"><span class="q-num">9</span> Template — <code>templates/result.tpl</code></div>
+            <p>Το Bottle αντικαθιστά <code>{{answer}}</code> και εκτελεί λογική με <code>% if</code> / <code>% else</code> / <code>% end</code>.</p>
+            <pre><code class="language-html">&lt;!DOCTYPE html&gt; &lt;!-- Δήλωση τύπου εγγράφου HTML5 --&gt;
+&lt;html&gt; &lt;!-- Ρίζα σελίδας --&gt;
+&lt;head&gt; &lt;!-- Κεφαλίδα (metadata) --&gt;
+    &lt;title&gt;Property Check&lt;/title&gt; &lt;!-- Τίτλος καρτέλας browser --&gt;
+&lt;/head&gt; &lt;!-- Τέλος head --&gt;
+&lt;body&gt; &lt;!-- Σώμα σελίδας — ορατό περιεχόμενο --&gt;
+% if answer == "yes": &lt;!-- Bottle: αν η μεταβλητή answer είναι "yes" --&gt;
+    &lt;h2 style="color:green;"&gt;Property exists&lt;/h2&gt; &lt;!-- Πράσινο μήνυμα: υπάρχει --&gt;
+% else: &lt;!-- Bottle: αλλιώς (answer == "no") --&gt;
+    &lt;h2 style="color:red;"&gt;Property does not exist&lt;/h2&gt; &lt;!-- Κόκκινο μήνυμα: δεν υπάρχει --&gt;
+% end &lt;!-- Τέλος συνθήκης Bottle --&gt;
+&lt;/body&gt; &lt;!-- Τέλος body --&gt;
+&lt;/html&gt; &lt;!-- Τέλος σελίδας --&gt;</code></pre>
+            <div class="copy-row"><button class="copy-btn">Αντιγραφή</button></div>
+        </div>
+
+        <p class="db-desc"><strong>Σύνοψη ροής:</strong> Browser (φόρμα POST) → Bottle route → PyMySQL (parameterized query) → <code>template('result', answer=...)</code> → HTML στον χρήστη.</p>
+    </div>
+
+    <div class="sub-section" id="hw3-rules">
+        <h3>6. Αυστηροί κανόνες αξιολόγησης</h3>
+        <p><strong>Σημαντικό:</strong> Κόβονται βαθμοί αν δεν τηρηθούν οι παρακάτω κανόνες.</p>
+
+        <h4>Απόλυτος κανόνας ασφαλείας</h4>
+        <p>Απαγορεύεται string formatting στην SQL (π.χ. <code>'%s' % name</code>) — δημιουργεί κενά ασφαλείας (SQL injection).</p>
+        <p><strong>Υποχρεωτικά:</strong> parameterized queries:</p>
+        <pre><code class="language-python">cursor.execute(sql, (name,))  # Εκτέλεση SQL με παραμέτρους (ασφαλές — όχι string formatting)</code></pre>
+
+        <h4>Τι ΔΕΝ επιτρέπεται (γενικά)</h4>
+        <ul>
+            <li>SQL μέσα σε HTML αρχεία</li>
+            <li>αλλαγές στη βάση χωρίς <code>commit</code></li>
+            <li>queries χωρίς parameters</li>
+            <li>αποκλειστικά στατική HTML (χωρίς templates / δυναμικό περιεχόμενο)</li>
+        </ul>
+
+        <h4>Αυστηροί περιορισμοί SQL</h4>
+        <ul>
+            <li>μόνο εντολές που έχουν διδαχθεί στο μάθημα</li>
+            <li><strong>απαγορεύεται JOIN</strong> (LEFT, CROSS, INNER, …)</li>
+            <li><strong>απαγορεύεται LIMIT</strong></li>
+            <li><strong>απαγορεύονται υποερωτήματα SELECT</strong> μέσα σε SELECT / FROM</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="hw3-structure">
+        <h3>7. Δομή του project</h3>
+        <p>Ενδεικτική (και σωστή) δομή:</p>
+        <ul>
+            <li><strong>app.py</strong> — routes, φόρμες, <code>return template(...)</code></li>
+            <li><strong>db.py</strong> — αποκλειστικά λογική βάσης (SQL, σύνδεση, execute, commit, fetch)</li>
+            <li><strong>templates/</strong> — αρχεία <code>.tpl</code> (π.χ. <code>index.tpl</code>, <code>result.tpl</code>)</li>
+        </ul>
+        <pre><code>project/
+├── app.py
+├── db.py
+└── templates/
+    ├── index.tpl
+    └── result.tpl</code></pre>
+    </div>
+
+    <div class="sub-section" id="hw3-quiz">
+        <h3>Κουίζ — Εργασία 3 (20 ερωτήσεις)</h3>
+        <p class="db-desc">Πολλαπλής επιλογής · η σωστή απάντηση εμφανίζεται κάτω από κάθε ερώτηση</p>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">1</span> Τι εξασφαλίζει η ιδιότητα Atomicity μιας συναλλαγής;</p>
+            <ul class="quiz-options">
+                <li>A. Τα αποτελέσματα είναι μόνιμα</li>
+                <li>B. Όλα ή τίποτα εκτελείται</li>
+                <li>C. Οι συναλλαγές δεν αλληλεπιδρούν</li>
+                <li>D. Τα δεδομένα παραμένουν συνεπή</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">2</span> Ποια ιδιότητα ACID εξασφαλίζει ότι τα αποτελέσματα παραμένουν μετά από βλάβη συστήματος;</p>
+            <ul class="quiz-options">
+                <li>A. Atomicity</li>
+                <li>B. Consistency</li>
+                <li>C. Isolation</li>
+                <li>D. Durability</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>D</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">3</span> Ποια ιδιότητα ACID κρύβει τα ενδιάμεσα αποτελέσματα μιας συναλλαγής;</p>
+            <ul class="quiz-options">
+                <li>A. Isolation</li>
+                <li>B. Atomicity</li>
+                <li>C. Consistency</li>
+                <li>D. Durability</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>A</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">4</span> Τι είναι το Bottle;</p>
+            <ul class="quiz-options">
+                <li>A. DBMS</li>
+                <li>B. Web Server</li>
+                <li>C. Micro Web Framework</li>
+                <li>D. Database Driver</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>C</strong> (Γ)</p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">5</span> Ποια είναι η βασική έννοια του Bottle;</p>
+            <ul class="quiz-options">
+                <li>A. Transaction</li>
+                <li>B. Routing</li>
+                <li>C. Trigger</li>
+                <li>D. View</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">6</span> Τι κάνει ο decorator <code>@route('/hello')</code>;</p>
+            <ul class="quiz-options">
+                <li>A. Δημιουργεί πίνακα</li>
+                <li>B. Συνδέει URL με συνάρτηση</li>
+                <li>C. Εκτελεί SQL</li>
+                <li>D. Δημιουργεί template</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">7</span> Όταν ο χρήστης επισκεφθεί το URL <code>/hello</code>, τι εκτελείται;</p>
+            <ul class="quiz-options">
+                <li>A. Ολόκληρο το πρόγραμμα</li>
+                <li>B. Η συνάρτηση <code>hello()</code></li>
+                <li>C. Η βάση δεδομένων</li>
+                <li>D. Το template</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">8</span> Ποια συνάρτηση χρησιμοποιείται για την εξυπηρέτηση static files;</p>
+            <ul class="quiz-options">
+                <li>A. <code>serve_file()</code></li>
+                <li>B. <code>send_file()</code></li>
+                <li>C. <code>static_file()</code></li>
+                <li>D. <code>html_file()</code></li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>C</strong> (Γ)</p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">9</span> Ποια μέθοδος HTML form χρησιμοποιείται στο παράδειγμα login;</p>
+            <ul class="quiz-options">
+                <li>A. GET</li>
+                <li>B. POST</li>
+                <li>C. PUT</li>
+                <li>D. DELETE</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">10</span> Πώς διαβάζουμε μια τιμή φόρμας στο Bottle;</p>
+            <ul class="quiz-options">
+                <li>A. <code>request.get()</code></li>
+                <li>B. <code>request.forms.get()</code></li>
+                <li>C. <code>form.get()</code></li>
+                <li>D. <code>request.input()</code></li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">11</span> Τι είναι ένα Template;</p>
+            <ul class="quiz-options">
+                <li>A. SQL Query</li>
+                <li>B. HTML με placeholders</li>
+                <li>C. Python module</li>
+                <li>D. View</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">12</span> Τι εμφανίζει το <code>{{answer}}</code>;</p>
+            <ul class="quiz-options">
+                <li>A. SQL query</li>
+                <li>B. Python function</li>
+                <li>C. Την τιμή της μεταβλητής</li>
+                <li>D. Τίποτα</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>C</strong> (Γ)</p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">13</span> Ποια σύνταξη χρησιμοποιείται για λογική μέσα σε template;</p>
+            <ul class="quiz-options">
+                <li>A. <code>@if</code></li>
+                <li>B. <code>% if</code></li>
+                <li>C. <code>@if()</code></li>
+                <li>D. <code>{{if}}</code></li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">14</span> Τι κάνει η εντολή <code>return template('result', answer=answer)</code>;</p>
+            <ul class="quiz-options">
+                <li>A. Εκτελεί SQL</li>
+                <li>B. Δημιουργεί πίνακα</li>
+                <li>C. Στέλνει δεδομένα στο template</li>
+                <li>D. Κάνει commit</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>C</strong> (Γ)</p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">15</span> Πού αναζητά το Bottle το <code>template('result')</code>;</p>
+            <ul class="quiz-options">
+                <li>A. <code>templates/result.tpl</code></li>
+                <li>B. <code>result.html</code></li>
+                <li>C. <code>views/result.html</code></li>
+                <li>D. <code>static/result.tpl</code></li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>A</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">16</span> Ποιος είναι ο ασφαλής τρόπος SQL;</p>
+            <ul class="quiz-options">
+                <li>A. <code>sql = "SELECT * FROM users WHERE name='%s'" % name</code></li>
+                <li>B. <code>sql = "SELECT * FROM users WHERE name=%s"</code><br><code>cursor.execute(sql, (name,))</code></li>
+                <li>Γ. <code>sql = name</code></li>
+                <li>Δ. Κανένα</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">17</span> Γιατί χρησιμοποιούμε parameterized queries;</p>
+            <ul class="quiz-options">
+                <li>A. Για μεγαλύτερη ταχύτητα</li>
+                <li>B. Για αποφυγή SQL Injection</li>
+                <li>C. Για μικρότερο κώδικα</li>
+                <li>D. Για templates</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">18</span> Ποιο από τα παρακάτω <strong>ΔΕΝ</strong> επιτρέπεται στην εργασία;</p>
+            <ul class="quiz-options">
+                <li>A. GROUP BY</li>
+                <li>B. COUNT</li>
+                <li>C. JOIN</li>
+                <li>D. WHERE</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>C</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">19</span> Ποιο από τα παρακάτω <strong>ΔΕΝ</strong> επιτρέπεται;</p>
+            <ul class="quiz-options">
+                <li>A. DISTINCT</li>
+                <li>B. LIMIT</li>
+                <li>C. AVG</li>
+                <li>D. COUNT</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>B</strong></p>
+        </div>
+
+        <div class="quiz-card">
+            <p class="quiz-q"><span class="q-num">20</span> Ποια είναι η προτεινόμενη δομή project;</p>
+            <ul class="quiz-options">
+                <li>A. <code>app.py</code>, <code>db.py</code>, <code>templates/</code></li>
+                <li>B. <code>main.c</code>, <code>db.sql</code></li>
+                <li>C. <code>index.html</code> μόνο</li>
+                <li>D. <code>routes.py</code> μόνο</li>
+            </ul>
+            <p class="quiz-answer">Σωστή: <strong>A</strong></p>
+        </div>
+    </div>
+</section>
+
 </main>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/sql.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
