@@ -285,6 +285,239 @@ footer {
     margin-bottom: 2.2rem;
 }
 
+.sub-section > h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #5c3d48;
+    margin: 1.25rem 0 0.6rem;
+}
+
+.sub-section > h4:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.sub-section > p,
+.sub-section > ul {
+    font-size: 0.92rem;
+    color: #5c3d48;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.sub-section > ul {
+    margin-left: 1.4rem;
+}
+
+.sub-section > ul li {
+    margin-bottom: 0.45rem;
+}
+
+.sub-section > ul ul {
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+}
+
+.net-formula {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-radius: 8px;
+    padding: 0.9rem 1.2rem;
+    margin: 1rem 0 1.25rem;
+    text-align: center;
+}
+
+.net-formula code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.95rem;
+    color: #8b4a5c;
+}
+
+/* ── Networking content boxes ── */
+.net-box-label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #c4929e;
+    margin-bottom: 0.45rem;
+}
+
+.net-box,
+.net-exam,
+.net-note,
+.net-def,
+.net-quote,
+.net-scenario {
+    border-radius: 8px;
+    padding: 0.9rem 1.15rem;
+    margin: 1rem 0 1.25rem;
+    font-size: 0.92rem;
+    color: #5c3d48;
+    line-height: 1.65;
+}
+
+.net-box p,
+.net-exam p,
+.net-note p,
+.net-def p,
+.net-quote p,
+.net-scenario p {
+    margin-bottom: 0.5rem;
+}
+
+.net-box > :last-child,
+.net-exam > :last-child,
+.net-note > :last-child,
+.net-def > :last-child,
+.net-quote > :last-child,
+.net-scenario > :last-child {
+    margin-bottom: 0;
+}
+
+.net-box ul,
+.net-box ol,
+.net-exam ul,
+.net-exam ol,
+.net-note ul,
+.net-note ol,
+.net-def ul,
+.net-def ol,
+.net-scenario ul,
+.net-scenario ol {
+    margin: 0.35rem 0 0 1.2rem;
+    line-height: 1.65;
+}
+
+.net-box li,
+.net-exam li,
+.net-note li,
+.net-def li,
+.net-scenario li {
+    margin-bottom: 0.4rem;
+}
+
+.net-box {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+}
+
+.net-exam {
+    background: #fff9fb;
+    border: 1px solid #f0d4dc;
+    border-left: 4px solid #e8a7b8;
+}
+
+.net-note {
+    background: #fdf8f9;
+    border: 1px solid #f0d4dc;
+    border-left: 4px solid #d4a5b5;
+}
+
+.net-def {
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-left: 4px solid #8b4a5c;
+}
+
+.net-quote {
+    background: #fdf2f5;
+    border: 1px solid #f0d4dc;
+    font-style: italic;
+}
+
+.net-scenario {
+    background: #fff;
+    border: 1px dashed #e8c1cc;
+}
+
+.sub-section.net-exam-section {
+    background: #fffbfc;
+    border: 1px solid #f5dce3;
+    border-radius: 10px;
+    padding: 1.25rem 1.4rem;
+}
+
+.sub-section.net-exam-section > h3 {
+    margin-top: 0;
+}
+
+.net-box .net-formula,
+.net-exam .net-formula,
+.net-def .net-formula,
+.net-note .net-formula {
+    margin: 0.6rem 0 0;
+    padding: 0.65rem 0.9rem;
+    border: 1px dashed #f0d4dc;
+}
+
+.sub-section > pre,
+.net-box pre {
+    background: #fdf2f5;
+    border: none;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 0;
+    overflow-x: auto;
+    font-size: 0.84rem;
+    line-height: 1.55;
+}
+
+.sub-section > pre code,
+.net-box pre code {
+    font-family: 'JetBrains Mono', monospace;
+    color: #6b3d4d;
+}
+
+.net-layers li {
+    margin-bottom: 0.85rem;
+}
+
+.sub-section table,
+.net-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0 1.25rem;
+    font-size: 0.9rem;
+    background: #fff;
+    border: 1px solid #f0d4dc;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.sub-section table th,
+.sub-section table td,
+.net-table th,
+.net-table td {
+    padding: 0.65rem 0.85rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #f5e0e6;
+    color: #5c3d48;
+    line-height: 1.5;
+}
+
+.sub-section table thead th,
+.net-table thead th {
+    background: #fdf2f5;
+    font-weight: 600;
+    color: #5a3545;
+    border-bottom: 1px solid #f0d4dc;
+}
+
+.sub-section table tbody tr:last-child td,
+.net-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.sub-section table tfoot td,
+.net-table tfoot td {
+    background: #fff9fb;
+    font-size: 0.88rem;
+    border-bottom: none;
+    border-top: 1px solid #f0d4dc;
+}
+
 .sub-section > h3 {
     font-size: 0.95rem;
     font-weight: 600;

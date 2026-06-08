@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Δίκτυα Επικοινωνιών I</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <a href="index.html" class="back">&larr; Μαθήματα</a>
+    <span class="title">Δίκτυα Επικοινωνιών I</span>
+</div>
+
+<div class="page-wrapper">
+
+<nav class="sidebar">
+    <h3>Ενότητα 1</h3>
+    <a href="#unit1">Επισκόπηση</a>
+    <a href="#supp1">Συμπλ. 1 — Ορισμοί &amp; RFCs</a>
+    <a href="#supp2">Συμπλ. 2 — Δίκτυα πρόσβασης</a>
+    <a href="#supp3">Συμπλ. 3 — Πακέτο vs κύκλωμα</a>
+    <a href="#supp4">Συμπλ. 4 — Καθυστερήσεις</a>
+    <a href="#supp5">Συμπλ. 5 — 5 επίπεδα TCP/IP</a>
+    <a href="#supp6">Συμπλ. 6 — Ασφάλεια</a>
+    <a href="#supp7">Συμπλ. 7 — Δομή Διαδικτύου</a>
+
+    <h3>Ενότητα 2</h3>
+    <a href="#unit2">Επισκόπηση</a>
+    <a href="#unit2-theory-1">Θεωρία — Αρχές &amp; Sockets</a>
+    <a href="#unit2-supp1">Συμπλ. 1 — E-mail</a>
+    <a href="#unit2-supp2">Συμπλ. 2 — DNS</a>
+    <a href="#unit2-supp3">Συμπλ. 3 — Web &amp; HTTP</a>
+    <a href="#unit2-supp4">Συμπλ. 4 — RTT &amp; HTTP</a>
+    <a href="#unit2-theory-2">Θεωρία — P2P &amp; BitTorrent</a>
+    <a href="#unit2-theory-3">Θεωρία — Video &amp; CDNs</a>
+    <a href="#unit2-summary">Σύνοψη σχεδιαστικών θεμάτων</a>
+
+    <h3>Ενότητα 3</h3>
+    <a href="#unit3">Επισκόπηση</a>
+    <a href="#unit3-s1">1. Εισαγωγή &amp; υπηρεσίες</a>
+    <a href="#unit3-s2">2. Multiplexing</a>
+    <a href="#unit3-s3">3. UDP</a>
+    <a href="#unit3-s4">4. rdt</a>
+    <a href="#unit3-s5">5. Pipelining</a>
+    <a href="#unit3-s6">6. TCP — βασικά</a>
+    <a href="#unit3-s7">7. TCP — timeout</a>
+    <a href="#unit3-s8">8. TCP — αξιοπιστία</a>
+    <a href="#unit3-s9">9. TCP — σύνδεση</a>
+    <a href="#unit3-s10">10. Έλεγχος ροής</a>
+    <a href="#unit3-s11">11. Συμφόρηση</a>
+    <a href="#unit3-s12">12. TCP congestion</a>
+    <a href="#unit3-s13">13. Fairness &amp; εξέλιξη</a>
+    <a href="#unit3-exam">Συμπλ. εξέτασης</a>
+
+    <h3>Ενότητα 4</h3>
+    <a href="#unit4">Επισκόπηση</a>
+    <a href="#unit4-goals">Στόχοι κεφ. 4–5</a>
+    <a href="#unit4-s1">Βασικές λειτουργίες</a>
+    <a href="#unit4-s2">Μοντέλα υπηρεσιών</a>
+    <a href="#unit4-s3">Αρχιτεκτονική router</a>
+    <a href="#unit4-s4">Scheduling &amp; ουρές</a>
+    <a href="#unit4-s5">IP &amp; προώθηση</a>
+    <a href="#unit4-ip-addr">Διευθυνσιοδότηση &amp; DHCP</a>
+    <a href="#unit4-nat">NAT</a>
+    <a href="#unit4-ipv6">IPv6</a>
+    <a href="#unit4-s6">SDN &amp; OpenFlow</a>
+    <a href="#unit4-s7">Middleboxes</a>
+    <a href="#unit4-exam">Συμπλ. εξέτασης</a>
+
+    <h3>Ενότητα 5</h3>
+    <a href="#unit5">Επισκόπηση</a>
+    <a href="#unit5-meta">Μεταδεδομένα</a>
+    <a href="#unit5-overview">Εισαγωγή control plane</a>
+    <a href="#unit5-routing">Αλγόριθμοι δρομολόγησης</a>
+    <a href="#unit5-dijkstra">Dijkstra (LS)</a>
+    <a href="#unit5-dv">Distance Vector</a>
+    <a href="#unit5-ls-dv">LS vs DV</a>
+    <a href="#unit5-hier">Ιεραρχική δρομολόγηση</a>
+    <a href="#unit5-rip-ospf">RIP &amp; OSPF</a>
+    <a href="#unit5-bgp">BGP</a>
+    <a href="#unit5-sdn">SDN &amp; OpenFlow</a>
+    <a href="#unit5-icmp">ICMP</a>
+    <a href="#unit5-mgmt">SNMP &amp; NETCONF</a>
+    <a href="#unit5-exam">Συμπλ. εξέτασης</a>
+
+    <h3>Ενότητα 6</h3>
+    <a href="#unit6">Επισκόπηση</a>
+    <a href="#unit6-intro">Εισαγωγή &amp; υπηρεσίες</a>
+    <a href="#unit6-mac">Πολλαπλή πρόσβαση (MAC)</a>
+    <a href="#unit6-arp">MAC &amp; ARP</a>
+    <a href="#unit6-ethernet">Ethernet</a>
+    <a href="#unit6-switches">Μεταγωγείς</a>
+    <a href="#unit6-vlans">VLANs</a>
+    <a href="#unit6-mpls-dc">MPLS &amp; DC</a>
+    <a href="#unit6-web">Ζωή web αίτησης</a>
+    <a href="#unit6-summary">Σύνοψη</a>
+    <a href="#unit6-exam">Συμπλ. εξέτασης</a>
+</nav>
+
+<main class="content">
+
+<section class="db-section" id="unit1">
+    <h2>Ενότητα 1 — Εισαγωγή στο Διαδίκτυο</h2>
+    <p class="db-desc">Συμπληρωματικές σημειώσεις — ορισμοί, τεχνολογίες πρόσβασης, πυρήνας, καθυστερήσεις, στρώματα, ασφάλεια</p>
+
+    <div class="sub-section" id="supp1">
+        <h3>Συμπλήρωμα 1: Ορισμοί, RFCs και Υπηρεσίες</h3>
+
+        <h4>Τι είναι το Πρωτόκολλο (επίσημος ορισμός)</h4>
+        <div class="net-def">
+            <span class="net-box-label">Ορισμός</span>
+            <p>Ένα πρωτόκολλο ορίζει τη <strong>μορφή (format)</strong>, τη <strong>σειρά (order)</strong> των μηνυμάτων που ανταλλάσσονται μεταξύ δύο ή περισσότερων επικοινωνούντων οντοτήτων, καθώς και τις <strong>ενέργειες (actions)</strong> που λαμβάνονται κατά την αποστολή ή τη λήψη ενός μηνύματος ή άλλου γεγονότος.</p>
+        </div>
+
+        <h4>Πρότυπα Διαδικτύου (Internet Standards)</h4>
+        <ul>
+            <li><strong>IETF</strong> (Internet Engineering Task Force): ο οργανισμός που αναπτύσσει τα πρότυπα.</li>
+            <li><strong>RFC</strong> (Request for Comments): τα επίσημα έγγραφα των προτύπων (π.χ. RFC 793 για το TCP).</li>
+        </ul>
+
+        <h4>Περιγραφή του Διαδικτύου με βάση τις Υπηρεσίες (Service View)</h4>
+        <p>Το Διαδίκτυο είναι μια υποδομή που παρέχει υπηρεσίες σε εφαρμογές (Web, VoIP, email, παιχνίδια).</p>
+        <p>Παρέχει στις εφαρμογές μια <strong>Διασύνδεση Προγραμματισμού Εφαρμογών (API — Application Programming Interface)</strong>, η οποία καθορίζει τους κανόνες με τους οποίους ένα πρόγραμμα λογισμικού που τρέχει σε έναν host ζητά από την υποδομή του Διαδικτύου να παραδώσει δεδομένα σε ένα άλλο πρόγραμμα.</p>
+    </div>
+
+    <div class="sub-section" id="supp2">
+        <h3>Συμπλήρωμα 2: Δίκτυα Πρόσβασης</h3>
+        <p>Πέρα από τα φυσικά μέσα, οι κύριες αρχιτεκτονικές πρόσβασης είναι:</p>
+        <table class="net-table">
+            <thead><tr><th>Τεχνολογία</th><th>Μέσο</th><th>Χαρακτηριστικά</th></tr></thead>
+            <tbody>
+                <tr><td><strong>DSL / ADSL</strong></td><td>Χαλκός (τηλ. γραμμή → CO)</td><td>Dedicated· ασύμμετρο (down &gt; up)</td></tr>
+                <tr><td><strong>Cable / HFC</strong></td><td>Ομοαξονικό + ίνα</td><td><strong>Shared</strong> — ταχύτητα πέφτει με γείτονες</td></tr>
+                <tr><td><strong>FTTH</strong></td><td>Οπτική ίνα στο σπίτι</td><td>Πολύ υψηλές ταχύτητες</td></tr>
+                <tr><td><strong>WiFi</strong></td><td>Ασύρματο LAN</td><td>10–100 m, 802.11b/g/n/ac/ax</td></tr>
+                <tr><td><strong>4G / 5G</strong></td><td>Κινητή (πύργοι)</td><td>Wide-area, δεκάδες km</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="supp3">
+        <h3>Συμπλήρωμα 3: Ο Πυρήνας — Μεταγωγή Πακέτου vs Μεταγωγή Κυκλώματος</h3>
+
+        <h4>Α) Μεταγωγή Πακέτου (Packet Switching)</h4>
+        <ul>
+            <li>Οι hosts σπάνε τα μηνύματα της εφαρμογής σε <strong>πακέτα</strong>.</li>
+            <li><strong>Store and Forward</strong> (αποθήκευση και προώθηση): ο δρομολογητής πρέπει να λάβει ολόκληρο το πακέτο πριν ξεκινήσει να μεταδίδει το πρώτο bit στη ζεύξη εξόδου.</li>
+            <li><strong>Στατιστική πολυπλεξία (Statistical Multiplexing):</strong> οι πόροι της ζεύξης διαμοιράζονται δυναμικά ανάλογα με τη ζήτηση. Αν δεν υπάρχουν πακέτα, η ζεύξη μένει ελεύθερη (δεν δεσμεύεται άσκοπα).</li>
+        </ul>
+
+        <h4>Β) Μεταγωγή Κυκλώματος (Circuit Switching)</h4>
+        <ul>
+            <li>Οι πόροι από άκρο σε άκρο (εύρος ζώνης) <strong>δεσμεύονται αποκλειστικά</strong> για τη διάρκεια της επικοινωνίας (όπως στο παραδοσιακό τηλεφωνικό δίκτυο).</li>
+            <li>Δεν υπάρχει κοινή χρήση. Εγγυημένη απόδοση, αλλά αν δεν μιλάς, οι πόροι πάνε χαμένοι.</li>
+            <li>Η διαίρεση των πόρων γίνεται με δύο τρόπους:
+                <ul>
+                    <li><strong>FDM</strong> (Frequency-Division Multiplexing): το εύρος συχνοτήτων χωρίζεται σε στενές, σταθερές ζώνες.</li>
+                    <li><strong>TDM</strong> (Time-Division Multiplexing): ο χρόνος χωρίζεται σε πλαίσια περιοδικής διάρκειας και κάθε σύνδεση παίρνει ένα σταθερό χρονομερίδιο (slot).</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Σύγκριση μεταγωγής πακέτου vs κυκλώματος</h4>
+        <table class="net-table">
+            <thead><tr><th></th><th>Μεταγωγή πακέτου</th><th>Μεταγωγή κυκλώματος</th></tr></thead>
+            <tbody>
+                <tr><td>Πόροι</td><td>Στατιστική πολυπλεξία, κοινή χρήση</td><td>Αποκλειστική δέσμευση end-to-end</td></tr>
+                <tr><td>Αδράνεια</td><td>Ζεύξη ελεύθερη όταν δεν στέλνεις</td><td>Πόροι «χαμένοι» αν δεν μιλάς</td></tr>
+                <tr><td>Κατάλληλο για</td><td><strong>Bursty / σποραδική</strong> κίνηση</td><td>Σταθερή ροή (τηλεφωνία)</td></tr>
+                <tr><td>Πολυπλεξία</td><td>Δυναμική (packets)</td><td>FDM ή TDM</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3"><strong>Εξέταση:</strong> προτιμάται packet switching όταν η κίνηση είναι <strong>σποραδική (bursty)</strong>.</td></tr></tfoot>
+        </table>
+    </div>
+
+    <div class="sub-section" id="supp4">
+        <h3>Συμπλήρωμα 4: Μαθηματικοί Τύποι Καθυστερήσεων</h3>
+        <p>Η συνολική καθυστέρηση από κόμβο σε κόμβο αποτελείται από 4 συνιστώσες:</p>
+        <p class="net-formula"><code>d_nodal = d_proc + d_queue + d_trans + d_prop</code></p>
+
+        <table class="net-table">
+            <thead><tr><th>Συνιστώσα</th><th>Σύμβολο</th><th>Τύπος / Εξάρτηση</th></tr></thead>
+            <tbody>
+                <tr><td>Επεξεργασία (Processing)</td><td><code>d_proc</code></td><td>Έλεγχος κεφαλίδας, lookup — συνήθως &lt; msec</td></tr>
+                <tr><td>Ουρά (Queuing)</td><td><code>d_queue</code></td><td>Αναμονή σε buffer — εξαρτάται από συμφόρηση</td></tr>
+                <tr><td>Μετάδοση (Transmission)</td><td><code>d_trans</code></td><td><code>L / R</code> (bits / bps)</td></tr>
+                <tr><td>Διάδοση (Propagation)</td><td><code>d_prop</code></td><td><code>d / s</code> — μόνο απόσταση &amp; μέσο (~2×10⁸ m/s)</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3"><strong>Εξέταση:</strong> η <code>d_prop</code> εξαρτάται <em>λιγότερο</em> από bandwidth και ταχύτητα router.</td></tr></tfoot>
+        </table>
+
+        <h4>Απώλειες — ενταμιευτές (buffers) δρομολογητών</h4>
+        <p>Οι καθυστερήσεις και οι <strong>απώλειες πακέτων</strong> συμβαίνουν κυρίως στους buffers των δρομολογητών. Όταν ο ρυθμός άφιξης σε μια ζεύξη υπερβαίνει τη χωρητικότητά της, τα πακέτα μπαίνουν σε ουρά. Αν η ουρά γεμίσει, το εισερχόμενο πακέτο <strong>απορρίπτεται</strong> (χάνεται).</p>
+
+        <h4>Ένταση κίνησης (Traffic Intensity)</h4>
+        <p><code>L</code> = μέγεθος πακέτου, <code>a</code> = ρυθμός άφιξης (pkt/s), <code>R</code> = bandwidth:</p>
+        <table class="net-table">
+            <thead><tr><th><code>La/R</code></th><th>Αποτέλεσμα</th></tr></thead>
+            <tbody>
+                <tr><td>~ 0</td><td>Μικρή καθυστέρηση ουράς</td></tr>
+                <tr><td>→ 1</td><td>Πολύ μεγάλη καθυστέρηση ουράς</td></tr>
+                <tr><td>&gt; 1</td><td>Ουρά απεριόριστα, απώλειες (drops)</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Διεκπεραιωτική ικανότητα / Ρυθμαπόδοση (Throughput)</h4>
+        <p>Η <strong>ρυθμαπόδοση</strong> είναι ο ρυθμός (bits/sec) με τον οποίο μεταφέρονται δεδομένα μεταξύ αποστολέα και παραλήπτη. Σε μονοπάτι end-to-end με πολλές ζεύξεις, καθορίζεται από τη <strong>ζεύξη συμφόρησης (bottleneck)</strong> — τη ζεύξη με τη μικρότερη χωρητικότητα:</p>
+        <p class="net-formula"><code>Throughput = min(R₁, R₂, …, Rₙ)</code></p>
+
+        <h4>Άσκηση throughput (κλασικό παράδειγμα)</h4>
+        <table class="net-table">
+            <thead><tr><th>Ζεύξη</th><th>Ρυθμός</th></tr></thead>
+            <tbody>
+                <tr><td>R₁</td><td>500 kbps</td></tr>
+                <tr><td>R₂</td><td>2 Mbps</td></tr>
+                <tr><td>R₃</td><td>1 Mbps</td></tr>
+            </tbody>
+            <tfoot>
+                <tr><td><strong>Bottleneck</strong></td><td><code>min(R₁,R₂,R₃) = 500 kbps</code></td></tr>
+                <tr><td><strong>4 MB αρχείο</strong></td><td><code>32×10⁶ bits / 500×10³ ≈ 64 sec</code> (bytes×8)</td></tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="sub-section" id="supp5">
+        <h3>Συμπλήρωμα 5: Τα 5 Επίπεδα του Μοντέλου Internet (TCP/IP)</h3>
+        <p>Τι κάνει κάθε επίπεδο και πώς ονομάζεται η μονάδα δεδομένων:</p>
+
+        <table class="net-table">
+            <thead><tr><th>Επίπεδο</th><th>Ρόλος</th><th>Μονάδα δεδομένων</th><th>Πρωτόκολλα</th></tr></thead>
+            <tbody>
+                <tr><td>Εφαρμογή</td><td>Δικτυακές εφαρμογές</td><td>Μήνυμα (Message)</td><td>HTTP, SMTP, FTP, DNS</td></tr>
+                <tr><td>Μεταφορά</td><td>Process-to-process</td><td>Τμήμα (Segment)</td><td>TCP, UDP</td></tr>
+                <tr><td>Δίκτυο</td><td>Host-to-host δρομολόγηση</td><td>Datagram</td><td>IP, OSPF, BGP…</td></tr>
+                <tr><td>Ζεύξη</td><td>Μεταξύ γειτόνων</td><td>Πλαίσιο (Frame)</td><td>Ethernet, WiFi, PPP</td></tr>
+                <tr><td>Φυσικό</td><td>Bits στο μέσο</td><td>Bits</td><td>—</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Τι υλοποιεί κάθε συσκευή;</h4>
+        <table class="net-table">
+            <thead><tr><th>Συσκευή</th><th>Επίπεδα</th></tr></thead>
+            <tbody>
+                <tr><td>Hosts (τερματικά)</td><td>Όλα τα 5</td></tr>
+                <tr><td>Μεταγωγείς (switches)</td><td>Φυσικό + Ζεύξης</td></tr>
+                <tr><td>Δρομολογητές (routers)</td><td>Φυσικό + Ζεύξης + Δίκτυο</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ενθυλάκωση (Encapsulation)</h4>
+        <div class="net-box">
+            <p>Καθώς ένα μήνυμα κατεβαίνει τα επίπεδα στον αποστολέα, κάθε επίπεδο προσθέτει τη δική του <strong>κεφαλίδα</strong> (π.χ. <code>H_t</code> transport, <code>H_n</code> network, <code>H_l</code> link). Στον παραλήπτη γίνεται <strong>απο-ενθυλάκωση</strong> (αφαίρεση κεφαλίδων ανά επίπεδο).</p>
+        </div>
+
+        <div class="net-note">
+            <span class="net-box-label">Σημείωση — ISO/OSI</span>
+            <p>Τα δύο επιπλέον επίπεδα (μεταξύ Εφαρμογής και Μεταφοράς) είναι το <strong>Επίπεδο Παρουσίασης (Presentation)</strong> (συμπίεση, κρυπτογράφηση) και το <strong>Επίπεδο Συνεδρίας (Session)</strong> (συγχρονισμός, ανάκτηση δεδομένων). Στο Internet, αν μια εφαρμογή χρειάζεται αυτές τις υπηρεσίες, πρέπει να τις υλοποιήσει ο προγραμματιστής στο επίπεδο εφαρμογής.</p>
+        </div>
+    </div>
+
+    <div class="sub-section" id="supp7">
+        <h3>Συμπλήρωμα 7: Δομή του Διαδικτύου</h3>
+        <p>Πώς διασυνδέονται εκατομμύρια δίκτυα:</p>
+        <ul>
+            <li><strong>Access ISPs:</strong> τοπικοί πάροχοι (σπίτια, επιχειρήσεις)</li>
+            <li>Συνδέονται σε <strong>περιφερειακούς / εθνικούς / παγκόσμιους ISPs</strong> (tier-1, tier-2…)</li>
+            <li><strong>IXP (Internet Exchange Points):</strong> σημεία ανταλλαγής κίνησης — τα μεγάλα δίκτυα συνδέονται εκεί για να ανταλλάσσουν traffic</li>
+            <li><strong>Content providers</strong> (Google, Netflix κ.λπ.): ιδιωτικά δίκτυα/CDNs κοντά στους χρήστες, παρακάμπτοντας μέρη του δημόσιου Διαδικτύου</li>
+        </ul>
+        <p>Αποτέλεσμα: ιεραρχική «mesh» δομή — όχι ένα κεντρικό δίκτυο, αλλά διασύνδεση πολλών αυτόνομων δικτύων.</p>
+    </div>
+
+    <div class="sub-section" id="supp6">
+        <h3>Συμπλήρωμα 6: Ασφάλεια Διαδικτύου</h3>
+        <p>Το Διαδίκτυο <strong>δεν σχεδιάστηκε</strong> αρχικά με γνώμονα την ασφάλεια — υπέθετε <strong>αμοιβαία εμπιστοσύνη</strong> μεταξύ χρηστών.</p>
+        <ul>
+            <li><strong>Packet sniffing:</strong> αδιάκριτη καταγραφή πακέτων σε διαμοιραζόμενα μέσα (π.χ. WiFi) — υποκλοπή κωδικών/passwords</li>
+            <li><strong>Firewalls:</strong> απορρίπτουν by default (<strong>off-by-default</strong>) — μόνο επιτρεπόμενη κίνηση περνά</li>
+            <li><strong>IDS</strong> (Intrusion Detection Systems): εντοπισμός επιθέσεων</li>
+        </ul>
+        <p>Επιπλέον επιθέσεις που αναφέρονται στο μάθημα:</p>
+
+        <h4>IP Spoofing</h4>
+        <p>Αποστολή πακέτων με πλαστή (ψεύτικη) διεύθυνση IP αποστολέα, ώστε ο επιτιθέμενος να προσποιηθεί ότι είναι κάποιος άλλος έμπιστος χρήστης.</p>
+
+        <h4>Επιθέσεις DoS / DDoS (Denial of Service)</h4>
+        <p>Βομβαρδισμός ενός server με εκατομμύρια ψεύτικα αιτήματα ώστε να εξαντληθούν οι πόροι του και να μην μπορεί να εξυπηρετήσει τους πραγματικούς χρήστες.</p>
+        <p>Στο <strong>DDoS</strong> (Distributed DoS), η επίθεση γίνεται ταυτόχρονα από χιλιάδες μολυσμένους υπολογιστές (<strong>Botnets</strong>).</p>
+
+        <h4>Malware (κακόβουλο λογισμικό)</h4>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Διάδοση</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Ιός (Virus)</strong></td><td>Απαιτεί ενέργεια χρήστη (π.χ. attachment)</td></tr>
+                <tr><td><strong>Σκουλήκι (Worm)</strong></td><td>Αυτόνομη, αυτόματη εξάπλωση στο δίκτυο</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="db-section" id="unit2">
+    <h2>Ενότητα 2 — Επίπεδο Εφαρμογής</h2>
+    <p class="db-desc">Αρχές εφαρμογών, sockets, Web/HTTP, e-mail, DNS, P2P, streaming, CDNs</p>
+
+    <div class="sub-section" id="unit2-theory-1">
+        <h3>Θεωρία: Αρχές Δικτυακών Εφαρμογών &amp; Sockets</h3>
+        <p>Το <strong>Επίπεδο Εφαρμογής</strong> είναι το ανώτερο επίπεδο, όπου τρέχουν τα προγράμματα (διεργασίες) των χρηστών.</p>
+
+        <h4>Αρχιτεκτονικές εφαρμογών</h4>
+        <table class="net-table">
+            <thead><tr><th>Αρχιτεκτονική</th><th>Χαρακτηριστικά</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Client-Server</strong></td><td>Κεντρικός server, πολλοί clients</td></tr>
+                <tr><td><strong>P2P</strong></td><td>Χωρίς κεντρικό server· κάθε ομότιμος client + server</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Τι ορίζει ένα πρωτόκολλο επιπέδου εφαρμογής;</h4>
+        <div class="net-exam">
+            <span class="net-box-label">Εξέταση</span>
+            <p>Ορίζει <strong>όλα τα παρακάτω</strong> (σωστή απάντηση: «όλα τα παραπάνω»):</p>
+            <ul>
+                <li>Τύπους μηνυμάτων (π.χ. αίτηση/απόκριση)</li>
+                <li><strong>Σύνταξη, φορμάτ, σημασία</strong> των μηνυμάτων</li>
+                <li>Κανόνες για <strong>πότε και πώς</strong> οι διεργασίες στέλνουν ή απαντούν</li>
+            </ul>
+        </div>
+
+        <h4>Απαιτήσεις εφαρμογών</h4>
+        <table class="net-table">
+            <thead>
+                <tr>
+                    <th>Τύπος</th>
+                    <th>Bandwidth</th>
+                    <th>Απώλειες</th>
+                    <th>Παραδείγματα</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Ελαστική (elastic)</strong></td>
+                    <td>Προσαρμόζεται στο διαθέσιμο — χωρίς εγγυημένο</td>
+                    <td>Συνήθως απαιτεί αξιόπιστη μεταφορά</td>
+                    <td>Web, e-mail, file transfer</td>
+                </tr>
+                <tr>
+                    <td><strong>Πραγματικού χρόνου (real-time)</strong></td>
+                    <td>Ελάχιστο εγγυημένο bandwidth</td>
+                    <td>Ανεκτική σε απώλειες (κάποιες)</td>
+                    <td>VoIP, streaming, games</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4"><strong>Εξέταση — e-mail:</strong> εφαρμογή <strong>ελαστική</strong> — προσαρμόζεται στο bandwidth. <strong>Δεν</strong> είναι ανεκτική σε απώλειες: απαιτεί 100% αξιόπιστη μεταφορά (<strong>TCP</strong>).</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <h4>Η έννοια των Sockets</h4>
+        <ul>
+            <li>Το <strong>socket</strong> λειτουργεί ως η «πόρτα» ανάμεσα στην εφαρμογή και το δίκτυο.</li>
+            <li>Το επίπεδο εφαρμογής προσφέρει επικοινωνία <strong>άκρο προς άκρο (end-to-end)</strong> και <strong>διεργασία προς διεργασία (process-to-process)</strong> μέσω sockets.</li>
+            <li>Η διεργασία-αποστολέας «σπρώχνει» το μήνυμα έξω από την πόρτα της και βασίζεται στην υποκείμενη υποδομή (<strong>TCP</strong> ή <strong>UDP</strong> στο Επίπεδο Μεταφοράς) για μεταφορά στο socket του παραλήπτη.</li>
+            <li><strong>Διευθυνσιοδότηση:</strong> για παράδοση μηνύματος απαιτούνται <strong>διεύθυνση IP</strong> του host και <strong>αριθμός θύρας (port)</strong> για την σωστή διεργασία.</li>
+            <li><strong>P2P:</strong> κάθε ομότιμος έχει ταυτόχρονα διεργασίες <strong>πελάτη και εξυπηρετητή</strong>.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit2-supp1">
+        <h3>Συμπλήρωμα 1: Ηλεκτρονικό Ταχυδρομείο (E-mail)</h3>
+        <p>Το ηλεκτρονικό ταχυδρομείο είναι μια από τις παλαιότερες εφαρμογές του Διαδικτύου και βασίζεται σε 3 κύρια συστατικά:</p>
+
+        <ul>
+            <li><strong>User Agents (πράκτορες χρήστη):</strong> προγράμματα με τα οποία ο χρήστης διαβάζει, γράφει και στέλνει μηνύματα (π.χ. Outlook, Thunderbird ή Webmail).</li>
+            <li><strong>Mail Servers (εξυπηρετητές αλληλογραφίας):</strong> υπολογιστές-αποθήκες του δικτύου. Κάθε mail server περιέχει:
+                <ul>
+                    <li><strong>mailbox</strong> (θυρίδα) — μηνύματα που έχουν ληφθεί για έναν χρήστη</li>
+                    <li><strong>message queue</strong> (ουρά) — μηνύματα προς αποστολή σε άλλους servers</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h4>Πρωτόκολλα του E-mail</h4>
+
+        <h4>1. SMTP (Simple Mail Transfer Protocol)</h4>
+        <div class="net-box">
+            <ul>
+                <li><strong>Push</strong> mail αποστολέα → server παραλήπτη</li>
+                <li><strong>TCP</strong>, θύρα <strong>25</strong></li>
+                <li>7-bit ASCII: Handshake → Μεταφορά → Κλείσιμο</li>
+            </ul>
+        </div>
+
+        <h4>2. Πρωτόκολλα πρόσβασης (Mail Access Protocols)</h4>
+        <p>Το SMTP σπρώχνει το mail μέχρι τον server του παραλήπτη. Για ανάγνωση από τον τελικό παραλήπτη (<strong>pull</strong>):</p>
+        <table class="net-table">
+            <thead><tr><th>Πρωτόκολλο</th><th>Λογική</th><th>Κατάσταση</th></tr></thead>
+            <tbody>
+                <tr><td><strong>POP3</strong></td><td>Download-and-delete</td><td>Stateless</td></tr>
+                <tr><td><strong>IMAP</strong></td><td>Mail μένει στον server, φάκελοι</td><td>Stateful (συγχρονισμός συσκευών)</td></tr>
+                <tr><td><strong>HTTP</strong></td><td>Webmail (Gmail, Outlook.com)</td><td>—</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit2-supp2">
+        <h3>Συμπλήρωμα 2: DNS (Domain Name System)</h3>
+        <p>Οι άνθρωποι θυμούνται ονόματα (π.χ. <code>google.com</code>), οι υπολογιστές χρειάζονται διευθύνσεις IP (π.χ. <code>216.58.214.14</code>). Το DNS μεταφράζει ονόματα σε IP.</p>
+
+        <h4>Χαρακτηριστικά του DNS</h4>
+        <ul>
+            <li>Κατανεμημένη βάση δεδομένων σε ιεραρχία servers παγκοσμίως — αποφεύγεται single point of failure και μπούκωμα.</li>
+            <li>Επίπεδο εφαρμογής, <strong>UDP</strong>, θύρα <strong>53</strong>.</li>
+            <li><strong>Επιπλέον υπηρεσίες:</strong> Host aliasing (ψευδώνυμα), Mail server aliasing, Load distribution (Round Robin — κυκλική επιστροφή διαφορετικών IP για τον ίδιο ιστότοπο).</li>
+        </ul>
+
+        <h4>Η ιεραρχία των DNS servers</h4>
+        <table class="net-table">
+            <thead><tr><th>Επίπεδο</th><th>Ρόλος</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Root</strong></td><td>13 συστήματα παγκοσμίως → TLD</td></tr>
+                <tr><td><strong>TLD</strong></td><td><code>.com</code>, <code>.org</code>, <code>.gr</code> κ.λπ.</td></tr>
+                <tr><td><strong>Authoritative</strong></td><td>Έγκυρες εγγραφές οργανισμού</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="2"><strong>Local DNS:</strong> μεσάζων ISP/πανεπιστημίου — δεν ανήκει αυστηρά στην ιεραρχία.</td></tr></tfoot>
+        </table>
+
+        <h4>Τρόποι αναζήτησης (Queries)</h4>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Ροή</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Iterative</strong></td><td>Local DNS ρωτάει root → TLD → authoritative (μόνος του)</td></tr>
+                <tr><td><strong>Recursive</strong></td><td>Αίτημα προωθείται αλυσιδωτά, απάντηση επιστρέφει την ίδια διαδρομή</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Εγγραφές πόρων (Resource Records — RR)</h4>
+        <p>Μορφή: <code>(Name, Value, Type, TTL)</code></p>
+        <table class="net-table">
+            <thead><tr><th>Type</th><th>Name</th><th>Value</th></tr></thead>
+            <tbody>
+                <tr><td><strong>A</strong></td><td>Hostname</td><td>IP διεύθυνση</td></tr>
+                <tr><td><strong>NS</strong></td><td>Domain</td><td>Authoritative DNS server</td></tr>
+                <tr><td><strong>CNAME</strong></td><td>Ψευδώνυμο</td><td>Canonical hostname</td></tr>
+                <tr><td><strong>MX</strong></td><td>Domain</td><td>Mail server</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Εξέταση — DNS caching (Ερώτηση 20 τύπου)</h4>
+        <div class="net-scenario">
+            <span class="net-box-label">Σενάριο</span>
+            <p>Ο PC ρωτά τον τοπικό DNS για <code>bob.cs.vu.nl</code>. Ο τοπικός (iterative) ρωτά κατά σειρά: Root → TLD <code>.nl</code> → Authoritative για <code>vu.nl</code>.</p>
+            <p>Μετά την επίλυση, cache-άρει NS records για <code>.nl</code> και <code>vu.nl</code> (με TTL).</p>
+            <p>Επόμενη <code>charlie.vu.nl</code>: <strong>όχι</strong> ξανά Root (συχνά ούτε TLD) — κατευθείαν στον cached authoritative του <code>vu.nl</code>.</p>
+        </div>
+        <div class="net-exam">
+            <span class="net-box-label">Απάντηση τεστ</span>
+            <p>Εξοικονόμηση <strong>1–2 ανταλλαγών/RTT</strong>· κοινή cache για όλους στο ίδιο LAN.</p>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit2-supp3">
+        <h3>Συμπλήρωμα 3: Παγκόσμιος Ιστός (Web) και HTTP</h3>
+
+        <h4>Τι είναι το Web</h4>
+        <p>Το Web αποτελείται από ιστοσελίδες με αντικείμενα (HTML, JPEG, ήχος κ.λπ.) αποθηκευμένα σε <strong>Web servers</strong>. Το πρωτόκολλο επικοινωνίας είναι το <strong>HTTP</strong>:</p>
+        <ul>
+            <li>Χρησιμοποιεί <strong>TCP</strong> ως πρωτόκολλο μεταφοράς.</li>
+            <li>Είναι <strong>ακαταστατικό (stateless)</strong> — δεν διατηρεί πληροφορία για παλαιότερες συνδέσεις του πελάτη.</li>
+            <li>Μπορεί να λειτουργήσει με <strong>persistent</strong> ή <strong>non-persistent</strong> συνδέσεις (βλ. Συμπλήρωμα 4).</li>
+            <li>Τεχνολογίες: <strong>Cookies</strong> (κατάσταση χρήστη), <strong>Web Caches</strong> (προσωρινή αποθήκευση, μείωση καθυστερήσεων), <strong>Conditional GET</strong>.</li>
+        </ul>
+
+        <h4>Εξέλιξη HTTP — HOL Blocking</h4>
+        <ul>
+            <li><strong>HTTP/1.1 (FCFS):</strong> <strong>HOL blocking</strong> στο επίπεδο εφαρμογής — μικρά αντικείμενα καθυστερούν πίσω από τεράστια στην ίδια TCP σύνδεση.</li>
+            <li><strong>HTTP/2:</strong> Διαιρεί αντικείμενα σε <strong>frames</strong>, επιτρέπει <strong>interleaving</strong> — τα μικρά περνούν γρήγορα χωρίς να περιμένουν ολόκληρο μεγάλο αρχείο. <strong>Server push</strong>.</li>
+            <li><strong>Γιατί HTTP/3;</strong> Το HTTP/2 πατούσε σε <strong>μία TCP σύνδεση</strong> — απώλεια ενός TCP πακέτου «πάγωνε» όλες τις μεταδόσεις μέχρι αναμετάδοση. Το <strong>HTTP/3</strong> (πάνω σε <strong>UDP</strong> / QUIC) μεταφέρει αξιοπιστία ανά ροή — απώλεια σε μία ροή δεν μπλοκάρει τις άλλες.</li>
+        </ul>
+
+        <h4>Λεπτομερής δομή μηνυμάτων HTTP</h4>
+        <p>Ανατομία μηνύματος — Request και Response (απλό κείμενο ASCII).</p>
+
+        <h4>Α) Μήνυμα αίτησης (HTTP Request)</h4>
+        <ul>
+            <li><strong>Γραμμή αίτησης (Request line):</strong> μέθοδος, διαδρομή, έκδοση.<br>
+                Παράδειγμα: <code>GET /index.html HTTP/1.1</code></li>
+            <li><strong>Γραμμές κεφαλίδας (Header lines):</strong> επιπλέον πληροφορίες, π.χ.:
+                <ul>
+                    <li><code>Host: www.someschool.edu</code> — υποχρεωτικό στο HTTP/1.1</li>
+                    <li><code>User-Agent: Mozilla/5.0</code> — τύπος browser</li>
+                    <li><code>Accept-language: fr</code> — προτιμώμενη γλώσσα</li>
+                </ul>
+            </li>
+            <li><strong>Κενή γραμμή:</strong> διαχωρίζει κεφαλίδες από δεδομένα.</li>
+            <li><strong>Σώμα (Entity Body):</strong> στη μέθοδο <strong>POST</strong> για δεδομένα φόρμας (στο GET το σώμα είναι άδειο).</li>
+        </ul>
+
+        <h4>Β) Μήνυμα απόκρισης (HTTP Response)</h4>
+        <ul>
+            <li><strong>Γραμμή κατάστασης (Status line):</strong> έκδοση και κωδικός κατάστασης.<br>
+                Παράδειγμα: <code>HTTP/1.1 200 OK</code></li>
+            <li><strong>Γραμμές κεφαλίδας:</strong>
+                <ul>
+                    <li><code>Connection: close</code> — αν η σύνδεση τερματίζεται</li>
+                    <li><code>Last-Modified: [Date]</code> — κρίσιμο για Conditional GET</li>
+                    <li><code>Content-Type: text/html</code> — είδος αρχείου</li>
+                </ul>
+            </li>
+            <li><strong>Σώμα δεδομένων (Entity Body):</strong> HTML ή δεδομένα του αρχείου που ζητήθηκαν.</li>
+        </ul>
+
+        <h4>Δημοφιλείς κωδικοί κατάστασης (Status Codes)</h4>
+        <table class="net-table">
+            <thead><tr><th>Κωδικός</th><th>Σημασία</th></tr></thead>
+            <tbody>
+                <tr><td><strong>200 OK</strong></td><td>Επιτυχία — επιστρέφεται το αρχείο</td></tr>
+                <tr><td><strong>301 Moved Permanently</strong></td><td>Μετακίνηση — νέα διεύθυνση στο header</td></tr>
+                <tr><td><strong>400 Bad Request</strong></td><td>Συντακτικό λάθος αίτησης</td></tr>
+                <tr><td><strong>404 Not Found</strong></td><td>Το αρχείο δεν υπάρχει</td></tr>
+                <tr><td><strong>505 HTTP Version Not Supported</strong></td><td>Μη υποστηριζόμενη έκδοση HTTP</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit2-supp4">
+        <h3>Συμπλήρωμα 4: Υπολογισμός RTT στο HTTP (Άσκηση 28 τύπου)</h3>
+        <p>Κλασικό θέμα εξέτασης: χρόνος λήψης HTML + εικόνες. <strong>Βασικός κανόνας</strong> (αγνοώντας transmission time):</p>
+        <p class="net-formula"><code>1 RTT (TCP handshake) + 1 RTT (HTTP request/response) = 2 RTT ανά αντικείμενο</code></p>
+        <p>Σε persistent HTTP χωρίς pipelining, μετά το πρώτο αντικείμενο: <strong>1 RTT</strong> ανά επόμενο (η σύνδεση μένει ανοιχτή).</p>
+
+        <h4>Α. Μη παραμένον HTTP — χωρίς παράλληλες συνδέσεις</h4>
+        <p>Κάθε αντικείμενο = νέα TCP σύνδεση → <strong>2 RTT</strong> το καθένα.</p>
+        <p><strong>Παράδειγμα:</strong> 1 HTML + 8 εικόνες = <strong>9 αντικείμενα</strong> → <code>9 × 2 RTT = 18 RTT</code>.</p>
+
+        <h4>Β. Μη παραμένον HTTP — με X παράλληλες συνδέσεις (π.χ. 6)</h4>
+        <div class="net-box">
+            <ol>
+                <li>HTML πρώτο μόνο του: <strong>2 RTT</strong></li>
+                <li>Browser βλέπει 8 εικόνες — ανοίγει 6 παράλληλες συνδέσεις → όλες μαζί: <strong>2 RTT</strong></li>
+                <li>Υπόλοιπες 2 εικόνες: <strong>2 RTT</strong></li>
+            </ol>
+        </div>
+        <p class="net-formula"><code>Σύνολο = 2 + 2 + 2 = 6 RTT</code></p>
+
+        <h4>Γ. Παραμένον HTTP (Persistent)</h4>
+        <ul>
+            <li>HTML: <strong>2 RTT</strong> (handshake + request/response). Η σύνδεση μένει ανοιχτή.</li>
+            <li><strong>Χωρίς pipelining:</strong> κάθε από τα 8 αντικείμενα → 1 RTT → <code>2 + 8 = 10 RTT</code></li>
+            <li><strong>Με pipelining:</strong> όλα τα 8 αιτήματα μαζί, απαντήσεις μαζί → <code>2 + 1 = 3 RTT</code></li>
+        </ul>
+
+        <h4>Σύνοψη κανόνων εξέτασης</h4>
+        <table class="net-table">
+            <thead><tr><th>Σενάριο</th><th>RTT (1 HTML + 8 objects)</th></tr></thead>
+            <tbody>
+                <tr><td>Non-persistent, σειριακά</td><td>18 RTT</td></tr>
+                <tr><td>Non-persistent, 6 parallel</td><td>6 RTT</td></tr>
+                <tr><td>Persistent, no pipelining</td><td>10 RTT</td></tr>
+                <tr><td>Persistent + pipelining</td><td>3 RTT</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Μη μόνιμο vs μόνιμο (θεωρία)</h4>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Συμπεριφορά</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Non-persistent</strong> (HTTP/1.0)</td><td>1 αντικείμενο/σύνδεση → κλείσιμο TCP</td></tr>
+                <tr><td><strong>Persistent</strong> (HTTP/1.1)</td><td>Σύνδεση ανοιχτή — εξοικονόμηση RTT handshake</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit2-theory-2">
+        <h3>Θεωρία: P2P Διανομή Αρχείων &amp; BitTorrent</h3>
+        <p>Η αρχιτεκτονική P2P <strong>κλιμακώνει</strong> εξαιρετικά καλά — κάθε νέος χρήστης φέρνει και δική του ικανότητα upload.</p>
+
+        <h4>Μαθηματικά διανομής (αρχείο μεγέθους F, N πελάτες)</h4>
+        <table class="net-table">
+            <thead><tr><th>Αρχιτεκτονική</th><th>Ελάχιστος χρόνος</th><th>Κλιμάκωση</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Client-Server</strong></td><td><code>D_cs ≥ max{N·F/u_s, F/d_min}</code></td><td>Γραμμική με N</td></tr>
+                <tr><td><strong>P2P</strong></td><td><code>D_p2p ≥ max{F/u_s, F/d_min, N·F/(u_s+Σu_i)}</code></td><td>Τείνει σε σταθερά όταν N→∞</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3"><em>Σύμβολα:</em> <code>u_s</code> upload server, <code>d_min</code> min download, <code>u_i</code> upload πελάτη i</td></tr></tfoot>
+        </table>
+
+        <h4>BitTorrent</h4>
+        <ul>
+            <li>Το αρχείο διαιρείται σε <strong>chunks</strong> των 256 Kb.</li>
+            <li><strong>Tracker:</strong> server με λίστα ενεργών ομότιμων (torrent). Νέος πελάτης ζητά από τον tracker τους γείτονες.</li>
+            <li><strong>Rarest First</strong> (το σπανιότερο πρώτα): ζητά πρώτα chunks που λείπουν και είναι πιο σπάνια στους γείτονες — γρήγορη διάδοση στο δίκτυο.</li>
+            <li><strong>Tit-for-Tat</strong> (ανταποδοτικότητα): στέλνει δεδομένα (unchokes) μόνο στους κορυφαίους 4 (Top 4) που στέλνουν με τον υψηλότερο ρυθμό — επαναξιολόγηση κάθε 10 s.</li>
+            <li><strong>Optimistic Unchoke</strong> (αισιόδοξη απεμπλοκή): κάθε 30 s διαλέγει τυχαία έναν νέο ομότιμο και του στέλνει chunks. Όσο υψηλότερο upload rate, τόσο γρηγορότερο download.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit2-theory-3">
+        <h3>Θεωρία: Video Streaming και CDNs</h3>
+        <p>Η κίνηση βίντεο αποτελεί τον βασικό καταναλωτή πόρων στο Διαδίκτυο.</p>
+
+        <h4>Προκλήσεις</h4>
+        <ul>
+            <li>Τεράστια <strong>κλιμάκωση</strong> (εκατομμύρια χρήστες).</li>
+            <li><strong>Ετερογένεια</strong> δυνατοτήτων συσκευών και δικτύων.</li>
+        </ul>
+
+        <h4>Buffering (αποθήκευση αναπαραγωγής)</h4>
+        <p>Ο πελάτης αναπαράγει προγενέστερο μέρος του βίντεο ενώ κατεβάζει το επόμενο. Η καθυστέρηση αντισταθμίζει το <strong>jitter</strong> των καθυστερήσεων του δικτύου.</p>
+
+        <h4>DASH (Dynamic Adaptive Streaming over HTTP)</h4>
+        <ul>
+            <li>Ο server διαιρεί το βίντεο σε κομμάτια, κωδικοποιεί σε διαφορετικές ποιότητες (αποθήκευση σε CDNs). Τα URLs σε αρχείο <strong>manifest</strong>.</li>
+            <li>Η «εξυπνάδα» στον <strong>πελάτη</strong>: παρακολουθεί εύρος ζώνης και αποφασίζει πότε, από πού και με τι ποιότητα κατεβάζει το επόμενο chunk.</li>
+        </ul>
+
+        <h4>CDNs (Δίκτυα Διανομής Περιεχομένου)</h4>
+        <ul>
+            <li>Κατανεμημένη υποδομή (<strong>OTT — Over The Top</strong>) ώστε να μην καταρρεύσει το δίκτυο από φόρτο.</li>
+            <li>Αντίγραφα βίντεο σε πολλούς servers παγκοσμίως.</li>
+            <li><strong>Παράδειγμα Netflix:</strong> κατάλογος, λογαριασμοί, τιμολόγηση → κεντρικοί servers στο νέφος (Amazon Cloud). Η διανομή βίντεο (DASH) → servers του CDN.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit2-summary">
+        <h3>Σύνοψη: Σημαντικότερα Σχεδιαστικά Θέματα</h3>
+        <p>Το Επίπεδο Εφαρμογής συνοψίζεται στα εξής κρίσιμα διλήμματα:</p>
+        <table class="net-table">
+            <thead><tr><th>Δίλημμα</th><th>Επιλογές</th></tr></thead>
+            <tbody>
+                <tr><td>Δομή συστήματος</td><td>Client-Server vs P2P</td></tr>
+                <tr><td>Κατάσταση</td><td>Stateless (HTTP) vs Stateful (Cookies)</td></tr>
+                <tr><td>Κλιμάκωση</td><td>CDNs, P2P</td></tr>
+                <tr><td>Αξιοπιστία μεταφοράς</td><td>TCP vs UDP (best-effort)</td></tr>
+                <tr><td>Πολυπλοκότητα</td><td>Απλοί routers, έξυπνα άκρα (DASH, error recovery)</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="db-section" id="unit3">
+    <h2>Ενότητα 3 — Επίπεδο Μεταφοράς</h2>
+    <p class="db-desc">Υπηρεσίες μεταφοράς, UDP, TCP, rdt, pipelining, ροή, συμφόρηση, QUIC</p>
+
+    <div class="sub-section" id="unit3-s1">
+        <h3>1. Εισαγωγή στο Επίπεδο Μεταφοράς &amp; Υπηρεσίες</h3>
+        <p>Ο ρόλος του επιπέδου μεταφοράς είναι να παρέχει <strong>λογική επικοινωνία μεταξύ διεργασιών</strong> (εφαρμογών) που τρέχουν σε διαφορετικά τερματικά συστήματα.</p>
+
+        <h4>Σχέση με το Επίπεδο Δικτύου</h4>
+        <ul>
+            <li><strong>Επίπεδο Δικτύου (Network):</strong> λογική επικοινωνία μεταξύ <strong>hosts</strong> (host-to-host, από άκρο σε άκρο).</li>
+            <li><strong>Επίπεδο Μεταφοράς (Transport):</strong> λογική επικοινωνία μεταξύ <strong>διεργασιών</strong> (process-to-process). Βασίζεται στις υπηρεσίες του επιπέδου δικτύου και τις <strong>επεκτείνει</strong>.</li>
+        </ul>
+
+        <h4>Αναλογία (γράμματα)</h4>
+        <div class="net-quote">
+            <p>Δύο σπίτια (hosts). Στο ένα 12 παιδιά (διεργασίες) στέλνουν γράμματα σε 12 ξαδέρφια στο άλλο. Η ταχυδρομική υπηρεσία μεταφέρει από σπίτι σε σπίτι (<strong>Επίπεδο Δικτύου</strong>). Το παιδί που μαζεύει και μοιράζει τα γράμματα στα αδέρφια κάνει τη δουλειά του <strong>Επιπέδου Μεταφοράς</strong>.</p>
+        </div>
+
+        <h4>Πρωτόκολλα μεταφοράς στο Internet</h4>
+        <table class="net-table">
+            <thead><tr><th>Πρωτόκολλο</th><th>Χαρακτηριστικά</th></tr></thead>
+            <tbody>
+                <tr><td><strong>TCP</strong></td><td>Αξιόπιστο, connection-oriented, ροή &amp; συμφόρηση</td></tr>
+                <tr><td><strong>UDP</strong></td><td>Best-effort, connectionless</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Περιορισμοί υπηρεσιών Διαδικτύου</h4>
+        <p>Κανένα από τα δύο πρωτόκολλα στο Internet <strong>δεν μπορεί να εγγυηθεί</strong> καθυστέρηση (delay) ή ελάχιστο εύρος ζώνης (bandwidth). Το επίπεδο μεταφοράς του Διαδικτύου δεν παρέχει εγγυήσεις ως προς καθυστέρηση ή διαθέσιμο bandwidth.</p>
+    </div>
+
+    <div class="sub-section" id="unit3-s2">
+        <h3>2. Πολυπλεξία &amp; Αποπολυπλεξία (Multiplexing &amp; Demultiplexing)</h3>
+        <p>Βασικότερη λειτουργία του επιπέδου μεταφοράς — διαχείριση δεδομένων στις «πόρτες» (sockets) των εφαρμογών. Οι λειτουργίες λαμβάνουν χώρα σε όλα τα επίπεδα και βασίζονται στις τιμές των <strong>κεφαλίδων</strong>.</p>
+
+        <ul>
+            <li><strong>Πολυπλεξία (στην πηγή / αποστολέας):</strong> συγκέντρωση δεδομένων από διαφορετικά sockets, προσθήκη κεφαλίδας μεταφοράς (δημιουργία <strong>segments</strong>), προώθηση στο επίπεδο δικτύου.</li>
+            <li><strong>Αποπολυπλεξία (στον προορισμό / παραλήπτης):</strong> παράδοση δεδομένων στο σωστό socket της διεργασίας. Ο host χρησιμοποιεί διευθύνσεις IP και αριθμούς θύρας από την κεφαλίδα.</li>
+        </ul>
+
+        <h4>Πεδία για αναγνώριση socket</h4>
+        <ul>
+            <li>Source Port Number</li>
+            <li>Destination Port Number</li>
+        </ul>
+
+        <h4>Αποπολυπλεξία UDP vs TCP</h4>
+        <table class="net-table">
+            <thead><tr><th></th><th>UDP</th><th>TCP</th></tr></thead>
+            <tbody>
+                <tr><td>Tuple</td><td><strong>2-tuple:</strong> (Dest IP, Dest Port)</td><td><strong>4-tuple:</strong> (Src IP, Src Port, Dest IP, Dest Port)</td></tr>
+                <tr><td>Συμπεριφορά</td><td>Ίδιο socket για ίδια Dest IP/Port</td><td>Διαφορετικό socket αν αλλάξει Src IP ή Src Port</td></tr>
+                <tr><td>Παράδειγμα</td><td>DNS queries</td><td>Web server: νέο socket/thread ανά πελάτη</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit3-s3">
+        <h3>3. Πρωτόκολλο UDP (User Datagram Protocol)</h3>
+        <p>Το UDP [RFC 768] είναι το απλούστερο πρωτόκολλο μεταφοράς — «γυμνό», ελάχιστο επίπεδο υπηρεσιών πάνω από το IP.</p>
+
+        <h4>Χαρακτηριστικά</h4>
+        <ul>
+            <li><strong>Best-effort / βέλτιστη προσπάθεια:</strong> τμήματα μπορεί να χαθούν ή να φτάσουν εκτός σειράς — στέλνονται «με ευχές για το καλύτερο».</li>
+            <li><strong>Connectionless / ασυνδεσμικό:</strong> χωρίς handshaking· κάθε τμήμα ανεξάρτητο· χωρίς κατάσταση σύνδεσης στον server.</li>
+        </ul>
+
+        <h4>Γιατί χρησιμοποιείται;</h4>
+        <ul>
+            <li>Χωρίς καθυστέρηση εγκαθίδρυσης σύνδεσης (σημαντικό για <strong>DNS</strong>).</li>
+            <li>Απλότητα — χωρίς connection state.</li>
+            <li>Μικρή κεφαλίδα (<strong>8 bytes</strong>, έναντι 20 του TCP).</li>
+            <li>Χωρίς έλεγχο συμφόρησης — συνεχής αποστολή («εκρήξεις») ακόμα και σε συμφόρηση (streaming βίντεο/VoIP).</li>
+        </ul>
+        <p><strong>Εφαρμογές:</strong> multimedia streaming, DNS, SNMP, HTTP/3.</p>
+
+        <h4>Δομή κεφαλίδας UDP (8 bytes)</h4>
+        <ul>
+            <li><strong>Source Port</strong> (2 bytes)</li>
+            <li><strong>Destination Port</strong> (2 bytes)</li>
+            <li><strong>Length</strong> (2 bytes) — μήκος τμήματος UDP συμπεριλαμβανομένης κεφαλίδας</li>
+            <li><strong>Checksum</strong> (2 bytes) — ανίχνευση σφαλμάτων (bit flips)</li>
+        </ul>
+
+        <h4>Μηχανισμός Checksum (άθροισμα ελέγχου)</h4>
+        <p><strong>Αποστολέας:</strong> περιεχόμενα ως 16-bit ακέραιοι → πρόσθεση με <strong>1's complement sum</strong> → carry από MSB προστίθεται στο τέλος (end-around carry) → συμπλήρωμα ως προς 1 (αντιστροφή bits) → πεδίο Checksum.</p>
+        <p><strong>Δέκτης:</strong> πρόσθεση όλων των 16-bit λέξεων + Checksum. Αν αποτέλεσμα μόνο άσσοι (1111…1111) → OK. Αν έστω ένα 0 → σφάλμα, απορρίπτεται.</p>
+        <p>Το UDP <strong>ανιχνεύει</strong> σφάλμα, <strong>δεν διορθώνει</strong> (χωρίς επαναμετάδοση). <strong>Αδυναμία:</strong> πολλαπλά σφάλματα μπορεί να αλληλοεξουδετερωθούν και να μην ανιχνευτούν.</p>
+    </div>
+
+    <div class="sub-section" id="unit3-s4">
+        <h3>4. Αρχές Αξιόπιστης Μεταφοράς (rdt)</h3>
+        <p>Η αξιόπιστη μεταφορά είναι στα σημαντικότερα θέματα δικτύωσης — επιλύει απώλειες και σφάλματα καναλιού. Χτίσιμο βήμα-βήμα πάνω από αναξιόπιστο κανάλι.</p>
+        <p><strong>Μηχανές Πεπερασμένων Καταστάσεων (FSM):</strong> περιγραφή πρωτοκόλλων rdt — τι ενέργειες σε κάθε συμβάν/κατάσταση.</p>
+
+        <h4>rdt 1.0 — Αξιόπιστο υποκείμενο κανάλι</h4>
+        <p>Κανάλι 100% αξιόπιστο (χωρίς απώλειες/σφάλματα). Αποστολέας στέλνει, δέκτης δέχεται.</p>
+
+        <h4>rdt 2.0 — Κανάλι με σφάλματα bit (ανίχνευση &amp; ανάκτηση)</h4>
+        <p>Κανάλι αλλοιώνει bits, δεν χάνει πακέτα. <strong>ARQ</strong>:</p>
+        <ul>
+            <li>Ανίχνευση σφαλμάτων (Checksum)</li>
+            <li><strong>ACK</strong> (Positive Acknowledgment) — «το έλαβα σωστά»</li>
+            <li><strong>NAK</strong> (Negative Acknowledgment) — «κατεστραμμένο, ξαναστείλε»</li>
+            <li><strong>Stop-and-Wait:</strong> ένα πακέτο, αναμονή ACK/NAK, μετά επόμενο</li>
+        </ul>
+
+        <h4>rdt 2.1 — Κατεστραμμένα ACK/NAK</h4>
+        <p>Αν ACK/NAK καταστραφεί, ο αποστολέας ξαναστέλνει → κίνδυνος <strong>διπλότυπων πακέτων</strong>. Λύση: <strong>sequence number</strong> (0 και 1 για Stop-and-Wait). Δέκτης που περιμένει 0 και λαμβάνει ξανά 0 → διπλότυπο, απορρίπτει, ξαναστέλνει ACK.</p>
+
+        <h4>rdt 2.2 — NAK-free</h4>
+        <p>Αντί NAK, δέκτης στέλνει ACK με ρητό sequence number του τελευταίου σωστού πακέτου. Διπλότυπο ACK (π.χ. έστειλε 1, έλαβε ξανά ACK 0) → πακέτο 1 δεν έφτασε → επαναμετάδοση (όπως στο TCP).</p>
+
+        <h4>rdt 3.0 — Σφάλματα bit και απώλειες</h4>
+        <p>Κανάλι χάνει πακέτα ή ACKs. Λύση: <strong>Countdown Timer / Timeout</strong>. Αν δεν έρθει ACK εγκαίρως → επαναμετάδοση. (Εύλογο χρονικό διάστημα / χρονομετρητής.)</p>
+    </div>
+
+    <div class="sub-section" id="unit3-s5">
+        <h3>5. Διοχετευμένη Μεταφορά (Pipelined Protocols)</h3>
+        <p>Το rdt 3.0 (Stop-and-Wait) έχει κακή αξιοποίηση — η γραμμή μένει άδεια κατά την αναμονή ACK.</p>
+
+        <h4>Απόδοση Stop-and-Wait</h4>
+        <p>Έστω <code>L</code> μέγεθος πακέτου (bits), <code>R</code> ρυθμός (bps), <code>RTT</code> χρόνος κυκλικής διαδρομής.</p>
+        <p class="net-formula"><code>d_trans = L / R</code></p>
+        <p class="net-formula"><code>U_sender = (L/R) / (RTT + L/R)</code></p>
+
+        <h4>Διοχέτευση (Pipelining)</h4>
+        <p>Πολλαπλά πακέτα ταυτόχρονα χωρίς αναμονή ACK — παράθυρο μεγέθους <code>W</code>:</p>
+        <p class="net-formula"><code>U_sender = (W · L/R) / (RTT + L/R)</code></p>
+
+        <table class="net-table">
+            <thead><tr><th></th><th>Go-Back-N (GBN)</th><th>Selective Repeat (SR)</th></tr></thead>
+            <tbody>
+                <tr><td>ACK</td><td>Cumulative</td><td>Individual ανά πακέτο</td></tr>
+                <tr><td>Δέκτης</td><td>Μόνο επόμενο αναμενόμενο — απορρίπτει εκτός σειράς</td><td>Buffer εκτός σειράς, παράδοση όταν συμπληρωθούν κενά</td></tr>
+                <tr><td>Timeout</td><td>Επαναμετάδοση <strong>όλων</strong> από n</td><td>Επαναμετάδοση <strong>μόνο</strong> χαμένου</td></tr>
+                <tr><td>Χρονόμετρο</td><td>Ένα ενιαίο</td><td>Ξεχωριστό ανά πακέτο</td></tr>
+                <tr><td>Περιορισμός</td><td>—</td><td><code>W ≤ Max_Seq / 2</code></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit3-s6">
+        <h3>6. Πρωτόκολλο TCP — Βασικά &amp; Κεφαλίδα</h3>
+        <p>Το TCP [RFC 793] είναι το κυρίαρχο αξιόπιστο πρωτόκολλο. <strong>Συνδεσιστρεφές και αξιόπιστο.</strong></p>
+
+        <h4>Βασικά χαρακτηριστικά</h4>
+        <ul>
+            <li><strong>Point-to-point:</strong> μία σύνδεση = ένας αποστολέας + ένας δέκτης.</li>
+            <li><strong>Reliable, in-order byte stream:</strong> χωρίς όρια μηνυμάτων — συνεχής ροή bytes.</li>
+            <li><strong>Pipelined:</strong> έλεγχος συμφόρησης και ροής μέσω παραθύρου.</li>
+            <li><strong>Full duplex:</strong> ταυτόχρονη ροή και προς τις δύο κατευθύνσεις.</li>
+            <li><strong>Connection-oriented:</strong> handshaking πριν την ανταλλαγή.</li>
+        </ul>
+
+        <h4>Δομή κεφαλίδας TCP (20 bytes — χωρίς options)</h4>
+        <ul>
+            <li><strong>Source Port</strong> &amp; <strong>Destination Port</strong> (16 bits έκαστο)</li>
+            <li><strong>Sequence Number</strong> (32 bits) — αριθμός πρώτου byte των δεδομένων του τμήματος</li>
+            <li><strong>Acknowledgment Number</strong> (32 bits) — επόμενο αναμενόμενο byte (Cumulative ACK)</li>
+            <li><strong>Header Length</strong> (4 bits)</li>
+            <li><strong>Flags</strong> (6 bits): <code>SYN</code> (εγκαθίδρυση), <code>FIN</code> (τερματισμός), <code>RST</code> (επανεκκίνηση), <code>ACK</code> (έγκυρο Ack No)</li>
+            <li><strong>Receive Window</strong> (16 bits) — έλεγχος ροής</li>
+            <li><strong>Checksum</strong> (16 bits)</li>
+        </ul>
+
+        <h4>Αριθμοί ακολουθίας &amp; ACKs</h4>
+        <ul>
+            <li>Sequence number μετράει <strong>bytes</strong> (όχι τμήματα) — πρώτο byte στο segment.</li>
+            <li>ACK = επόμενο αναμενόμενο byte από την άλλη πλευρά.</li>
+            <li>Επιβεβαιώσεις <strong>συσσωρευτικές</strong> (cumulative).</li>
+            <li>Διαχείριση εκτός σειράς τμημάτων: η προδιαγραφή TCP <strong>δεν καθορίζει</strong> πώς — εναπόκειται στην υλοποίηση.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit3-s7">
+        <h3>7. TCP — Διαχείριση Χρονικού Ορίου (Timeout)</h3>
+        <p>Το <code>TimeoutInterval</code> πρέπει να είναι &gt; RTT, αλλά το RTT αλλάζει συνεχώς.</p>
+
+        <h4>Μαθηματικοί υπολογισμοί RTT</h4>
+        <div class="net-box">
+            <ul>
+                <li><strong>SampleRTT:</strong> αποστολή τμήματος → ACK (χωρίς retransmit)</li>
+                <li><strong>EstimatedRTT:</strong> <code>(1−α)·EstRTT + α·SampleRTT</code> (<code>α=0.125</code>)</li>
+                <li><strong>DevRTT:</strong> <code>(1−β)·DevRTT + β·|SampleRTT−EstRTT|</code> (<code>β=0.25</code>)</li>
+                <li><strong>TimeoutInterval:</strong> <code>EstimatedRTT + 4·DevRTT</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit3-s8">
+        <h3>8. Αξιόπιστη Μεταφορά στο TCP</h3>
+        <p>TCP δημιουργεί αξιόπιστη υπηρεσία πάνω από αναξιόπιστο IP — ενιαίο χρονόμετρο επαναμετάδοσης.</p>
+        <div class="net-exam">
+            <span class="net-box-label">Fast Retransmit</span>
+            <p>3 διπλότυπα ACKs (4 ACKs συνολικά για το ίδιο πακέτο) → επόμενο πακέτο χάθηκε → επαναμετάδοση <strong>αμέσως</strong>, πριν timeout.</p>
+        </div>
+
+        <h4>Σενάρια δημιουργίας ACK (RFC 5681)</h4>
+        <ul>
+            <li><strong>Σωστή σειρά, χωρίς κενά:</strong> καθυστέρηση ACK έως 500 ms για επόμενο τμήμα· αν δεν έρθει, στέλνει ACK.</li>
+            <li><strong>Σωστή σειρά, εκκρεμεί άλλο ACK:</strong> αμέσως ενιαίο cumulative ACK και για τα δύο.</li>
+            <li><strong>Εκτός σειράς (gap):</strong> αμέσως duplicate ACK με byte που πραγματικά περίμενε.</li>
+            <li><strong>Τμήμα καλύπτει κενό:</strong> αμέσως ACK αν ξεκινά από χαμηλότερο άκρο κενού.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit3-s9">
+        <h3>9. Διαχείριση Σύνδεσης TCP (Handshaking)</h3>
+
+        <div class="net-note">
+            <span class="net-box-label">Πρόβλημα 2-way handshake</span>
+            <p>Απλή διμερής χειραψία → «μισάνοιχτες συνδέσεις» (half-open) ή αποδοχή διπλότυπων παλαιών δεδομένων.</p>
+        </div>
+
+        <h4>Εγκαθίδρυση — 3-way Handshake</h4>
+        <div class="net-box">
+            <span class="net-box-label">Βήματα</span>
+            <ol>
+                <li><strong>Client → Server:</strong> SYN (SYN=1), τυχαίος <code>client_isn</code>. Χωρίς δεδομένα εφαρμογής.</li>
+                <li><strong>Server → Client:</strong> SYN-ACK (SYN=1, ACK=1). Ack No = <code>client_isn + 1</code>, <code>server_isn</code>. Δέσμευση buffers/πόρων.</li>
+                <li><strong>Client → Server:</strong> ACK (ACK=1). Ack No = <code>server_isn + 1</code>. Μπορεί να περιέχει δεδομένα εφαρμογής.</li>
+            </ol>
+            <p>Σύντομα: SYN(x) → SYNACK(ACK=x+1, y) → ACK(ACK=y+1).</p>
+        </div>
+
+        <h4>Τερματισμός σύνδεσης</h4>
+        <div class="net-box">
+            <p>Κάθε πλευρά κλείνει τη δική της κατεύθυνση ανεξάρτητα:</p>
+            <ol>
+                <li>Client: FIN=1</li>
+                <li>Server: ACK + εναπομείναντα δεδομένα, μετά FIN=1</li>
+                <li>Client: ACK → <strong>TIME_WAIT</strong> (30–120 s), μετά οριστικό κλείσιμο</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit3-s10">
+        <h3>10. Έλεγχος Ροής TCP (Flow Control)</h3>
+        <p>Σκοπός: ο αποστολέας να μην ξεχειλίσει το buffer του δέκτη.</p>
+
+        <ul>
+            <li>Δέκτης: τιμή στο πεδίο <strong>Receive Window (rwnd)</strong> της κεφαλίδας TCP.</li>
+            <li><code>rwnd = RcvBuffer − (LastByteRcvd − LastByteRead)</code></li>
+            <li>Περιορισμός αποστολέα: <code>LastByteSent − LastByteAcked ≤ rwnd</code></li>
+            <li><strong>Ειδική περίπτωση rwnd = 0:</strong> αποστολέας στέλνει περιοδικά τμήματα 1 byte για να μαθαίνει πότε άνοιξε ξανά ο buffer.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit3-s11">
+        <h3>11. Αρχές Ελέγχου Συμφόρησης</h3>
+        <p><strong>Συμφόρηση:</strong> πολλές πηγές στέλνουν πολλά δεδομένα πολύ γρήγορα → δρομολογητές δεν τα διαχειρίζονται → μεγάλες καθυστερήσεις (ουρές) και απώλειες (overflow buffers).</p>
+
+        <h4>Προσεγγίσεις</h4>
+        <ul>
+            <li><strong>Network-assisted:</strong> δρομολογητές ενημερώνουν hosts (π.χ. bits <strong>ECN</strong> στο IP).</li>
+            <li><strong>End-to-end («Classic» TCP):</strong> το δίκτυο δεν βοηθά. Hosts ανιχνεύουν συμφόρηση από απώλειες και καθυστερήσεις — αποκλειστικά από άκρη σε άκρη.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit3-s12">
+        <h3>12. Έλεγχος Συμφόρησης στο TCP</h3>
+        <p>TCP ελέγχει ρυθμό με <strong>Congestion Window (cwnd)</strong>.</p>
+        <p class="net-formula"><code>Ρυθμός αποστολής ≈ cwnd / RTT bytes/sec</code></p>
+        <p class="net-formula"><code>Μη επιβεβαιωμένα δεδομένα ≤ min(cwnd, rwnd)</code></p>
+
+        <h4>AIMD (Additive Increase, Multiplicative Decrease)</h4>
+        <ul>
+            <li><strong>Additive Increase:</strong> αν δεν υπάρχουν απώλειες, cwnd +1 MSS ανά RTT — «ψάχνει» bandwidth.</li>
+            <li><strong>Multiplicative Decrease:</strong> σε απώλεια, cwnd μειώνεται κατά 50% (εκτός αν timeout).</li>
+        </ul>
+
+        <h4>3 φάσεις (TCP Tahoe &amp; Reno)</h4>
+        <p><strong>1. Slow Start</strong> (παρά το όνομα, εκθετική αύξηση):</p>
+        <ul>
+            <li>Αρχή: <code>cwnd = 1 MSS</code></li>
+            <li>Διπλασιάζεται κάθε RTT (1 → 2 → 4 → 8…) — +1 MSS ανά ACK</li>
+            <li>Σταματά όταν <code>cwnd ≥ ssthresh</code> (Slow Start Threshold)</li>
+        </ul>
+        <p><strong>2. Congestion Avoidance:</strong> όταν <code>cwnd &gt; ssthresh</code> — γραμμική αύξηση +1 MSS/RTT (AIMD).</p>
+        <p><strong>3. Διαχείριση απωλειών:</strong></p>
+        <ul>
+            <li><strong>Timeout</strong> (Tahoe &amp; Reno): <code>ssthresh = cwnd/2</code>, <code>cwnd = 1 MSS</code>, Slow Start.</li>
+            <li><strong>3 Duplicate ACKs</strong> (Fast Retransmit):
+                <ul>
+                    <li><strong>TCP Tahoe:</strong> όπως timeout (cwnd=1, Slow Start).</li>
+                    <li><strong>TCP Reno (Fast Recovery):</strong> ήπια συμφόρηση (έρχονται ACKs). <code>ssthresh = cwnd/2</code>, <code>cwnd = ssthresh + 3 MSS</code> (ή ssthresh). Συνέχεια γραμμικής αύξησης (Congestion Avoidance), παράκαμψη Slow Start.</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>CUBIC:</strong> νεότερη παραλλαγή αλγορίθμου συμφόρησης.</p>
+    </div>
+
+    <div class="sub-section" id="unit3-s13">
+        <h3>13. Δικαιοσύνη TCP &amp; Εξέλιξη Επιπέδου Μεταφοράς</h3>
+
+        <h4>TCP Fairness</h4>
+        <p>Αλγόριθμος συμφόρησης είναι <strong>δίκαιος</strong> αν K συνδέσεις TCP μοιράζονται ζεύξη χωρητικότητας R και κάθε σύνδεση παίρνει ~<code>R/K</code>.</p>
+        <p>Το TCP είναι δίκαιο χάρη στο <strong>AIMD</strong> — συνδέσεις με πολύ bandwidth μειώνουν περισσότερο τον ρυθμό. <strong>UDP</strong> (multimedia) συχνά <strong>δεν είναι δίκαιο</strong> — δεν μειώνει ρυθμό στη συμφόρηση.</p>
+
+        <h4>Εξέλιξη επιπέδου μεταφοράς</h4>
+        <ul>
+            <li>TCP και UDP ήταν τα βασικά πρωτόκολλα για ~40 χρόνια.</li>
+            <li>Παραλλαγές TCP για <strong>«long, fat pipes»</strong> (τεράστιο bandwidth + μεγάλη καθυστέρηση) — πολλά πακέτα «σε πτήση».</li>
+            <li>Σύγχρονη τάση: λειτουργίες μεταφοράς στο <strong>Επίπεδο Εφαρμογής</strong>, πάνω από γρήγορο UDP.</li>
+            <li><strong>QUIC</strong> (HTTP/3): application-layer protocol με in-house αξιοπιστία, ροή και συμφόρηση πάνω σε UDP — ξεπερνά περιορισμούς παραδοσιακού TCP.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section net-exam-section" id="unit3-exam">
+        <h3>Συμπλήρωμα εξέτασης — Εφαρμογές &amp; Μεταφορά</h3>
+        <p>Κλασικά θέματα εξέτασης (σχετικά με κεφ. 2–3). Αναλυτική έκδοση στην <a href="#unit2-theory-1">Ενότητα 2</a>· εδώ με έμφαση στη σύνδεση με <strong>TCP/UDP/QUIC</strong>.</p>
+
+        <h4>1. Χαρακτηριστικά εφαρμογών &amp; ορισμοί</h4>
+        <p><strong>Τι ορίζει πρωτόκολλο επιπέδου εφαρμογής;</strong> Σωστή απάντηση: <strong>όλα τα παραπάνω</strong> — τύποι μηνυμάτων, σύνταξη/φορμάτ/σημασία, κανόνες πότε και πώς στέλνουν ή απαντούν.</p>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Bandwidth</th><th>Απώλειες</th><th>Μεταφορά</th></tr></thead>
+            <tbody>
+                <tr><td>Ελαστική (e-mail, Web)</td><td>Προσαρμόζεται</td><td>Όχι ανεκτική</td><td><strong>TCP</strong></td></tr>
+                <tr><td>Real-time (VoIP, streaming)</td><td>Ελάχιστο εγγυημένο</td><td>Ανεκτική (μερικώς)</td><td>TCP ή UDP</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Sockets:</strong> επικοινωνία <strong>end-to-end</strong> και <strong>process-to-process</strong>. Στο P2P κάθε ομότιμος έχει ταυτόχρονα διεργασίες πελάτη και εξυπηρετητή. Στο επίπεδο μεταφοράς: TCP <strong>4-tuple</strong> ή UDP <strong>2-tuple</strong> για αποπολυπλεξία στο σωστό socket.</p>
+
+        <h4>2. Υπολογισμός RTT στο HTTP (Άσκηση 28)</h4>
+        <div class="net-exam">
+            <span class="net-box-label">Κανόνας</span>
+            <p><code>1 RTT (TCP handshake) + 1 RTT (HTTP) = 2 RTT</code> ανά αντικείμενο σε non-persistent HTTP. Το handshake είναι κόστος <strong>μεταφοράς</strong> (SYN, SYN-ACK, ACK).</p>
+        </div>
+        <table class="net-table">
+            <thead><tr><th>Σενάριο (1 HTML + 8 objects)</th><th>Σύνολο RTT</th></tr></thead>
+            <tbody>
+                <tr><td>Α. Non-persistent, χωρίς parallel</td><td><code>9 × 2 = 18 RTT</code></td></tr>
+                <tr><td>Β. Non-persistent, 6 parallel</td><td><code>2 + 2 + 2 = 6 RTT</code> (HTML, 6 εικόνες, 2 εικόνες)</td></tr>
+                <tr><td>Γ. Persistent, χωρίς pipelining</td><td><code>2 + 8 = 10 RTT</code></td></tr>
+                <tr><td>Γ. Persistent + pipelining</td><td><code>2 + 1 = 3 RTT</code></td></tr>
+            </tbody>
+        </table>
+        <p>Σε persistent HTTP: μετά το πρώτο αντικείμενο, η TCP σύνδεση μένει ανοιχτή — εξοικονόμηση 1 RTT handshake ανά επόμενο object.</p>
+
+        <h4>3. DNS caching (Ερώτηση 20 τύπου)</h4>
+        <div class="net-scenario">
+            <p>Επίλυση <code>bob.cs.vu.nl</code>: local DNS → Root → TLD <code>.nl</code> → Authoritative <code>vu.nl</code>. Cache NS για <code>.nl</code> και <code>vu.nl</code>.</p>
+            <p>Επόμενη <code>charlie.vu.nl</code>: κατευθείαν στον cached authoritative — <strong>όχι</strong> ξανά Root/TLD.</p>
+        </div>
+        <div class="net-exam">
+            <span class="net-box-label">Απάντηση τεστ</span>
+            <p>Εξοικονόμηση <strong>1–2 RTT</strong>· κοινή cache στο LAN. DNS: <strong>UDP</strong>, θύρα <strong>53</strong>.</p>
+        </div>
+
+        <h4>4. HTTP/2, HTTP/3 &amp; HOL Blocking (σύνδεση με TCP/UDP)</h4>
+        <table class="net-table">
+            <thead><tr><th>Έκδοση</th><th>Μεταφορά</th><th>HOL blocking</th></tr></thead>
+            <tbody>
+                <tr><td><strong>HTTP/1.1</strong></td><td>TCP</td><td>Εφαρμογής — FCFS στην ίδια σύνδεση</td></tr>
+                <tr><td><strong>HTTP/2</strong></td><td>Μία TCP + interleaving frames</td><td>Λύνει HOL HTTP· όχι TCP HOL</td></tr>
+                <tr><td><strong>HTTP/3</strong></td><td><strong>QUIC</strong> πάνω από UDP</td><td>Ξεχωριστές ροές — απώλεια σε μία δεν μπλοκάρει άλλες</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3">Βλ. <a href="#unit3-s13">§13 QUIC</a></td></tr></tfoot>
+        </table>
+    </div>
+</section>
+
+<section class="db-section" id="unit4">
+    <h2>Ενότητα 4 — Επίπεδο Δικτύου (Επίπεδο Δεδομένων)</h2>
+    <p class="db-desc">Προώθηση, IP, δρομολογητές, διευθυνσιοδότηση, NAT, IPv6, SDN, middleboxes — Κεφάλαιο 4 (Kurose &amp; Ross)</p>
+
+    <div class="sub-section" id="unit4-goals">
+        <h3>Στόχοι κεφαλαίων 4 &amp; 5</h3>
+        <p><strong>Αρχές</strong> (εστίαση στο επίπεδο δεδομένων):</p>
+        <ul>
+            <li>Μοντέλα υπηρεσιών επιπέδου δικτύου</li>
+            <li>Προώθηση έναντι δρομολόγησης (forwarding vs routing)</li>
+            <li>Λειτουργία δρομολογητή, διευθυνσιοδότηση, γενικευμένη προώθηση</li>
+            <li>Αρχιτεκτονική Διαδικτύου</li>
+        </ul>
+        <p><strong>Πραγμάτωση στο Διαδίκτυο:</strong> IP, NAT, ενδιάμεσα κουτιά.</p>
+        <p><strong>Πρωτόκολλα δρομολόγησης</strong> (κεφ. 5 — επίπεδο ελέγχου): εσωτερική δρομολόγηση (OSPF, RIP) και μεταξύ αυτονομιών (BGP). Οι πίνακες προώθησης/ροής υπολογίζονται από το επίπεδο ελέγχου → <a href="#unit5">Ενότητα 5</a>.</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s1">
+        <h3>Επίπεδο δικτύου: βασικές λειτουργίες</h3>
+        <p>Το επίπεδο δικτύου μεταφέρει τμήματα (segments) από αποστολέα σε παραλήπτη. Πρωτόκολλα επιπέδου δικτύου τρέχουν σε κάθε συσκευή του Διαδικτύου (hosts, routers).</p>
+        <p>Ο <strong>δρομολογητής</strong> εξετάζει κεφαλίδες όλων των IP datagrams, τα μετακινεί από θύρες εισόδου σε θύρες εξόδου προς τον τελικό προορισμό.</p>
+
+        <h4>Δύο λειτουργίες κλειδιά</h4>
+        <div class="net-box">
+            <ul>
+                <li><strong>Προώθηση (forwarding):</strong> τοπική — πακέτο από είσοδο στην κατάλληλη έξοδο (διέλευση κυκλικού κόμβου).</li>
+                <li><strong>Δρομολόγηση (routing):</strong> καθορισμός διαδρομής πηγή→προορισμός (σχεδιασμός ταξιδιού).</li>
+            </ul>
+        </div>
+
+        <h4>Επίπεδο δεδομένων vs επίπεδο ελέγχου</h4>
+        <table class="net-table">
+            <thead><tr><th></th><th>Επίπεδο δεδομένων</th><th>Επίπεδο ελέγχου</th></tr></thead>
+            <tbody>
+                <tr><td>Εμβέλεια</td><td>Τοπική, ανά δρομολογητή</td><td>Σε εύρος δικτύου</td></tr>
+                <tr><td>Απόφαση</td><td>Ποιο datagram από ποια είσοδο → ποια έξοδος</td><td>Ποια διαδρομή (σειρά routers) πηγή→προορισμός</td></tr>
+                <tr><td>Υλοποίηση</td><td>Υλικό, nanoseconds</td><td>Λογισμικό, milliseconds</td></tr>
+                <tr><td>Προσεγγίσεις</td><td>Πίνακας προώθησης</td><td>Αλγόριθμοι σε routers <em>ή</em> SDN controller</td></tr>
+            </tbody>
+        </table>
+        <p><strong>Ανά δρομολογητή:</strong> routing algorithm + data plane αλληλεπιδρούν στο control plane κάθε router.</p>
+        <p><strong>SDN:</strong> απομακρυσμένος controller + control agents (CA) σε κάθε router — κεντρικοποιημένο control plane.</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s2">
+        <h3>Μοντέλα υπηρεσιών επιπέδου δικτύου</h3>
+        <p>Ερώτηση: ποιο μοντέλο υπηρεσίας για το «κανάλι» datagrams αποστολέα→δέκτη;</p>
+        <ul>
+            <li>Ανά datagram: εγγυημένη παράδοση, εγγυημένη καθυστέρηση &lt; 40 ms</li>
+            <li>Ανά ροή: σε σειρά παράδοση, εγγυημένο ελάχιστο bandwidth, περιορισμοί jitter</li>
+        </ul>
+
+        <table class="net-table">
+            <thead><tr><th>Αρχιτεκτονική</th><th>Μοντέλο</th><th>Εύρος ζώνης</th><th>Απώλειες</th><th>Σειρά</th><th>Χρονισμός</th></tr></thead>
+            <tbody>
+                <tr><td>Internet</td><td>Best effort</td><td>καμία</td><td>όχι</td><td>όχι</td><td>όχι</td></tr>
+                <tr><td>ATM</td><td>CBR</td><td>σταθερός ρυθμός</td><td>ναι</td><td>ναι</td><td>ναι</td></tr>
+                <tr><td>ATM</td><td>VBR</td><td>εγγυημένος ρυθμός</td><td>ναι</td><td>ναι</td><td>ναι</td></tr>
+                <tr><td>ATM</td><td>ABR</td><td>ελάχιστος εγγυημένος</td><td>όχι</td><td>ναι</td><td>όχι</td></tr>
+                <tr><td>ATM</td><td>UBR</td><td>καμία</td><td>όχι</td><td>ναι</td><td>όχι</td></tr>
+                <tr><td>Internet Intserv</td><td>Guaranteed</td><td>ναι</td><td>ναι</td><td>ναι</td><td>ναι</td></tr>
+                <tr><td>Internet Diffserv</td><td>—</td><td>πιθανόν</td><td>πιθανόν</td><td>πιθανόν</td><td>όχι</td></tr>
+            </tbody>
+        </table>
+        <p>Το Διαδίκτυο: <strong>best effort</strong> — καμία εγγύηση παράδοσης, σειράς, χρονισμού, bandwidth.</p>
+        <p><strong>Γιατί επιτυχία best effort:</strong> απλότητα → κλιμάκωση· επαρκές bandwidth για real-time εφαρμογές· CDNs κοντά στον χρήστη· congestion control σε «ελαστικές» υπηρεσίες (TCP).</p>
+        <p>Επέκταση QoS (Intserv/Diffserv) χωρίς συμφόρηση — πρόβλημα κλιμάκωσης, υψηλή κατανάλωση πόρων στους routers.</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s3">
+        <h3>Αρχιτεκτονική δρομολογητή</h3>
+        <p>Συστατικά: <strong>θύρες εισόδου</strong>, <strong>switching fabric</strong> (υλικό, ns), <strong>θύρες εξόδου</strong>, <strong>routing processor</strong> (control plane, ms).</p>
+
+        <h4>Λειτουργίες θύρας εισόδου</h4>
+        <p>Φυσικό επίπεδο (bit) → επίπεδο ζεύξης (π.χ. Ethernet) → <strong>lookup/forwarding</strong> → queueing → fabric.</p>
+        <ul>
+            <li>Αναζήτηση θύρας εξόδου από πίνακα προώθησης στη μνήμη της εισόδου — <strong>match plus action</strong>, «line speed»</li>
+            <li><strong>Προώθηση βάσει προορισμού:</strong> μόνο IP dest (παραδοσιακή)</li>
+            <li><strong>Γενικευμένη προώθηση:</strong> οποιαδήποτε ομάδα τιμών κεφαλίδων</li>
+            <li>Ουρά εισόδου αν fabric πιο αργό από εισόδους</li>
+        </ul>
+
+        <h4>Longest Prefix Matching (LPM)</h4>
+        <p>Για IP dest, χρησιμοποιείται το <strong>μεγαλύτερο πρόθεμα</strong> που ταιριάζει στον πίνακα προώθησης.</p>
+        <p>Παράδειγμα πίνακα:</p>
+        <table class="net-table">
+            <thead><tr><th>Εύρος διεύθυνσης</th><th>Διεπαφή</th></tr></thead>
+            <tbody>
+                <tr><td><code>11001000 00010111 00010***</code></td><td>0</td></tr>
+                <tr><td><code>11001000 00010111 00011000</code></td><td>1</td></tr>
+                <tr><td><code>11001000 00010111 00011***</code></td><td>2</td></tr>
+                <tr><td>otherwise</td><td>3</td></tr>
+            </tbody>
+        </table>
+        <p><code>11001000 00010111 00010110</code> → interface 0 (ταιριάζει 00010***, όχι το πιο συγκεκριμένο 00011000). <code>11001000 00010111 00011000</code> → interface 1.</p>
+        <p>Στην πράξη: <strong>TCAM</strong> (Ternary Content Addressable Memory) — σταθερός χρόνος αναζήτησης· Cisco Catalyst ~1M καταχωρήσεις.</p>
+
+        <h4>Τύποι switching fabric</h4>
+        <p>Για N εισόδους ταχύτητας R: ιδανικός ρυθμός μεταγωγής = <code>N × R</code>.</p>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Χαρακτηριστικά</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Μνήμη</strong></td><td>1η γενιά — CPU, 2 bus crossings, περιορισμός bandwidth μνήμης</td></tr>
+                <tr><td><strong>Δίαυλος (bus)</strong></td><td>Κοινό bus, ανταγωνισμός (π.χ. 32 Gbps Cisco 5600)</td></tr>
+                <tr><td><strong>Crossbar</strong></td><td>nxn, multistage cells — παράλληλος παραλληλισμός</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ουρές και blocking</h4>
+        <ul>
+            <li><strong>Είσοδος:</strong> buffer overflow → drop· <strong>Head-of-Line (HOL) blocking</strong> — πακέτο στην κορυφή ουράς μπλοκάρει πίσω του ακόμα κι αν η έξοδός τους είναι ελεύθερη</li>
+            <li><strong>Έξοδος:</strong> buffering όταν ρυθμός άφιξης fabric &gt; ρυθμός γραμμής R → καθυστέρηση, drop</li>
+        </ul>
+        <p><strong>Πόση ενταμίευση;</strong> RFC 3439: buffer ≈ RTT × C (π.χ. 10 Gbps, RTT 250 ms → ~2.5 Gbit). Με N ανεξάρτητες ροές: <code>RTT × C / N</code>. Πολλή ενταμίευση → αυξημένα RTT, κακή απόδοση real-time, αργοί TCP senders («keep link just full, not more»).</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s4">
+        <h3>Scheduling, buffering &amp; ουδετερότητα</h3>
+        <p>Στη θύρα εξόδου: <strong>drop policy</strong> (ποιο πακέτο όταν γεμίσει buffer) και <strong>scheduling</strong> (ποιο στέλνεται επόμενο).</p>
+
+        <h4>Drop &amp; σήμανση συμφόρησης</h4>
+        <table class="net-table">
+            <thead><tr><th>Πολιτική</th><th>Περιγραφή</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Drop-tail</strong></td><td>Απόρριψη νέου πακέτου όταν γεμίσει buffer</td></tr>
+                <tr><td><strong>Priority drop</strong></td><td>Απόρριψη βάσει προτεραιότητας</td></tr>
+                <tr><td><strong>ECN / RED</strong></td><td>Σήμανση συμφόρησης (όχι απαραίτητα drop)</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Αλγόριθμοι scheduling</h4>
+        <table class="net-table">
+            <thead><tr><th>Αλγόριθμος</th><th>Ιδέα</th></tr></thead>
+            <tbody>
+                <tr><td><strong>FCFS / FIFO</strong></td><td>Πρώτο-μέσα-πρώτο-έξω</td></tr>
+                <tr><td><strong>Priority</strong></td><td>Κλάσεις TOS/Diffserv — υψηλή προτεραιότητα πρώτα</td></tr>
+                <tr><td><strong>Round Robin</strong></td><td>1 πακέτο ανά κλάση, κυκλικά</td></tr>
+                <tr><td><strong>WFQ</strong></td><td>Μερίδιο <code>w_i/Σw_j</code> — εγγύηση min bandwidth</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ουδετερότητα δικτύου (Net Neutrality)</h4>
+        <p>Τεχνικά: χρονοπρογραμματισμός, buffers. Κοινωνικά/νομικά (π.χ. ΗΠΑ):</p>
+        <ul>
+            <li>Όχι αποκλεισμός (περιεχόμενο, εφαρμογές, υπηρεσίες, συσκευές)</li>
+            <li>Όχι επιβράδυνση</li>
+            <li>Όχι προτεραιότητα επί πληρωμή</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit4-s5">
+        <h3>Πρωτόκολλο IP &amp; προώθηση</h3>
+        <p>Στο Διαδίκτυο: <strong>IP</strong> (πίνακας προώθησης), <strong>ICMP</strong> (σφάλματα, signaling), αλγόριθμοι δρομολόγησης στο control plane (OSPF, BGP) ή SDN controller.</p>
+
+        <h4>Κεφαλίδα IPv4 (20+ bytes)</h4>
+        <ul>
+            <li><code>ver</code>, <code>head len</code>, <code>type of service</code> (Diffserv, ECN)</li>
+            <li><code>total length</code> (max 64 KB, τυπικά ≤1500 B)</li>
+            <li><code>identifier</code>, <code>flags</code>, <code>fragment offset</code></li>
+            <li><code>TTL</code> — μειώνεται κατά 1 σε κάθε router</li>
+            <li><code>protocol</code> (TCP=6, UDP=17)</li>
+            <li><code>header checksum</code></li>
+            <li>32-bit <code>source</code> / <code>destination</code> IP</li>
+            <li><code>options</code> (προαιρετικά)</li>
+        </ul>
+        <p>Overhead: 20 B IP + 20 B TCP = 40 B + payload εφαρμογής.</p>
+
+        <h4>Κατάτμηση &amp; ανασύνθεση</h4>
+        <p>Κάθε ζεύξη έχει <strong>MTU</strong> (max frame size). Μεγάλο datagram τεμαχίζεται <em>εντός</em> δικτύου· ανασύνθεση <strong>μόνο στον προορισμό</strong>.</p>
+        <p>Παράδειγμα: 4000 B datagram, MTU 1500 → 3 fragments (1480+1480+1040 bytes data). Πεδία: <code>ID=x</code>, <code>offset</code> σε μονάδες 8 bytes, <code>fragflag</code> (τελευταίο=0).</p>
+    </div>
+
+    <div class="sub-section" id="unit4-ip-addr">
+        <h3>Διευθυνσιοδότηση IP, υποδίκτυα, DHCP</h3>
+        <p><strong>IP διεύθυνση (32-bit):</strong> αναγνωριστικό <em>διεπαφής</em> host/router (π.χ. <code>223.1.1.1</code>). Routers: πολλές διεπαφές· hosts: συνήθως 1–2.</p>
+        <p>Ενσύρματες διεπαφές → Ethernet switches· ασύρματες → WiFi access points (Κεφ. 6).</p>
+
+        <h4>Υποδίκτυα (subnets)</h4>
+        <p>Συσκευές συνδεδεμένες φυσικά χωρίς ενδιάμεσο router = ένα υποδίκτυο. IP = <strong>subnet part</strong> (κοινά bits) + <strong>host part</strong>.</p>
+        <p>Συνταγή: αποσύνδεσε διεπαφές → νησίδες → κάθε νησίδα = subnet. Π.χ. <code>223.1.1.0/24</code>, <code>223.1.2.0/24</code>, <code>223.1.3.0/24</code>.</p>
+
+        <h4>CIDR</h4>
+        <p><strong>Classless Inter-Domain Routing:</strong> <code>a.b.c.d/x</code> — <code>x</code> bits subnet part. Π.χ. <code>200.23.16.0/23</code>.</p>
+
+        <h4>Πώς αποδίδονται διευθύνσεις;</h4>
+        <p><strong>Host part:</strong> χειροκίνητα από admin, ή <strong>DHCP</strong> (plug-and-play).</p>
+        <p><strong>Subnet part:</strong> ISP παίρνει block (π.χ. <code>200.23.16.0/20</code>) και το μοιράζει σε οργανισμούς (<code>/23</code> blocks).</p>
+        <p><strong>ICANN</strong> → 5 regional registries (RRs) → τοπικά registries. Τελευταίο IPv4 block ~2011.</p>
+
+        <h4>Ιεραρχική διευθυνσιοδότηση &amp; route aggregation</h4>
+        <p>ISP διαφημίζει <code>200.23.16.0/20</code> αντί για 8 ξεχωριστά <code>/23</code> — λιγότερες καταχωρήσεις δρομολόγησης. Αλλαγή παρόχου οργανισμού: πιο συγκεκριμένη διαδρομή (<code>/23</code>) από νέο ISP.</p>
+
+        <h4>DHCP (Dynamic Host Configuration Protocol)</h4>
+        <p>Δυναμική IP κατά σύνδεση, ανανέωση lease, επαναχρησιμοποίηση διευθύνσεων, κινητοί χρήστες.</p>
+        <div class="net-box">
+            <span class="net-box-label">4 βήματα</span>
+            <ol>
+                <li>Client: <strong>DHCP discover</strong> (broadcast)</li>
+                <li>Server: <strong>DHCP offer</strong> (προαιρετικό)</li>
+                <li>Client: <strong>DHCP request</strong></li>
+                <li>Server: <strong>DHCP ack</strong> (yiaddr, lifetime)</li>
+            </ol>
+            <p>Στοίβα: DHCP → UDP → IP → Ethernet broadcast (<code>FF-FF-FF-FF-FF-FF</code>). Δίνει επίσης gateway, DNS, subnet mask.</p>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit4-nat">
+        <h3>NAT — Network Address Translation</h3>
+        <p>Τοπικό δίκτυο (π.χ. <code>10.0.0.0/24</code>) μοιράζεται <strong>μία</strong> δημόσια IPv4 (<code>138.76.29.7</code>) προς τον «έξω» κόσμο.</p>
+        <ul>
+            <li>Private blocks: <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code></li>
+            <li>Εξερχόμενα: αντικατάσταση (src IP, port) → (NAT IP, νέα port)</li>
+            <li>Πίνακας μεταφράσεων NAT</li>
+            <li>Εισερχόμενα: αντίστροφη μετάφραση dest</li>
+        </ul>
+        <p><strong>Πλεονεκτήματα:</strong> μία IP από ISP, αλλαγή εσωτερικών διευθύνσεων χωρίς ειδοποίηση έξω, αλλαγή ISP, ασφάλεια (hosts όχι ορατά).</p>
+        <p>16-bit ports → ~60.000 ταυτόχρονες συνδέσεις ανά δημόσια IP.</p>
+        <p><strong>Αμφιλεγόμενο:</strong> routers μόνο έως L3; end-to-end argument· αλλά ευρέως χρησιμοποιείται (οικιακά, 4G/5G).</p>
+
+        <h4>Εγκάρσια διάβαση NAT (NAT traversal)</h4>
+        <ul>
+            <li><strong>Στατική port forwarding:</strong> (138.76.29.7, 2500) → (10.0.0.1, 2500)</li>
+            <li><strong>UPnP IGD:</strong> client μαθαίνει δημόσια IP, προσθέτει/αφαιρεί port mappings</li>
+            <li><strong>Relay</strong> (Skype): αναμεταδότης γεφυρώνει δύο συνδέσεις</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit4-ipv6">
+        <h3>IPv6</h3>
+        <p><strong>Κίνητρο:</strong> εξάντληση IPv4· σταθερή 40-byte κεφαλίδα (ταχύτερη επεξεργασία)· QoS (priority, flow label)· <strong>όχι fragmentation</strong> από routers.</p>
+        <p>Κεφαλίδα: <code>ver</code>, priority, flow label, payload len, next hdr, hop limit, 128-bit src/dest. Χωρίς checksum, options (next-header chain).</p>
+
+        <h4>Μετάβαση IPv4→IPv6</h4>
+        <p>Μείγμα routers· <strong>tunneling:</strong> IPv6 datagram ως payload σε IPv4 datagram μεταξύ IPv4 routers (πακέτο μέσα σε πακέτο). Προσοχή: λογικές vs φυσικές διευθύνσεις σε κάθε hop.</p>
+        <p>Αργή υιοθέτηση (~30% Google clients IPv6)· NAT καθυστερεί πλήρη μετάβαση.</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s6">
+        <h3>Γενικευμένη προώθηση &amp; SDN (OpenFlow)</h3>
+        <p>Κάθε router: πίνακας <strong>ταιριάσματος + ενέργειας</strong> — υπολογίζεται/ενημερώνεται από απομακρυσμένο controller.</p>
+
+        <h4>Ροή &amp; κανόνες</h4>
+        <ul>
+            <li><strong>Match:</strong> πεδία κεφαλίδας (MAC, IP, ports, VLAN…), wildcards</li>
+            <li><strong>Action:</strong> προώθηση, απόρριψη, τροποποίηση, αποστολή στον controller</li>
+            <li><strong>Counters:</strong> bytes, πακέτα</li>
+        </ul>
+
+        <h4>Παραδείγματα</h4>
+        <ul>
+            <li><strong>Router:</strong> LPM IP dest → forward σε έξοδο</li>
+            <li><strong>Switch:</strong> MAC dest → forward ή flood</li>
+            <li><strong>Firewall:</strong> drop TCP port 22 ή από <code>128.119.1.1</code></li>
+            <li><strong>NAT:</strong> match IP+port → αλλαγή διεύθυνσης/πόρτας</li>
+        </ul>
+        <p>OpenFlow παράδειγμα: h5/h6 → h3/h4 μέσω s1, s2, s3 — κανόνες <code>ingress port</code>, <code>IP Src/Dst</code> με wildcards.</p>
+    </div>
+
+    <div class="sub-section" id="unit4-s7">
+        <h3>Ενδιάμεσα κουτιά (Middleboxes) &amp; αρχές Διαδικτύου</h3>
+        <p><strong>Middlebox</strong> (RFC 3234): συσκευή με λειτουργίες εκτός τυπικού IP router στη διαδρομή src→dest.</p>
+        <ul>
+            <li>NAT, Firewalls, IDS, Load balancers, Caches (επίπεδο εφαρμογής)</li>
+        </ul>
+        <p>Εξέλιξη: εξειδικευμένο hardware → κοινή στοίβα λογισμικού → <strong>SDN</strong> + <strong>NFV</strong> (virtualized network functions στο cloud).</p>
+
+        <h4>Η κλεψύδρα του IP (hourglass)</h4>
+        <p>Ένα πρωτόκολλο επιπέδου δικτύου (IP) σε δισεκατομμύρια συσκευές· πολλά πρωτόκολλα στα άλλα επίπεδα (PPP, Ethernet, WiFi, TCP, UDP, HTTP…).</p>
+
+        <h4>RFC 1958 — αρχές Διαδικτύου</h4>
+        <blockquote class="net-quote">Στόχος: συνδεσιμότητα. Εργαλείο: IP. Η εξυπνάδα στα δύο άκρα.</blockquote>
+        <ul>
+            <li>Απλή συνδεσιμότητα</li>
+            <li>IP = λεπτή «μέση»</li>
+            <li>Εξυπνάδα στα άκρα (hosts, εφαρμογές, CDNs)</li>
+        </ul>
+        <p>Εξέλιξη μετά ~2005: προγραμματιζόμενες δικτυακές συσκευές (SDN, middleboxes) — αλλά η αρχή end-to-end παραμένει καθοδητική.</p>
+
+        <p><em>Τέλος κεφαλαίου 4:</em> πώς υπολογίζονται οι πίνακες προώθησης; Από το <strong>επίπεδο ελέγχου</strong> → <a href="#unit5">Ενότητα 5</a>.</p>
+    </div>
+
+    <div class="sub-section net-exam-section" id="unit4-exam">
+        <h3>Συμπλήρωμα εξέτασης — Κεφάλαιο 4</h3>
+
+        <h4>1. DHCP (Dynamic Host Configuration Protocol)</h4>
+        <div class="net-exam">
+            <p><strong>Τι κάνει;</strong> Εκχωρεί <strong>δυναμικά IP</strong> (+ gateway, DNS, mask) — plug-and-play. Βήματα: discover → offer → request → ack (βλ. <a href="#unit4-ip-addr">Διευθυνσιοδότηση &amp; DHCP</a>).</p>
+        </div>
+
+        <h4>2. Longest Prefix Match (LPM)</h4>
+        <p>Προώθηση βάσει <strong>IP προορισμού</strong> — επιλογή <strong>μεγαλύτερου (πιο ειδικού) prefix</strong>.</p>
+        <div class="net-exam">
+            <span class="net-box-label">Κανόνας εξέτασης</span>
+            <p>Πιο συγκεκριμένο prefix = περισσότερα bits subnet (π.χ. <code>/24</code> κερδίζει <code>/16</code>).</p>
+        </div>
+    </div>
+</section>
+
+<section class="db-section" id="unit5">
+    <h2>Ενότητα 5 — Επίπεδο Δικτύου (Επίπεδο Ελέγχου)</h2>
+    <p class="db-desc">Δρομολόγηση, OSPF, BGP, SDN, ICMP — προσαρμογή διαφανειών Kurose &amp; Ross (8η έκδοση)</p>
+
+    <div class="sub-section" id="unit5-meta">
+        <h3>Μεταδεδομένα μαθήματος</h3>
+        <ul>
+            <li><strong>Μάθημα:</strong> Δίκτυα Επικοινωνιών Ι</li>
+            <li><strong>Διδάσκων:</strong> Νάσος Βάιος</li>
+            <li><strong>Τμήμα:</strong> Πληροφορικής και Τηλεπικοινωνιών, ΕΚΠΑ</li>
+            <li><strong>Συνιστώμενο βιβλίο:</strong> <em>Computer Networking: A Top-Down Approach</em>, Kurose &amp; Ross, 8η έκδοση (Μ. Γκιούρδας)</li>
+        </ul>
+        <p>Οι διαφάνειες αποτελούν προσαρμογή/απόδοση στα ελληνικά των διαφανειών του βιβλίου.</p>
+
+        <h4>Θεματικές ενότητες (ΘΕ) μαθήματος</h4>
+        <ul>
+            <li><strong>ΘΕ1:</strong> Εισαγωγή (Κεφ. 1)</li>
+            <li><strong>ΘΕ2:</strong> Επίπεδο Εφαρμογής (Κεφ. 2)</li>
+            <li><strong>ΘΕ3:</strong> Επίπεδο Μεταφοράς (Κεφ. 3)</li>
+            <li><strong>ΘΕ4:</strong> Επίπεδο Δικτύου — Επίπεδο Δεδομένων (Κεφ. 4) + Επίπεδο Ελέγχου (Κεφ. 5)</li>
+        </ul>
+
+        <h4>Στόχοι κεφαλαίου (επίπεδο ελέγχου)</h4>
+        <ul>
+            <li>Κατανόηση αρχών υπηρεσιών επιπέδου δικτύου (επίπεδο ελέγχου): παραδοσιακά πρωτόκολλα δρομολόγησης, SDN ελεγκτές, διαχείριση δικτύων</li>
+            <li>Πραγμάτωση στο Διαδίκτυο: <strong>OSPF</strong>, <strong>BGP</strong>, <strong>OpenFlow</strong>, <strong>ICMP</strong>, <strong>SNMP</strong></li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit5-overview">
+        <h3>Εισαγωγή — Επίπεδο ελέγχου</h3>
+        <p>Περιεχόμενο ενότητας: εισαγωγή, αλγόριθμοι δρομολόγησης (κατάσταση ζεύξης, διάνυσμα απόστασης), intra-ISP (<strong>OSPF</strong>), inter-ISP (<strong>BGP</strong>), SDN, <strong>ICMP</strong>, διαχείριση δικτύου (<strong>SNMP</strong>, <strong>NETCONF/YANG</strong>).</p>
+
+        <h4>Λειτουργίες επιπέδου δικτύου</h4>
+        <ul>
+            <li><strong>Προώθηση (forwarding):</strong> μεταφέρει πακέτα από είσοδο δρομολογητή σε κατάλληλη έξοδο (επίπεδο δεδομένων).</li>
+            <li><strong>Δρομολόγηση (routing):</strong> καθορίζει διαδρομή πακέτων από πηγή σε προορισμό (επίπεδο ελέγχου).</li>
+        </ul>
+
+        <h4>Δύο προσεγγίσεις ελέγχου</h4>
+        <ul>
+            <li><strong>Έλεγχος ανά δρομολογητή (παραδοσιακά):</strong> ξεχωριστά συστατικά αλγορίθμου δρομολόγησης σε κάθε δρομολογητή — αλληλεπιδρούν στο επίπεδο ελέγχου, προώθηση στο επίπεδο δεδομένων.</li>
+            <li><strong>Λογικά κεντρικοποιημένος έλεγχος (SDN):</strong> κεντρικός ελεγκτής υπολογίζει και διανέμει πίνακες προώθησης σε κάθε δρομολογητή.</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit5-routing">
+        <h3>Αλγόριθμοι δρομολόγησης — Εισαγωγή</h3>
+        <p><strong>Στόχος:</strong> «καλά» μονοπάτια (διαδρομές) από πηγές σε προορισμούς — ελαχίστου κόστους, γρηγορότερα, με μικρότερη συμφόρηση. Η δρομολόγηση είναι ανάμεσα στις 10 πιο δημοφιλείς προκλήσεις στα δίκτυα.</p>
+
+        <h4>Αφηρημένο μοντέλο γράφων</h4>
+        <p>Γράφος <code>G = (N, E)</code> — <code>N</code> δρομολογητές, <code>E</code> ζεύξεις. <code>c(a,b)</code>: κόστος ζεύξης a→b (<code>∞</code> αν όχι άμεσοι γείτονες). Το κόστος ορίζεται από διαχειριστή (π.χ. 1, αντίστροφα του bandwidth, συμφόρηση).</p>
+
+        <h4>Κατάταξη αλγορίθμων</h4>
+        <table class="net-table">
+            <thead><tr><th>Διάσταση</th><th>Τύπος</th><th>Παράδειγμα</th></tr></thead>
+            <tbody>
+                <tr><td>Πληροφορία</td><td>Global (LS)</td><td>Πλήρης τοπολογία</td></tr>
+                <tr><td>Πληροφορία</td><td>Decentralized (DV)</td><td>Μόνο γείτονες</td></tr>
+                <tr><td>Χρόνος</td><td>Στατικοί</td><td>Αργές αλλαγές</td></tr>
+                <tr><td>Χρόνος</td><td>Δυναμικοί</td><td>Περιοδικές ενημερώσεις</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit5-dijkstra">
+        <h3>Dijkstra — Αλγόριθμος κατάστασης ζεύξης (LS)</h3>
+        <p><strong>Συμβολισμός:</strong> <code>c(x,y)</code> άμεσο κόστος, <code>D(v)</code> τρέχουσα εκτίμηση κόστους από προέλευση u στο v, <code>p(v)</code> προηγούμενος κόμβος, <code>N'</code> κόμβοι με σαφώς καθορισμένη ελάχιστη διαδρομή.</p>
+        <p>Κεντρικοποιημένος: τοπολογία/κόστη γνωστά σε όλους (ευρυεκπομπή). Επαναληπτικός: μετά από k επαναλήψεις, γνωστές διαδρομές προς k προορισμούς.</p>
+
+        <h4>Αλγόριθμος (ψευδοκώδικας)</h4>
+        <div class="net-box">
+            <span class="net-box-label">Dijkstra</span>
+            <pre><code class="language-python"># Initialization: N' = {u}, D(u)=0, D(v)=c(u,v) αν γείτονας, αλλιώς ∞
+# Loop: βρες w ∉ N' με ελάχιστο D(w), πρόσθεσε w στο N'
+#       για κάθε γείτονα v του w: D(v) = min(D(v), D(w) + c(w,v))
+# Μέχρι όλοι οι κόμβοι ∈ N'</code></pre>
+        </div>
+
+        <p><strong>Αποτέλεσμα:</strong> δέντρο ελαχίστων διαδρομών + πίνακας προώθησης (outgoing link ανά προορισμό).</p>
+
+        <h4>Συζήτηση</h4>
+        <ul>
+            <li><strong>Υπολογιστική πολυπλοκότητα:</strong> <code>O(n²)</code> συγκρίσεις, βελτιστοποιήσεις <code>O(n log n)</code></li>
+            <li><strong>Μηνύματα:</strong> κάθε router εκπέμπει LS info — συνολικά <code>O(n²)</code> για ευρυεκπομπή</li>
+            <li><strong>Ταλαντώσεις:</strong> όταν κόστη εξαρτώνται από κίνηση (δυναμικά κόστη)</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit5-dv">
+        <h3>Αλγόριθμος Διανύσματος Απόστασης (DV)</h3>
+        <div class="net-def">
+            <span class="net-box-label">Bellman-Ford</span>
+            <p><code>Dx(y) = min_v { cx,v + Dv(y) }</code> — ελάχιστο κόστος από x στο y μέσω γειτόνων v.</p>
+        </div>
+
+        <h4>Ιδέα-κλειδί</h4>
+        <ul>
+            <li>Κάθε κόμβος στέλνει DV στους γείτονες περιοδικά</li>
+            <li>Σε νέο DV από γείτονα: <code>Dx(y) ← min_v{cx,v + Dv(y)}</code> για κάθε y</li>
+            <li>Υπό φυσιολογικές συνθήκες σύγκλιση στο <code>dx(y)</code></li>
+            <li><strong>Ασύγχρονος, κατανεμημένος, αυτό-τερματιζόμενος:</strong> ειδοποίηση γειτόνων μόνο όταν αλλάξει το DV</li>
+        </ul>
+
+        <h4>Διάδοση πληροφορίας LS</h4>
+        <p>Σε χρόνο t, πληροφορία ζεύξης επηρεάζει υπολογισμούς έως t άλματα μακριά (ανά hop).</p>
+
+        <h4>Αλλαγές κόστους ζεύξης</h4>
+        <ul>
+            <li><strong>Καλά νέα</strong> (μείωση κόστους): γρήγορη διάδοση</li>
+            <li><strong>Κακά νέα</strong> (αύξηση κόστους): αργή διάδοση — count-to-infinity</li>
+            <li><strong>Poisoned reverse:</strong> αν Z δρομολογεί μέσω Y για X, λέει στον Y ότι απόστασή του από X είναι ∞</li>
+        </ul>
+        <div class="net-note">
+            <span class="net-box-label">Count-to-infinity</span>
+            <p>Κλασικό παράδειγμα x–y–z: ~44 επαναλήψεις μέχρι σύγκλιση. Το poisoned reverse μειώνει το πρόβλημα.</p>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit5-ls-dv">
+        <h3>Σύγκριση LS και DV</h3>
+        <table class="net-table">
+            <thead><tr><th>Κριτήριο</th><th>Link State (LS)</th><th>Distance Vector (DV)</th></tr></thead>
+            <tbody>
+                <tr><td>Μηνύματα</td><td><code>O(nE)</code> ευρυεκπομπή</td><td>Μόνο με γείτονες</td></tr>
+                <tr><td>Σύγκλιση</td><td><code>O(n²)</code>, πιθανές ταλαντώσεις</td><td>Count-to-infinity, βρόχοι</td></tr>
+                <tr><td>Ευρωστία</td><td>Κάθε κόμβος υπολογίζει δικό του πίνακα</td><td>Λάθος DV διαδίδεται σε άλλους</td></tr>
+                <tr><td>Αλγόριθμος</td><td>Dijkstra</td><td>Bellman-Ford</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit5-hier">
+        <h3>Ιεραρχική δρομολόγηση</h3>
+        <p>Δεν ισχύει το «επίπεδο» δίκτυο στην πράξη — κλίμακα (~600M προορισμοί) και διαχειριστική αυτόνομη.</p>
+        <ul>
+            <li><strong>Autonomous Systems (AS):</strong> ομαδοποίηση δρομολογητών σε περιοχές</li>
+            <li>Ίδιο <strong>intra-AS</strong> πρωτόκολλο εντός AS · διαφορετικά intra-AS σε διαφορετικά AS</li>
+            <li><strong>Gateway router:</strong> στην άκρη AS, ζεύξη με άλλο AS</li>
+            <li>Πίνακας προώθησης από <strong>intra-</strong> και <strong>inter-AS</strong> αλγόριθμους</li>
+        </ul>
+
+        <h4>Εργασίες inter-AS</h4>
+        <ul>
+            <li>Ποιοι προορισμοί προσεγγίσιμοι μέσω ποιου AS</li>
+            <li>Διάδοση πληροφορίας προσέγγισης σε όλους τους routers του AS</li>
+            <li><strong>Hot potato routing:</strong> προώθηση σε πύλη με μικρότερο intra-AS ελάχιστο κόστος</li>
+        </ul>
+
+        <h4>Γιατί ξεχωριστά intra- και inter-AS;</h4>
+        <ul>
+            <li><strong>Πολιτική:</strong> inter-AS — έλεγχος ποιος δρομολογεί μέσω δικτύου · intra-AS — ένας διαχειριστής</li>
+            <li><strong>Κλίμακα:</strong> ιεραρχία εξοικονομεί μέγεθος πίνακα και κίνηση ενημερώσεων</li>
+            <li><strong>Απόδοση:</strong> intra-AS επίδοση · inter-AS πολιτική μπορεί να κυριαρχήσει</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit5-rip-ospf">
+        <h3>Intra-AS: RIP &amp; OSPF</h3>
+
+        <table class="net-table">
+            <thead><tr><th></th><th>RIP</th><th>OSPF</th></tr></thead>
+            <tbody>
+                <tr><td>Αλγόριθμος</td><td>Distance Vector</td><td>Link State + Dijkstra</td></tr>
+                <tr><td>Μετρική</td><td>Hops (max 15)</td><td>Κόστος ζεύξης (ευέλικτο)</td></tr>
+                <tr><td>Μεταφορά</td><td>UDP θύρα <strong>520</strong></td><td>IP πρωτόκολλο <strong>89</strong></td></tr>
+                <tr><td>Ενημέρωση</td><td>Κάθε 30 sec</td><td>LS flooding σε AS</td></tr>
+                <tr><td>Ειδικά</td><td>Poison reverse, route-d daemon</td><td>Areas, MOSPF, IS-IS ≈ OSPF</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="sub-section" id="unit5-bgp">
+        <h3>Inter-AS: BGP (Border Gateway Protocol)</h3>
+        <p>De facto πρωτόκολλο δρομολόγησης μεταξύ AS (domains).</p>
+        <ul>
+            <li><strong>eBGP:</strong> πληροφορία προσέγγισης υποδικτύου από γειτονικά AS</li>
+            <li><strong>iBGP:</strong> διάδοση πληροφορίας σε όλους τους εσωτερικούς routers</li>
+            <li>Διαφήμιση ύπαρξης: «Είμαι εδώ»</li>
+            <li>BGP sessions (ομότιμοι): διανύσματα διαδρομής (προθέματα), TCP θύρα <strong>179</strong></li>
+        </ul>
+
+        <h4>Μηνύματα BGP</h4>
+        <table class="net-table">
+            <thead><tr><th>Μήνυμα</th><th>Ρόλος</th></tr></thead>
+            <tbody>
+                <tr><td><strong>OPEN</strong></td><td>TCP + ταυτοποίηση</td></tr>
+                <tr><td><strong>UPDATE</strong></td><td>Νέα/απόσυρση διαδρομής</td></tr>
+                <tr><td><strong>KEEPALIVE</strong></td><td>Ζωντανή σύνδεση</td></tr>
+                <tr><td><strong>NOTIFICATION</strong></td><td>Σφάλμα → κλείσιμο</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Ιδιοχαρακτηριστικά διαδρομής</h4>
+        <ul>
+            <li><strong>AS-PATH:</strong> AS που διέστηκε η διαφήμιση (π.χ. 67, 17, …)</li>
+            <li><strong>Next Hop:</strong> IP συνοριακού router επόμενου AS (αλλάζει σε κάθε σύνορο)</li>
+            <li>Πρόθεμα + attributes = <strong>route</strong> · import policy (αποδοχή/απόρριψη)</li>
+        </ul>
+
+        <h4>Επιλογή διαδρομής BGP (σειρά προτεραιότητας)</h4>
+        <table class="net-table">
+            <thead><tr><th>#</th><th>Κριτήριο</th><th>Σημείωση</th></tr></thead>
+            <tbody>
+                <tr><td>1</td><td><strong>Local Preference</strong></td><td>Μόνο iBGP — μεγαλύτερη τιμή κερδίζει</td></tr>
+                <tr><td>2</td><td>Βραχύτερο <strong>AS-PATH</strong></td><td>Λιγότερα AS στη διαδρομή</td></tr>
+                <tr><td>3</td><td>Πλησιέστερος <strong>NEXT-HOP</strong></td><td>Hot potato routing</td></tr>
+                <tr><td>4</td><td>Πρόσθετα κριτήρια</td><td>—</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Πολιτική δρομολόγησης BGP</h4>
+        <p>Παράδειγμα: πελάτης X dual-homed — δεν δρομολογεί μέσω X προς C. Provider B δεν διαφημίζει BAW στο C (όχι όφελος). Στόχος: δρομολόγηση μόνο προς/από πελάτες.</p>
+    </div>
+
+    <div class="sub-section" id="unit5-sdn">
+        <h3>SDN &amp; OpenFlow</h3>
+        <p>Ιστορικά κατανεμημένη προσέγγιση ανά router (~2005+: ενδιαφέρον για κεντρικοποιημένο control plane).</p>
+
+        <h4>Γιατί κεντρικός έλεγχος;</h4>
+        <ul>
+            <li>Ευκολότερη διαχείριση, λιγότερες κακές ρυθμίσεις</li>
+            <li>Γενικευμένη προώθηση (πίνακες ροής) — προγραμματισμός routers</li>
+            <li>Κεντρικός υπολογισμός πινάκων vs κατανεμημένος αλγόριθμος σε κάθε router</li>
+            <li>Ανοικτή εφαρμογή (όχι ιδιοταγής)</li>
+        </ul>
+
+        <h4>Αρχιτεκτονική SDN</h4>
+        <ul>
+            <li><strong>Επίπεδο δεδομένων:</strong> γρήγοροι μεταγωγείς (hardware), πίνακας ροής από ελεγκτή</li>
+            <li><strong>SDN Controller</strong> (network OS): κατάσταση δικτύου, northbound API (εφαρμογές), southbound API (μεταγωγείς)</li>
+            <li><strong>Εφαρμογές ελέγχου:</strong> routing, access control, load balance (τρίτοι προμηθευτές)</li>
+            <li><strong>OpenFlow:</strong> πρωτόκολλο ελεγκτή↔μεταγωγέας, TCP port <strong>6653</strong></li>
+        </ul>
+
+        <h4>OpenFlow — μηνύματα</h4>
+        <div class="net-box">
+            <p><strong>Ελεγκτής → μεταγωγέας:</strong> read-state, configure, modify-state, packet-out</p>
+            <p><strong>Μεταγωγέας → ελεγκτής:</strong> packet-in, flow-removed, port status</p>
+        </div>
+
+        <p>Παραδοσιακή δρομολόγηση δύσκολα: load balancing μεταξύ μονοπατιών, διαφορετική δρομολόγηση ανά ροή (χρώμα) — SDN επιτρέπει flow-based forwarding.</p>
+    </div>
+
+    <div class="sub-section" id="unit5-icmp">
+        <h3>ICMP (Internet Control Message Protocol)</h3>
+        <p>Ανταλλαγή πληροφορίας επιπέδου δικτύου μεταξύ hosts και routers. Μεταφέρεται σε IP datagrams.</p>
+        <ul>
+            <li>Αναφορά σφαλμάτων (μη προσπελάσιμο δίκτυο/host/θύρα/πρωτόκολλο)</li>
+            <li><strong>Echo request/reply</strong> — ping</li>
+            <li>Μήνυμα: τύπος, κωδικός, 8 πρώτα bytes του προβληματικού IP datagram</li>
+        </ul>
+
+        <h4>Σημαντικοί τύποι ICMP</h4>
+        <table class="net-table">
+            <thead><tr><th>Τύπος</th><th>Σημασία</th></tr></thead>
+            <tbody>
+                <tr><td>0</td><td>Echo reply (ping απάντηση)</td></tr>
+                <tr><td>3</td><td>Destination unreachable</td></tr>
+                <tr><td>4</td><td>Source quench (παλαιότερα)</td></tr>
+                <tr><td>8</td><td>Echo request (ping)</td></tr>
+                <tr><td>11</td><td>TTL expired (traceroute)</td></tr>
+                <tr><td>12</td><td>Bad IP header</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Traceroute</h4>
+        <div class="net-box">
+            <ol>
+                <li>UDP προς προορισμό με TTL = 1, 2, 3, …</li>
+                <li>Router n: ICMP type 11 (TTL expired) — RTT από 3 probes</li>
+                <li>Τέλος: ICMP port unreachable (type 3, code 3)</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit5-mgmt">
+        <h3>Διαχείριση δικτύου — SNMP &amp; NETCONF/YANG</h3>
+        <p>Αναφέρονται στο πλαίσιο του κεφαλαίου (διαχείριση δικτύων) μαζί με OSPF, BGP, OpenFlow, ICMP.</p>
+        <ul>
+            <li><strong>SNMP</strong> (Simple Network Management Protocol): συλλογή/διαχείριση πληροφορίας συσκευών δικτύου (στατιστικά, κατάσταση ζεύξεων, ελεγχόμενες συσκευές στον SDN ελεγκτή)</li>
+            <li><strong>NETCONF/YANG:</strong> σύγχρονη προσέγγιση διαμόρφωσης δικτυακών συσκευών (structured data models)</li>
+        </ul>
+    </div>
+
+    <div class="sub-section net-exam-section" id="unit5-exam">
+        <h3>Συμπλήρωμα εξέτασης — Κεφάλαιο 5</h3>
+        <p>Κλασικές ασκήσεις υπολογισμών δρομολόγησης.</p>
+
+        <h4>1. Distance Vector (DV)</h4>
+        <div class="net-exam">
+            <p>Ανταλλαγή <strong>μόνο με γείτονες</strong> — κάθε κόμβος στέλνει ελάχιστο κόστος προς κάθε προορισμό (όχι ολόκληρη διαδρομή).</p>
+            <p class="net-formula"><code>Dx(y) = min_v { cx,v + Dv(y) }</code></p>
+        </div>
+
+        <h4>Άσκηση 1 — Κόμβος C προς F</h4>
+        <p>Κόστος C→γείτονες: B=2, D=7, E=4. DV γειτόνων προς F: B=4, D=1, E=3.</p>
+        <table class="net-table">
+            <thead><tr><th>Διαδρομή</th><th>Υπολογισμός</th><th>Κόστος</th></tr></thead>
+            <tbody>
+                <tr><td>Μέσω B</td><td><code>2 + 4</code></td><td><strong>6</strong></td></tr>
+                <tr><td>Μέσω D</td><td><code>7 + 1</code></td><td>8</td></tr>
+                <tr><td>Μέσω E</td><td><code>4 + 3</code></td><td>7</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3"><strong>Απάντηση:</strong> min = <strong>6</strong>, επόμενο άλμα <strong>B</strong></td></tr></tfoot>
+        </table>
+
+        <h4>Άσκηση 2 — Νέο διάνυσμα κόμβου A</h4>
+        <p>A→B=1, A→Γ=3. B στέλνει <code>(1,0,1,5)</code>, Γ στέλνει <code>(3,1,0,1)</code> για A,B,Γ,Δ.</p>
+        <table class="net-table">
+            <thead><tr><th>Προορισμός</th><th>Μέσω B</th><th>Μέσω Γ</th><th>min</th></tr></thead>
+            <tbody>
+                <tr><td>A</td><td>—</td><td>—</td><td><code>0</code></td></tr>
+                <tr><td>B</td><td><code>1+0</code></td><td><code>3+1</code></td><td><code>1</code></td></tr>
+                <tr><td>Γ</td><td><code>1+1</code></td><td><code>3+0</code></td><td><code>2</code></td></tr>
+                <tr><td>Δ</td><td><code>1+5</code></td><td><code>3+1</code></td><td><code>4</code></td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="4"><strong>Απάντηση:</strong> νέο DV A = <code>(0, 1, 2, 4)</code></td></tr></tfoot>
+        </table>
+
+        <h4>2. Dijkstra (Link-State)</h4>
+        <div class="net-exam">
+            <span class="net-box-label">Ερώτηση / Απάντηση</span>
+            <p>Πόσες επαναλήψεις; → <strong>Ισούται με τον αριθμό των κόμβων</strong>. Κάθε επανάληψη προσθέτει έναν κόμβο (βλ. <a href="#unit5-dijkstra">Dijkstra</a>).</p>
+        </div>
+
+        <h4>3. BGP — AS-PATH</h4>
+        <p>Όταν ενημέρωση δρομολόγησης ταξιδεύει AS10 → AS20 → AS30, το <strong>AS-PATH</strong> καταγράφει κάθε AS που διέστηκε η διαφήμιση — «χτίζεται» προσθέτοντας κάθε AS καθώς περνά η ενημέρωση.</p>
+        <p>Παράδειγμα: διαφήμιση από AS30 φτάνει σε AS10 μέσω AS20 → AS-PATH μπορεί να είναι <code>30, 20</code> (ή αντίστροφα ανάλογα με κατεύθυνση). Στην επιλογή διαδρομής: συχνά προτιμάται <strong>βραχύτερο AS-PATH</strong>.</p>
+    </div>
+</section>
+
+<section class="db-section" id="unit6">
+    <h2>Ενότητα 6: Επίπεδο Ζεύξης</h2>
+    <p>Ζεύξεις, δίκτυα πρόσβασης, δίκτυα τοπικής περιοχής (LANs). Διδάσκων: Νάσος Βάιος · Τμήμα Πληροφορικής και Τηλεπικοινωνιών · ΕΚΠΑ.</p>
+
+    <div class="sub-section" id="unit6-intro">
+        <h3>Εισαγωγή και υπηρεσίες επιπέδου ζεύξης</h3>
+        <p><strong>Ορολογία:</strong> οι υπολογιστές και οι δρομολογητές είναι <strong>κόμβοι</strong> (nodes). Τα κανάλια που ενώνουν γειτονικούς κόμβους είναι <strong>ζεύξεις</strong> (links): ενσύρματες, ασύρματες, LANs. Το πακέτο επιπέδου 2 ονομάζεται <strong>πλαίσιο</strong> (frame) και ενθυλακώνει datagram.</p>
+        <p>Το επίπεδο ζεύξης μεταφέρει datagrams από έναν κόμβο σε <em>φυσικά γειτονικό</em> κόμβο πάνω από μία ζεύξη. Διαφορετικές ζεύξεις μπορεί να χρησιμοποιούν διαφορετικά πρωτόκολλα (π.χ. Ethernet στην πρώτη, 802.11 στην τελευταία) — αναλογία με ταξίδι Πρίνστον→Λωζάνη με διαφορετικά μέσα μεταφοράς.</p>
+
+        <h4>Υπηρεσίες</h4>
+        <ul>
+            <li><strong>Πλαισίωση &amp; πρόσβαση στη ζεύξη:</strong> κεφαλίδα/ουρά, MAC διευθύνσεις (διαφορετικές από IP)</li>
+            <li><strong>Αξιόπιστη παράδοση</strong> μεταξύ γειτονικών (rdt — σπάνια σε ίνες, συχνότερα ασύρματα)</li>
+            <li><strong>Έλεγχος ροής</strong> μεταξύ γειτονικών αποστολέα/λήπτη</li>
+            <li><strong>Ανίχνευση σφαλμάτων:</strong> ο δέκτης ανιχνεύει σφάλμα (αναμετάδοση ή απόρριψη πλαισίου)</li>
+            <li><strong>Διόρθωση σφαλμάτων:</strong> διόρθωση bit χωρίς αναμετάδοση</li>
+            <li><strong>Half-duplex / Full-duplex</strong></li>
+        </ul>
+
+        <h4>Πού υλοποιείται;</h4>
+        <p>Σε κάθε <strong>προσαρμογέα δικτύου</strong> (NIC): κάρτα Ethernet, 802.11, chipset. Συνδυασμός hardware/software/firmware — ενθυλακώνει datagram σε frame στην αποστολή, ελέγχει σφάλματα/rdt/ροή, εξάγει datagram στη λήψη.</p>
+    </div>
+
+    <div class="sub-section" id="unit6-mac">
+        <h3>Πρωτόκολλα πολλαπλής πρόσβασης (MAC)</h3>
+        <p>Δύο είδη ζεύξεων: <strong>σημείο-προς-σημείο</strong> (PPP, NIC↔switch) και <strong>broadcast</strong> (παραδοσιακό Ethernet, HFC upstream, 802.11, δορυφόρος).</p>
+        <p>Σε broadcast κανάλι: ταυτόχρονες μεταδόσεις → <strong>παρεμβολές</strong>. <strong>Σύγκρουση (collision)</strong> όταν κόμβος λαμβάνει δύο+ σήματα ταυτόχρονα. Το πρωτόκολλο MAC καθορίζει πότε μεταδίδει κανείς — χωρίς out-of-band κανάλι συντονισμού.</p>
+
+        <h4>Ιδανικό πρωτόκολλο (στόχος)</h4>
+        <ul>
+            <li>Ένας ενεργός κόμβος → ρυθμός R</li>
+            <li>M ενεργοί → μέσος ρυθμός R/M ο καθένας</li>
+            <li>Αποκεντρωμένο, χωρίς master, χωρίς συγχρονισμό ρολογιών, απλό</li>
+        </ul>
+
+        <h4>Ταξινόμηση MAC</h4>
+        <table class="net-table">
+            <thead><tr><th>Κατηγορία</th><th>Ιδέα</th><th>Παραδείγματα</th></tr></thead>
+            <tbody>
+                <tr><td>Διαμέριση καναλιού</td><td>Χρονοθυρίδες, συχνότητες, κώδικες — αποκλειστική εκχώρηση</td><td>TDMA, FDMA</td></tr>
+                <tr><td>Τυχαία πρόσβαση</td><td>Επιτρέπονται συγκρούσεις, ανάνηψη</td><td>ALOHA, CSMA/CD, CSMA/CA</td></tr>
+                <tr><td>Εκ περιτροπής</td><td>Με τη σειρά, μεγαλύτερες ουρές → μεγαλύτερος χρόνος</td><td>Polling, Token ring</td></tr>
+            </tbody>
+        </table>
+
+        <h4>TDMA &amp; FDMA</h4>
+        <p><strong>TDMA:</strong> πρόσβαση σε γύρους· κάθε σταθμός παίρνει σταθερή θυρίδα ανά γύρο· αδρανείς θυρίδες χάνονται.</p>
+        <p><strong>FDMA:</strong> το φάσμα διαιρείται σε ζώνες συχνοτήτων· κάθε σταθμός έχει σταθερή ζώνη· αδρανείς ζώνες χάνονται.</p>
+
+        <h4>ALOHA</h4>
+        <p><strong>Θυριδωτό (Slotted) ALOHA:</strong> ίσες θυρίδες, μετάδοση μόνο στην αρχή θυρίδας, συγχρονισμός. Σε σύγκρουση: αναμετάδοση σε επόμενες θυρίδες με πιθανότητα <code>p</code>. Μέγιστη αποδοτικότητα (πολλοί κόμβοι):</p>
+        <p class="net-formula"><code>Np(1-p)<sup>N-1</sup> → 1/e ≈ 0,37</code></p>
+        <p><strong>Απλό ALOHA:</strong> άμεση μετάδοση· σύγκρουση με πλαίσια στο <code>[t₀-1, t₀+1]</code>. Μέγιστη αποδοτικότητα:</p>
+        <p class="net-formula"><code>p(1-p)<sup>2(N-1)</sup> → 1/(2e) ≈ 0,18</code></p>
+
+        <h4>CSMA — «άκου πριν μεταδώσεις»</h4>
+        <ul>
+            <li>Κανάλι αδρανές → μετάδωσε ολόκληρο πλαίσιο</li>
+            <li>Κανάλι απασχολημένο → ανάβαλε</li>
+            <li>Ακόμα συγκρούσεις λόγω <strong>καθυστέρησης διάδοσης</strong> (δύο κόμβοι δεν ακούν ο ένας τον άλλο εγκαίρως)</li>
+        </ul>
+
+        <h4>CSMA/CD (Ethernet)</h4>
+        <p>Ανίχνευση σύγκρουσης· διακοπή + jam· <strong>δυαδική εκθετική οπισθοχώρηση</strong>:</p>
+        <table class="net-table">
+            <thead><tr><th>Σύγκρουση #</th><th>m</th><th>Τυχαίο K</th><th>Αναμονή</th></tr></thead>
+            <tbody>
+                <tr><td>1η</td><td>1</td><td><code>{0, 1}</code></td><td><code>K</code> slot times</td></tr>
+                <tr><td>2η</td><td>2</td><td><code>{0, 1, 2, 3}</code></td><td><code>K × 512</code> bit times</td></tr>
+                <tr><td>m-οστή</td><td>m</td><td><code>{0, …, 2^m − 1}</code></td><td><code>K × 512</code> bit times</td></tr>
+            </tbody>
+        </table>
+        <p>Εύκολη ανίχνευση σε ενσύρματα LAN· δύσκολη σε ασύρματα (τοπική μετάδοση καλύπτει το ληφθέν).</p>
+        <p>Ρυθμαπόδοση CSMA/CD: <code>t<sub>prop</sub></code> = μέγ. καθυστέρηση διάδοσης, <code>t<sub>trans</sub></code> = χρόνος μετάδοσης max πλαισίου:</p>
+        <p class="net-formula"><code>ρ ≈ 1 / (1 + 5·t<sub>prop</sub>/t<sub>trans</sub>)</code> → 1 όταν <code>t<sub>prop</sub>→0</code> ή <code>t<sub>trans</sub>→∞</code></p>
+
+        <h4>Εκ περιτροπής</h4>
+        <p><strong>Σταθμοσκόπηση (polling):</strong> master καλεί slaves — overhead, καθυστέρηση, single point of failure.</p>
+        <p><strong>Token passing:</strong> σκυτάλη ελέγχου κυκλοφορεί — overhead σκυτάλης, καθυστέρηση, αποτυχία σκυτάλης.</p>
+        <p><em>Σύγκριση:</em> διαμέριση καναλιού — αποτελεσματικό σε υψηλό φορτίο, αναποτελεσματικό σε χαμηλό (1/N εύρος ζώνης ακόμα κι αν ένας ενεργός). Τυχαία πρόσβαση — αντίστροφα. Εκ περιτροπής — συμβιβασμός.</p>
+    </div>
+
+    <div class="sub-section" id="unit6-arp">
+        <h3>Διευθύνσεις MAC, ARP και δρομολόγηση σε άλλο LAN</h3>
+        <p><strong>IP (32-bit):</strong> διεύθυνση επιπέδου δικτύου, προώθηση επιπέδου 3.</p>
+        <p><strong>MAC (48-bit, π.χ. 1A-2F-BB-76-09-AD):</strong> «τοπική» διεύθυνση για μεταφορά πλαισίου μεταξύ φυσικά συνδεδεμένων διεπαφών στο ίδιο LAN (ίδιο IP subnet). Αποθηκευμένη στη ROM του NIC. IEEE εκχωρεί χώρους σε κατασκευαστές.</p>
+        <div class="net-quote">
+            <p>MAC ≈ ΑΜΚΑ (επίπεδη, φορητή κάρτα) · IP ≈ ταχυδρομική διεύθυνση (ιεραρχική). <strong>Broadcast MAC:</strong> <code>FF-FF-FF-FF-FF-FF</code></p>
+        </div>
+
+        <h4>ARP (Address Resolution Protocol)</h4>
+        <p>Ερώτημα: ποια MAC αντιστοιχεί σε γνωστή IP στο <em>ίδιο</em> LAN;</p>
+        <div class="net-box">
+            <span class="net-box-label">Βήματα ARP</span>
+            <ol>
+                <li>Πίνακας ARP: &lt;IP, MAC, TTL&gt; (~20 λεπτά)</li>
+                <li>Αν λείπει MAC: <strong>ARP query</strong> (broadcast)</li>
+                <li><strong>ARP reply</strong> (unicast προς A)</li>
+                <li>Cache μέχρι λήξη TTL — plug-and-play</li>
+            </ol>
+        </div>
+
+        <h4>Αποστολή A → B σε διαφορετικό LAN (μέσω δρομολογητή R)</h4>
+        <div class="net-scenario">
+            <span class="net-box-label">Σενάριο</span>
+            <p>Ο A γνωρίζει IP του B, IP και MAC του R.</p>
+            <ol>
+                <li>A → frame με <strong>MAC dest = R</strong>, IP A→B</li>
+                <li>R: αποθυλάκωση, προώθηση datagram (IP αμετάβλητο)</li>
+                <li>R → frame με <strong>MAC dest = B</strong></li>
+            </ol>
+            <p>IP end-to-end A→B· MAC αλλάζουν ανά hop.</p>
+        </div>
+    </div>
+
+    <div class="sub-section" id="unit6-ethernet">
+        <h3>Ethernet</h3>
+        <p>Κυρίαρχη ενσύρματη LAN: φθηνή, απλή, 10 Mbps → 10 Gbps+. Κοινό MAC και μορφή πλαισίου (802.3), διαφορετικά φυσικά επίπεδα (χαλκός, ίνα).</p>
+
+        <h4>Τοπολογία</h4>
+        <ul>
+            <li><strong>Δίαυλος (bus):</strong> κοινό collision domain — ιστορική (coax)</li>
+            <li><strong>Αστέρα (star):</strong> switch στο κέντρο — κάθε ακτίνα ξεχωριστό collision domain, χωρίς συγκρούσεις μεταξύ ακτινών</li>
+        </ul>
+
+        <h4>Δομή πλαισίου Ethernet</h4>
+        <ul>
+            <li><strong>Preamble (8 bytes):</strong> συγχρονισμός ρυθμών bit (10101010… + 10101011)</li>
+            <li><strong>MAC src/dest</strong> (6+6 bytes)</li>
+            <li><strong>Τύπος</strong> (πρωτόκολλο ανώτερου επιπέδου, κυρίως IP)</li>
+            <li><strong>Δεδομένα</strong> (ενθυλακωμένο datagram)</li>
+            <li><strong>CRC:</strong> έλεγχος σφάλματος — απόρριψη λανθασμένου πλαισίου</li>
+        </ul>
+        <p>Ο προσαρμογέας δέχεται πλαίσιο αν MAC dest = δική του ή broadcast· αλλιώς απορρίπτει.</p>
+
+        <h4>Υπηρεσία &amp; MAC</h4>
+        <ul>
+            <li><strong>Ασυνδεσμική (connectionless):</strong> χωρίς χειραψία</li>
+            <li><strong>Αναξιόπιστη:</strong> χωρίς ACK/NACK — ανάκτηση μόνο από ανώτερο επίπεδο (π.χ. TCP)</li>
+            <li><strong>MAC:</strong> μη θυριδωτό CSMA/CD με δυαδική οπισθοχώρηση</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit6-switches">
+        <h3>Μεταγωγείς Ethernet</h3>
+        <p>Συσκευή επιπέδου ζεύξης: store-and-forward πλασίων, εξέταση MAC dest, επιλεκτική προώθηση. <strong>Διαφανής</strong> — οι hosts δεν «βλέπουν» τον switch. Plug-and-play, αυτοεκμάθηση.</p>
+
+        <h4>Πλεονεκτήματα</h4>
+        <ul>
+            <li>Αποκλειστική σύνδεση host↔switch ανά θύρα</li>
+            <li>Πολλαπλές ταυτόχρονες μεταδόσεις (A↔A′ και B↔B′ παράλληλα)</li>
+            <li>Κάθε θύρα = ξεχωριστό collision domain</li>
+        </ul>
+
+        <h4>Πίνακας μεταγωγής (switch table)</h4>
+        <p>Καταχώριση: <code>(MAC διεύθυνση, διεπαφή, χρονοσφραγίδα/TTL)</code> — παρόμοιο με πίνακα δρομολόγησης αλλά με MAC.</p>
+
+        <h4>Αλγόριθμος προώθησης</h4>
+        <div class="net-box">
+            <ol>
+                <li>Κατάγραψε εισερχόμενη θύρα + MAC αποστολέα</li>
+                <li>Αναζήτησε MAC προορισμού στον πίνακα</li>
+                <li>Βρέθηκε &amp; προορισμός ≠ εισερχόμενη → προώθηση σε μία θύρα</li>
+                <li>Βρέθηκε &amp; προορισμός = εισερχόμενη → απόρριψη</li>
+                <li>Δεν βρέθηκε → <strong>flood</strong> (όλες εκτός εισερχόμενης)</li>
+            </ol>
+        </div>
+        <p>Διασυνδεδεμένοι μεταγωγείς: ίδια αυτοεκμάθηση — κάθε switch μαθαίνει από εισερχόμενα πλαίσια ποιος host είναι πίσω από ποια θύρα.</p>
+
+        <h4>Μεταγωγέας vs Δρομολογητής</h4>
+        <table class="net-table">
+            <thead><tr><th></th><th>Switch</th><th>Router</th></tr></thead>
+            <tbody>
+                <tr><td>Επίπεδο</td><td>2 (link)</td><td>3 (network)</td></tr>
+                <tr><td>Εξέταση</td><td>Κεφαλίδα Ethernet (MAC)</td><td>Κεφαλίδα IP</td></tr>
+                <tr><td>Πίνακας</td><td>Αυτοεκμάθηση (flooding/learning)</td><td>Αλγόριθμοι δρομολόγησης (OSPF, BGP…)</td></tr>
+                <tr><td>Διευθύνσεις</td><td>MAC</td><td>IP</td></tr>
+            </tbody>
+        </table>
+        <p>Και οι δύο: store-and-forward.</p>
+    </div>
+
+    <div class="sub-section" id="unit6-vlans">
+        <h3>VLANs (Virtual LANs)</h3>
+        <p><strong>Κίνητρο:</strong> ένα broadcast domain για όλο το LAN — ARP, DHCP, unknown MAC flooding περνούν παντού· θέματα ασφάλειας, αποδοτικότητας, φορητότητας χρηστών μεταξύ τμημάτων.</p>
+        <p>Μεταγωγείς με VLAN ορίζουν <strong>πολλαπλά εικονικά LAN</strong> πάνω από μία φυσική υποδομή.</p>
+
+        <h4>Port-based VLAN</h4>
+        <ul>
+            <li>Ομαδοποίηση θυρών (π.χ. 1–8 = EE, 9–15 = CS) — απομόνωση κίνησης μεταξύ ομάδων</li>
+            <li>Δυναμική ανάθεση θυρών σε VLAN</li>
+            <li>Προώθηση μεταξύ VLAN → <strong>δρομολόγηση</strong> (συχνά L3 switch/router)</li>
+        </ul>
+
+        <h4>VLAN σε πολλούς μεταγωγείς</h4>
+        <p><strong>Trunk θύρα:</strong> μεταφέρει πλαίσια πολλών VLAN μεταξύ switches. Απαιτείται <strong>802.1Q</strong> — επιπλέον πεδία κεφαλίδας (VLAN ID) σε πλαίσια trunk.</p>
+    </div>
+
+    <div class="sub-section" id="unit6-mpls-dc">
+        <h3>Εικονικές ζεύξεις (MPLS) &amp; δικτύωση κέντρων δεδομένων</h3>
+        <p>Αναφέρονται στο πλαίσιο του κεφαλαίου (§5.5–5.6) ως επέκταση επιπέδου ζεύξης:</p>
+        <ul>
+            <li><strong>MPLS:</strong> εικονικές ζεύξεις, ετικέτες (labels) για γρήγορη προώθηση — γέφυρα μεταξύ link layer και network layer</li>
+            <li><strong>Δικτύωση κέντρων δεδομένων:</strong> υψηλή πυκνότητα, πολλαπλές διαδρομές, αρχιτεκτονικές leaf-spine, απαιτήσεις χαμηλής καθυστέρησης μεταξύ servers</li>
+        </ul>
+    </div>
+
+    <div class="sub-section" id="unit6-web">
+        <h3>Σύνθεση: μία ημέρα στη ζωή μιας web αίτησης</h3>
+        <div class="net-scenario">
+            <span class="net-box-label">Σενάριο</span>
+            <p>Φοιτητής συνδέει laptop στο δίκτυο πανεπιστημίου, αιτείται <code>www.google.com</code>.</p>
+        </div>
+
+        <table class="net-table">
+            <thead><tr><th>Βήμα</th><th>Πρωτόκολλα</th><th>Τι γίνεται</th></tr></thead>
+            <tbody>
+                <tr><td>1. DHCP</td><td>DHCP→UDP→IP→Ethernet broadcast</td><td>IP, gateway, DNS από router</td></tr>
+                <tr><td>2. ARP</td><td>ARP broadcast/reply</td><td>MAC του default gateway</td></tr>
+                <tr><td>3. DNS</td><td>UDP→IP→Ethernet</td><td>Επίλυση <code>www.google.com</code> → IP</td></tr>
+                <tr><td>4. TCP</td><td>SYN → SYN-ACK → ACK</td><td>Εγκαθίδρυση σύνδεσης</td></tr>
+                <tr><td>5. HTTP</td><td>Request/Response πάνω σε TCP</td><td>Λήψη σελίδας</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3">Στοίβα: Εφαρμογή → Μεταφορά → Δίκτυο → Ζεύξη → Φυσικό</td></tr></tfoot>
+        </table>
+
+        <p><em>Στοίβα πρωτοκόλλων σε κάθε βήμα:</em> εφαρμογή (HTTP/DNS/DHCP) → μεταφορά (UDP/TCP) → δίκτυο (IP) → ζεύξη (Ethernet/ARP) → φυσικό.</p>
+    </div>
+
+    <div class="sub-section" id="unit6-summary">
+        <h3>Σύνοψη επιπέδου ζεύξης</h3>
+        <ul>
+            <li><strong>Αρχές:</strong> ανίχνευση/διόρθωση σφαλμάτων, πολλαπλή πρόσβαση broadcast καναλιού, διευθυνσιοδότηση MAC</li>
+            <li><strong>Τεχνολογίες:</strong> Ethernet (CSMA/CD → switches), ARP, VLANs (802.1Q), MPLS</li>
+            <li><strong>Σύνθεση:</strong> DHCP → ARP → DNS → TCP → HTTP — όλα τα επίπεδα σε ένα απλό σενάριο</li>
+        </ul>
+        <p>Με την Ενότητα 6 ολοκληρώνεται το ταξίδι προς τα κάτω της στοίβας (εκτός λεπτομερούς φυσικού επιπέδου).</p>
+    </div>
+
+    <div class="sub-section net-exam-section" id="unit6-exam">
+        <h3>Συμπλήρωμα εξέτασης — Κεφάλαιο 6</h3>
+
+        <h4>1. Μεταγωγέας (Switch)</h4>
+        <table class="net-table">
+            <thead><tr><th>Λειτουργία</th><th>Περιγραφή</th></tr></thead>
+            <tbody>
+                <tr><td><strong>Εκμάθηση</strong></td><td>Από MAC <strong>πηγής</strong> εισερχόμενου πλαισίου → εισερχόμενη θύρα</td></tr>
+                <tr><td><strong>Flooding</strong></td><td>Άγνωστη MAC προορισμού → όλες οι θύρες <em>εκτός</em> εισερχόμενης</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="2">Ξεκινά με <strong>άδειο πίνακα</strong></td></tr></tfoot>
+        </table>
+
+        <h4>2. Ethernet CSMA/CD — Backoff</h4>
+        <table class="net-table">
+            <thead><tr><th>Σύγκρουση</th><th>K (τυχαίο)</th><th>Αναμονή</th></tr></thead>
+            <tbody>
+                <tr><td>1η (m=1)</td><td><code>{0, 1}</code></td><td><code>K</code> slot times</td></tr>
+                <tr><td>2η (m=2)</td><td><code>{0, 1, 2, 3}</code></td><td><code>K × 512</code> bit times</td></tr>
+                <tr><td>m-οστή</td><td><code>{0, …, 2^m − 1}</code></td><td><code>K × 512</code> bit times</td></tr>
+            </tbody>
+            <tfoot><tr><td colspan="3"><strong>Τεστ (1η σύγκρουση):</strong> K από <strong>{0, 1}</strong></td></tr></tfoot>
+        </table>
+    </div>
+</section>
+
+</main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
