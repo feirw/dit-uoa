@@ -1,0 +1,862 @@
+% !TEX program = xelatex
+% !TEX encoding = UTF-8
+% Συστήματα Επικοινωνιών — Πλήρες τυπολόγιο εξέτασης
+% Μεταγλώττιση: ΜΟΝΟ xelatex (όχι pdflatex) — 2 φορές
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[a4paper,margin=2.2cm]{geometry}
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{greek}
+\setotherlanguage{english}
+
+\defaultfontfeatures{Ligatures=TeX}
+
+% DejaVu Serif: πλήρη ελληνικά, εγκαθίσταται αυτόματα από MiKTeX/TeX Live
+\babelfont{rm}{DejaVu Serif}[
+  BoldFont = DejaVu Serif Bold,
+  ItalicFont = DejaVu Serif Italic,
+  BoldItalicFont = DejaVu Serif Bold Italic
+]
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{xcolor}
+\usepackage{booktabs,longtable,enumitem}
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!60!black,
+  unicode=true,
+  pdftitle={Systimata Epikoinonion - Typologio Exetasis}
+}
+
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\rect}{\operatorname{rect}}
+\newcommand{\sinc}{\operatorname{sinc}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\Repart}{\operatorname{Re}}
+\newcommand{\Hilbert}{\mathcal{H}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\argof}[1]{\operatorname{arg}\bigl(#1\bigr)}
+
+\title{\textbf{Συστήματα Επικοινωνιών}\\Πλήρες Τυπολόγιο Εξέτασης}
+\author{SE\_session3 -- session10 (2025)}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+%==============================================================================
+\section{Εισαγωγή — Μοντέλο επικοινωνίας \& βασικές έννοιες}
+%==============================================================================
+
+\subsection{Σήματα στο σύστημα επικοινωνίας}
+
+\begin{align}
+m(t) &\quad \text{σήμα πληροφορίας (baseband)} \\
+s(t) &\quad \text{εκπεμπόμενο σήμα μετά τη διαμόρφωση} \\
+r(t) &\quad \text{λαμβανόμενο σήμα} \\
+\hat{m}(t) &\quad \text{ανακτημένο μήνυμα} \\
+f_c &\quad \text{συχνότητα φέροντος (carrier frequency)}
+\end{align}
+
+\begin{equation}
+m(t) \to \text{Πομπός} \to s(t) \to \text{Κανάλι} \to r(t) \to \text{Δέκτης} \to \hat{m}(t)
+\end{equation}
+
+\begin{equation}
+s(t) \to \text{Κανάλι} + \text{Θόρυβος} \to r(t)
+\end{equation}
+
+\begin{center}
+\fbox{\parbox{0.85\textwidth}{\centering
+Πηγή $\to$ Πομπός $\to$ Κανάλι $\to$ Δέκτης $\to$ Προορισμός\\[0.4em]
+\hspace{4.5em}$\uparrow$\\[0.2em]
+\hspace{4.5em}Θόρυβος
+}}
+\end{center}
+
+\begin{equation}
+\text{Ιδανικά: } \hat{m}(t) = m(t)
+\end{equation}
+
+Στην πράξη υπάρχουν σφάλματα λόγω θορύβου.
+
+\subsection{Διαμόρφωση \& αποδιαμόρφωση}
+
+\begin{align}
+\text{Διαμόρφωση:} \quad & m(t) \xrightarrow{\text{modulation}} \text{σήμα γύρω από } f_c \\
+\text{Baseband} &\to \text{Passband} \\
+\text{Αποδιαμόρφωση:} \quad & \text{Passband} \to \text{Baseband} \\
+& r(t) \to \hat{m}(t)
+\end{align}
+
+\subsection{Γιατί γίνεται διαμόρφωση — 6 λόγοι}
+\begin{enumerate}[leftmargin=*]
+\item Μικρότερες κεραίες
+\item Μείωση θορύβου
+\item Πολυπλεξία
+\item Μεγαλύτερη απόσταση
+\item Συμβατότητα με διαφορετικά μέσα
+\item Προσαρμογή στο περιβάλλον επικοινωνίας
+\end{enumerate}
+
+\subsection{Μήκος κύματος}
+
+\begin{equation}
+\lambda = \frac{c}{f}, \qquad c = 3 \times 10^8\,\mathrm{m/s}
+\end{equation}
+
+\subsection{Ζώνες συχνοτήτων}
+
+\begin{center}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Ζώνη} & \textbf{Συχνότητες} \\
+\midrule
+VLF & 3 -- 30 kHz \\
+LF  & 30 -- 300 kHz \\
+MF  & 300 kHz -- 3 MHz \\
+HF  & 3 -- 30 MHz \\
+VHF & 30 -- 300 MHz \\
+UHF & 300 MHz -- 3 GHz \\
+SHF & 3 -- 30 GHz \\
+EHF & 30 -- 300 GHz \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Τύποι επικοινωνίας}
+
+Simplex, Half-Duplex, Full-Duplex.
+
+%==============================================================================
+\section{Session 3 — Σήματα: βασικές έννοιες (theory1)}
+%==============================================================================
+
+\subsection{Διακριτό σήμα}
+\begin{equation}
+x \triangleq \{x[n]\}, \quad -\infty < n < +\infty
+\end{equation}
+
+\subsection{Περιοδικότητα συνεχούς χρόνου}
+\begin{equation}
+x(t) = x(t + kT), \quad \forall t,\; k \in \mathbb{N}
+\end{equation}
+
+\subsection{Περιοδικότητα διακριτού χρόνου}
+\begin{equation}
+x[n] = x[n + kN], \quad \forall n,\; k \in \mathbb{N}
+\end{equation}
+
+\subsection{Συνθήκη περιοδικότητας αθροίσματος}
+\begin{align}
+s_1(t) &= s_1(t + k_1 T_1), &
+s_2(t) &= s_2(t + k_2 T_2) \\
+k_1 T_1 &= k_2 T_2 = T, &
+\frac{T_1}{T_2} &= \frac{k_2}{k_1}
+\end{align}
+Ο λόγος $T_1/T_2$ πρέπει να είναι \textbf{ρητός}.
+
+\subsection{Περιοδικότητα $\sin(\omega n)$}
+\begin{align}
+x[n] &= \sin(\omega n) \\
+\omega N &= 2\pi m, \quad m \in \mathbb{Z}^+ \\
+\frac{\omega}{2\pi} &= \frac{m}{N}
+\end{align}
+$2\pi/\omega$ πρέπει να είναι ρητός.
+
+\subsection{Μιγαδικό εκθετικό}
+\begin{equation}
+x(t) = A e^{j2\pi f_c t}
+\end{equation}
+
+\subsection{Euler}
+\begin{equation}
+e^{j\theta} = \cos\theta + j\sin\theta
+\end{equation}
+\begin{equation}
+x(t) = A\cos(2\pi f_c t) + jA\sin(2\pi f_c t)
+\end{equation}
+
+\subsection{In-Phase \& Quadrature}
+\begin{align}
+x_I(t) &= A\cos(2\pi f_c t) \\
+x_Q(t) &= A\sin(2\pi f_c t)
+\end{align}
+
+\subsection{Μέτρο μιγαδικού σήματος}
+\begin{equation}
+|x(t)| = \sqrt{x_I^2(t) + x_Q^2(t)}
+\end{equation}
+
+\subsection{Φάση μιγαδικού σήματος}
+\begin{equation}
+\theta(t) = \tan^{-1}\!\left(\frac{x_I(t)}{x_Q(t)}\right)
+\end{equation}
+
+\subsection{IQ αναπαράσταση πραγματικού σήματος}
+\begin{equation}
+x(t) = A(t)\cos\bigl(2\pi f_c t + \theta(t)\bigr)
+\end{equation}
+
+\subsection{Ταυτότητα συνημιτόνου}
+\begin{equation}
+\cos(a+b) = \cos(a)\cos(b) - \sin(a)\sin(b)
+\end{equation}
+
+\subsection{IQ decomposition}
+\begin{equation}
+x(t) = A(t)\cos\theta(t)\cos(2\pi f_c t) - A(t)\sin\theta(t)\sin(2\pi f_c t)
+\end{equation}
+
+\subsection{Άρτιο \& περιττό}
+\begin{align}
+x(-t) &= x(t) && \text{(άρτιο)} \\
+x(-t) &= -x(t) && \text{(περιττό)} \\
+x(t) &= x_e(t) + x_o(t)
+\end{align}
+
+\subsection{Άρτιο \& περιττό μέρος}
+\begin{align}
+x_e(t) &= \frac{1}{2}\bigl[x(t) + x(-t)\bigr] \\
+x_o(t) &= \frac{1}{2}\bigl[x(t) - x(-t)\bigr]
+\end{align}
+
+\subsection{Αιτιατό σήμα}
+\begin{equation}
+x(t) = 0, \quad t < 0
+\end{equation}
+
+\subsection{Ενέργεια σήματος}
+\begin{align}
+E_x &= \int_{-\infty}^{\infty} |x(t)|^2\,dt \\
+E_x &= \lim_{T\to\infty} \int_{-T}^{T} |x(t)|^2\,dt
+\end{align}
+
+\subsection{Ισχύς σήματος}
+\begin{equation}
+P_x = \lim_{T\to\infty} \frac{1}{2T} \int_{-T}^{T} |x(t)|^2\,dt
+\end{equation}
+
+\subsection{Ισχύς περιοδικού σήματος}
+\begin{equation}
+P_x = \frac{1}{2T_0} \int_{-T_0/2}^{T_0/2} |x(t)|^2\,dt
+\end{equation}
+
+\subsection{Σήμα ενέργειας \& σήμα ισχύος}
+\begin{align}
+0 < E_x &< \infty && \text{(σήμα ενέργειας)} \\
+0 < P_x &< \infty && \text{(σήμα ισχύος)}
+\end{align}
+
+\subsection{Ημιτονικό σήμα}
+\begin{equation}
+x(t) = A\cos(2\pi f_c t)
+\end{equation}
+
+\subsection{Περίοδος ημιτόνου}
+\begin{equation}
+T_c = \frac{1}{f_c}
+\end{equation}
+
+\subsection{Ταυτότητα $\cos^2$}
+\begin{align}
+\cos^2(x) &= \frac{1 + \cos(2x)}{2} \\
+\cos^2(2\pi f_c t) &= \frac{1 + \cos(4\pi f_c t)}{2}
+\end{align}
+
+\subsection{Ισχύς \& ενέργεια ημιτόνου}
+\begin{align}
+P_x &= \frac{A^2}{2} \\
+E_x &= \infty
+\end{align}
+
+\subsection{Τιμή DC}
+\begin{align}
+P_x^{\mathrm{DC}} &= \lim_{T\to\infty} \frac{1}{2T} \int_{-T}^{T} x(t)\,dt \\
+P_x^{\mathrm{DC}} &= \frac{1}{2T_0} \int_{-T_0/2}^{T_0/2} x(t)\,dt && \text{(περιοδικό)}
+\end{align}
+
+\subsection{RMS}
+\begin{equation}
+P_x^{\mathrm{RMS}} = \sqrt{P_x}
+\end{equation}
+
+\subsection{Εκθετικό αιτιατό}
+\begin{equation}
+x(t) = A e^{-\alpha t} u(t)
+\end{equation}
+
+\subsection{Προσέγγιση Dirac delta}
+\begin{align}
+p(t) &= \frac{1}{\epsilon}\rect\!\left(\frac{t}{\epsilon}\right) \\
+\delta(t) &= \lim_{\epsilon\to 0} p(t)
+\end{align}
+
+\subsection{Ιδιότητες $\delta(t)$}
+\begin{align}
+\delta(t) &= 0, \quad t \neq 0 \\
+\int_{-\infty}^{\infty} \delta(t)\,dt &= 1 \\
+\delta(-t) &= \delta(t) \\
+\delta(at) &= \frac{1}{|a|}\,\delta(t)
+\end{align}
+
+\subsection{Sifting property}
+\begin{equation}
+\int_{-\infty}^{\infty} f(t)\,\delta(t-\tau)\,dt = f(\tau)
+\end{equation}
+
+\subsection{Fourier της $\delta$}
+\begin{align}
+\F\{\delta(t)\} &= 1 \\
+\F\{1\} &= \delta(f) \\
+\F\{e^{j2\pi f_0 t}\} &= \delta(f - f_0)
+\end{align}
+
+%==============================================================================
+\section{Session 4 — Συστήματα \& συνέλιξη (theory2)}
+%==============================================================================
+
+\subsection{Κρουστική απόκριση}
+\begin{equation}
+h(t) = \mathcal{S}\{\delta(t)\}
+\end{equation}
+
+\subsection{Συνέλιξη}
+\begin{align}
+y(t) &= x(t) \ast h(t) \\
+y(t) &= \int_{-\infty}^{\infty} x(\tau)\,h(t-\tau)\,d\tau
+     = \int_{-\infty}^{\infty} h(\tau)\,x(t-\tau)\,d\tau \\
+y(t) &= h(t) \ast x(t) = \int_{-\infty}^{\infty} h(\tau)\,x(t-\tau)\,d\tau
+\end{align}
+
+\subsection{Ιδιότητες συνέλιξης}
+\begin{align}
+\delta(t) \ast h(t) &= h(t) \\
+h(t) \ast \delta(t-t_0) &= h(t-t_0) \\
+x(t) \ast \delta(t-t_0) &= x(t-t_0) \\
+\bigl[h_1(t)+h_2(t)\bigr] \ast x(t) &= h_1(t)\ast x(t) + h_2(t)\ast x(t) \\
+\bigl(z(t)\ast x(t)\bigr)\ast y(t) &= z(t)\ast\bigl(x(t)\ast y(t)\bigr) \\
+x(t)\ast y(t) &= y(t)\ast x(t)
+\end{align}
+
+\subsection{Άσκηση 4 — τμηματική συνέλιξη}
+\begin{align}
+x_1(t) &= \begin{cases} 1, & 0 \le t \le 1 \\ 0, & \text{αλλού} \end{cases} \\
+x_2(t) &= \begin{cases} 1, & 0 \le t \le 1 \\ -1, & 1 \le t \le 2 \\ 0, & \text{αλλού} \end{cases} \\
+y(t) &= \int_{-\infty}^{\infty} x_1(\tau)\,x_2(t-\tau)\,d\tau
+     = \int_{t-1}^{t} x_2(\kappa)\,d\kappa \\
+y(t) &= \begin{cases}
+  t, & t \in [0,1] \\
+  3-2t, & t \in [1,2] \\
+  t-3, & t \in [2,3] \\
+  0, & t \in (-\infty,0] \cup [3,\infty)
+\end{cases}
+\end{align}
+
+\subsection{Ημιτονικό σήμα — Euler}
+\begin{align}
+x(t) &= A\cos(2\pi f_0 t + \varphi), \quad A>0,\; \varphi \in (-\pi,\pi] \\
+x(t) &= \frac{A}{2}e^{j\varphi}e^{j2\pi f_0 t} + \frac{A}{2}e^{-j\varphi}e^{-j2\pi f_0 t}
+\end{align}
+
+\subsection{Απόκριση ΓΧΑ σε μιγαδικό εκθετικό}
+\begin{align}
+x(t) &= A e^{j(2\pi f_0 t + \varphi)} \\
+y(t) &= x(t)\ast h(t) = \int_{-\infty}^{\infty} h(\tau)\,A e^{j2\pi f_0(t-\tau)+j\varphi}\,d\tau \\
+H(f_0) &= \int_{-\infty}^{\infty} h(t)\,e^{-j2\pi f_0 t}\,dt \\
+y(t) &= H(f_0)\,x(t)
+\end{align}
+
+\subsection{Ανάλυση σε αρμονικές}
+\begin{align}
+x(t) &= \sum_k A_k \cos(2\pi f_k t + \varphi_k) \\
+x(t) &= \sum_k \left[\frac{A_k}{2}e^{j\varphi_k}e^{j2\pi f_k t} + \frac{A_k}{2}e^{-j\varphi_k}e^{-j2\pi f_k t}\right]
+\end{align}
+
+\subsection{Ορθογώνια σήματα — εσωτερικό γινόμενο}
+\begin{align}
+\langle \bm{x}, \bm{y} \rangle &= |\bm{x}|\,|\bm{y}|\cos\theta \\
+\langle x(t), y(t) \rangle &= \int_a^b x(t)\,y^*(t)\,dt = 0 && \text{(ορθογώνια)}
+\end{align}
+
+\subsection{Ορθογωνιότητα εκθετικών}
+\begin{align}
+\left\langle e^{jk\omega_0 t}, e^{jm\omega_0 t} \right\rangle
+&= \int_0^T e^{jk\omega_0 t} e^{-jm\omega_0 t}\,dt
+ = \int_0^T e^{j(k-m)\omega_0 t}\,dt \\
+&= \frac{1}{j(k-m)\omega_0}\left[e^{j(k-m)\omega_0 T} - 1\right] = 0, \quad k \neq m \\
+e^{j(k-m)\omega_0 T} &= e^{j(k-m)2\pi} = \cos\bigl((k-m)2\pi\bigr) - j\sin\bigl((k-m)2\pi\bigr) = 1, \quad k,m \in \mathbb{Z} \\
+\left\langle e^{jk\omega_0 t}, e^{jm\omega_0 t} \right\rangle &= T, \quad k = m \\
+\left\langle e^{jk\omega_0 t}, e^{jm\omega_0 t} \right\rangle &= T\,\delta(k-m)
+\end{align}
+
+\subsection{Ανάπτυγμα σε εκθετικά}
+\begin{align}
+x(t) &= \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t} \\
+a_n &= \frac{1}{T}\int_{t_0}^{t_0+T} x(t)\,e^{-jn\omega_0 t}\,dt
+\end{align}
+
+\subsection{Εκθετική σειρά Fourier}
+\begin{align}
+\text{Σύνθεση:} \quad & x(t) = \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t} \\
+\text{Ανάλυση:} \quad & a_k = \frac{1}{T}\int_{t_0}^{t_0+T} x(t)\,e^{-jk\omega_0 t}\,dt \\
+& a_k = |a_k|\,e^{j\argof{a_k}}
+\end{align}
+
+%==============================================================================
+\section{Session 5\&6 — Fourier, ιδιότητες, Parseval, συσχέτιση}
+%==============================================================================
+
+\subsection{Σειρά Fourier (επανάληψη)}
+\begin{align}
+x(t) &= \sum_{k=-\infty}^{\infty} a_k e^{jk\omega_0 t} \\
+a_k &= \frac{1}{T}\int_{t_0}^{t_0+T} x(t)\,e^{-jk\omega_0 t}\,dt \\
+a_k &= |a_k|\,e^{j\argof{a_k}}
+\end{align}
+
+\subsection{Euler \& ημίτονο}
+\begin{align}
+e^{j\theta} &= \cos\theta + j\sin\theta \\
+A\cos(2\pi f_0 t + \phi) &= \frac{A}{2}e^{j\phi}e^{j2\pi f_0 t} + \frac{A}{2}e^{-j\phi}e^{-j2\pi f_0 t}
+\end{align}
+
+\subsection{Απόκριση συχνότητας ΓΧΑ}
+\begin{align}
+H(f) &= \int_{-\infty}^{\infty} h(t)\,e^{-j2\pi f t}\,dt \\
+y(t) &= H(f_0)\,x(t)
+\end{align}
+
+\subsection{Μετασχηματισμός Fourier}
+\begin{align}
+X(f) &= \int_{-\infty}^{\infty} x(t)\,e^{-j2\pi f t}\,dt \\
+x(t) &= \int_{-\infty}^{\infty} X(f)\,e^{j2\pi f t}\,df
+\end{align}
+
+\subsection{Πραγματικό \& φανταστικό μέρος}
+\begin{align}
+X(f) &= X_R(f) + jX_I(f) = \Re\{X(f)\} + j\Im\{X(f)\} \\
+X(f) &= \int x(t)\cos(2\pi f t)\,dt - j\int x(t)\sin(2\pi f t)\,dt
+\end{align}
+
+\subsection{Μέτρο \& φάση}
+\begin{align}
+|X(f)| &= \sqrt{X_R^2(f) + X_I^2(f)} \\
+\phi(f) &= \tan^{-1}\!\left(\frac{X_I(f)}{X_R(f)}\right) \\
+X(f) &= |X(f)|\,e^{j\phi(f)}
+\end{align}
+
+\subsection{Τετραγωνικός παλμός}
+\begin{align}
+x(t) &= A\,\rect\!\left(\frac{t}{T}\right) \\
+X(f) &= AT\,\sinc(fT) \\
+\text{Μηδενισμοί: } & f = \pm\frac{1}{T}, \pm\frac{2}{T}, \pm\frac{3}{T}, \ldots
+\end{align}
+
+\subsection{Συνάρτηση $\sinc$}
+\begin{equation}
+\sinc(x) = \frac{\sin(\pi x)}{\pi x}
+\end{equation}
+
+\subsection{Συνθήκη ύπαρξης Fourier}
+\begin{equation}
+\int_{-\infty}^{\infty} |x(t)|\,dt < \infty
+\end{equation}
+
+\subsection{Ιδιότητες Fourier}
+\begin{align}
+x(at) &\longleftrightarrow \frac{1}{|a|}\,X\!\left(\frac{f}{a}\right) \\
+x(t-t_0) &\longleftrightarrow e^{-j2\pi f t_0}\,X(f) \\
+e^{j2\pi f_c t}x(t) &\longleftrightarrow X(f - f_c) \\
+a_1 x_1(t) + a_2 x_2(t) &\longleftrightarrow a_1 X_1(f) + a_2 X_2(f) \\
+x_1(t)\,x_2(t) &\longleftrightarrow X_1(f) \ast X_2(f) \\
+x_1(t) \ast x_2(t) &\longleftrightarrow X_1(f)\,X_2(f) \\
+\frac{d^k x(t)}{dt^k} &\longleftrightarrow (j2\pi f)^k X(f)
+\end{align}
+
+\subsection{Θεώρημα συνέλιξης}
+\begin{align}
+y(t) &= h(t) \ast x(t) \\
+Y(f) &= H(f)\,X(f)
+\end{align}
+
+\subsection{Θεώρημα διαμόρφωσης}
+\begin{align}
+e^{j2\pi f_c t}x(t) &\longleftrightarrow X(f - f_c) \\
+y(t) &= A x(t)\cos(2\pi f_c t) \\
+Y(f) &= \frac{A}{2}\bigl[X(f-f_c) + X(f+f_c)\bigr]
+\end{align}
+
+\subsection{Fourier βασικών σημάτων}
+\begin{align}
+\delta(t) &\longleftrightarrow 1 \\
+1 &\longleftrightarrow \delta(f) \\
+u(t) &\longleftrightarrow \frac{\delta(f)}{2} + \frac{1}{j2\pi f} \\
+\sgn(t) &\longleftrightarrow \frac{1}{j\pi f} \\
+\cos(2\pi f_0 t) &\longleftrightarrow \frac{1}{2}\bigl[\delta(f-f_0)+\delta(f+f_0)\bigr] \\
+\sin(2\pi f_0 t) &\longleftrightarrow \frac{1}{2j}\bigl[\delta(f-f_0)-\delta(f+f_0)\bigr] \\
+\rect(t) &\longleftrightarrow \sinc(f) \\
+\Lambda(t) &\longleftrightarrow \sinc^2(f)
+\end{align}
+
+\subsection{Parseval}
+\begin{align}
+P_x &= \sum_{k=-\infty}^{\infty} |a_k|^2 && \text{(περιοδικό)} \\
+E_x &= \int_{-\infty}^{\infty} |X(f)|^2\,df = \int_{-\infty}^{\infty} |x(t)|^2\,dt && \text{(ενέργεια)}
+\end{align}
+
+\subsection{Ετεροσυσχέτιση}
+\begin{align}
+R_{xy}(\tau) &= \int_{-\infty}^{\infty} x(t)\,y^*(t-\tau)\,dt \\
+R_{yx}(\tau) &= \int_{-\infty}^{\infty} y(t)\,x^*(t-\tau)\,dt \\
+R_{xy}(\tau) &= x(t) \ast y^*(-t)
+\end{align}
+
+\subsection{Ιδιότητες ετεροσυσχέτισης}
+\begin{align}
+R_{xy}(\tau) &= R_{yx}^*(-\tau) \\
+R_{xy}(0) &= 0 && \text{(ορθογώνια)} \\
+R_{xy}(\tau + kT_0) &= R_{xy}(\tau) && \text{(περιοδικά)}
+\end{align}
+
+\subsection{Αυτοσυσχέτιση}
+\begin{align}
+R_x(\tau) &= \int_{-\infty}^{\infty} x(t)\,x^*(t-\tau)\,dt
+           = \int_{-\infty}^{\infty} x(t+\tau)\,x^*(t)\,dt \\
+R_x(\tau) &= \frac{1}{T_0}\int_{-T_0/2}^{T_0/2} x(t-\tau)\,x^*(t)\,dt && \text{(περιοδικό)}
+\end{align}
+
+\subsection{Ιδιότητες αυτοσυσχέτισης}
+\begin{align}
+R_x(-\tau) &= R_x^*(\tau) \\
+E_x &= R_x(0) \\
+|R_x(\tau)| &\le R_x(0) \\
+R_x(0) &= P_x && \text{(σήμα ισχύος)}
+\end{align}
+
+\subsection{Wiener--Khinchin}
+\begin{align}
+\F\{R_x(\tau)\} &= S_x(f) \\
+\F\{R_x(\tau)\} &= |X(f)|^2 && \text{(σήμα ενέργειας)}
+\end{align}
+
+%==============================================================================
+\section{Session 7\&8 — Parseval, Hilbert, διαμόρφωση, IQ}
+%==============================================================================
+
+\subsection{Parseval (επανάληψη \& επέκταση)}
+\begin{align}
+P_x &= \sum_{k=-\infty}^{\infty} |X[k]|^2 \\
+E_x &= \int_{-\infty}^{\infty} |x(t)|^2\,dt = \int_{-\infty}^{\infty} |X(f)|^2\,df
+\end{align}
+
+\subsection{Σήματα ενέργειας \& ισχύος}
+\begin{align}
+0 < E_x &< \infty \\
+0 < P_x &< \infty
+\end{align}
+
+\subsection{Ετεροσυσχέτιση — σήματα ενέργειας}
+\begin{align}
+R_{xy}(\tau) &= \int_{-\infty}^{\infty} x(t)\,y^*(t-\tau)\,dt \\
+R_{yx}(\tau) &= \int_{-\infty}^{\infty} y(t)\,x^*(t-\tau)\,dt
+\end{align}
+
+\subsection{Ετεροσυσχέτιση — σήματα ισχύος}
+\begin{align}
+R_{xy}(\tau) &= \lim_{T\to\infty} \frac{1}{T}\int_{-T/2}^{T/2} x(t)\,y^*(t-\tau)\,dt \\
+R_{yx}(\tau) &= \lim_{T\to\infty} \frac{1}{T}\int_{-T/2}^{T/2} y(t)\,x^*(t-\tau)\,dt
+\end{align}
+
+\subsection{Ετεροσυσχέτιση — περιοδικά}
+\begin{align}
+R_{xy}(\tau) &= \frac{1}{T_0}\int_{-T_0/2}^{T_0/2} x(t)\,y^*(t-\tau)\,dt \\
+R_{yx}(\tau) &= \frac{1}{T_0}\int_{-T_0/2}^{T_0/2} y(t)\,x^*(t-\tau)\,dt
+\end{align}
+
+\subsection{Σχέση ετεροσυσχέτισης -- συνέλιξης}
+\begin{equation}
+R_{xy}(\tau) = x(t) \ast y^*(-t)
+\end{equation}
+
+\subsection{Ιδιότητες ετεροσυσχέτισης}
+\begin{align}
+R_{xy}(\tau) &\neq R_{yx}(\tau) \\
+R_{xy}(\tau) &= R_{yx}^*(-\tau) \\
+\int_{-\infty}^{\infty} x(t)\,y^*(t)\,dt &= 0 \Rightarrow R_{xy}(0) = 0 \\
+R_{xy}(\tau + kT_0) &= R_{xy}(\tau)
+\end{align}
+
+\subsection{Αυτοσυσχέτιση}
+\begin{align}
+R_x(\tau) &= \int_{-\infty}^{\infty} x(t)\,x^*(t-\tau)\,dt
+           = \int_{-\infty}^{\infty} x(t+\tau)\,x^*(t)\,dt \\
+R_x(\tau) &= \frac{1}{T_0}\int_{-T_0/2}^{T_0/2} x(t-\tau)\,x^*(t)\,dt && \text{(περιοδικό)}
+\end{align}
+
+\subsection{Ιδιότητες αυτοσυσχέτισης}
+\begin{align}
+R_x(-\tau) &= R_x^*(\tau) \\
+E_x &= R_x(0) = \int_{-\infty}^{\infty} |x(t)|^2\,dt \\
+|R_x(\tau)| &\le R_x(0) = E_x \\
+R_x(0) &= \frac{1}{T_0}\int_{-T_0/2}^{T_0/2} |x(t)|^2\,dt = P_x && \text{(ισχύος)}
+\end{align}
+
+\subsection{Wiener--Khinchin \& φασματική πυκνότητα}
+\begin{align}
+P_x &= \int_{-\infty}^{\infty} S_x(f)\,df \\
+\F\{R_x(\tau)\} &= S_x(f) \\
+\F\{R_x(\tau)\} &= |X(f)|^2 && \text{(ενέργεια)}
+\end{align}
+
+\subsection{Μετασχηματισμός Hilbert}
+\begin{align}
+h(t) &= \frac{1}{\pi t} \\
+\Hilbert\{x(t)\} &= x(t) \ast h(t) = \frac{1}{\pi}\int_{-\infty}^{\infty} \frac{x(\tau)}{t-\tau}\,d\tau \\
+\F\{\Hilbert[x(t)]\} &= -j\,\sgn(f)\,X(f)
+\end{align}
+
+\subsection{Ιδιότητες Hilbert}
+\begin{align}
+\Hilbert\{x_1 \ast x_2\} &= \Hilbert\{x_1\} \ast x_2 = x_1 \ast \Hilbert\{x_2\} \\
+\Hilbert\{\Hilbert[x(t)]\} &= -x(t) \\
+\Hilbert\{x(at)\} &= \sgn(a)\,\Hilbert\{x(t)\}
+\end{align}
+
+\subsection{Βασική \& ζωνοπερατή ζώνη}
+\begin{align}
+X(f) &= 0, \quad |f| \ge W && \text{(βασική)} \\
+X(f) &= 0, \quad |f - f_c| \ge W && \text{(ζωνοπερατό)}
+\end{align}
+
+\subsection{Διαμόρφωση ζωνοπερατού σήματος}
+\begin{align}
+x(t) &= A m(t)\cos(2\pi f_c t) \\
+y(t) &= A x(t)\cos(2\pi f_c t) \\
+Y(f) &= \frac{A}{2}\bigl[X(f-f_c) + X(f+f_c)\bigr]
+\end{align}
+
+\subsection{Προπεριβάλλουσα}
+\begin{align}
+x_p(t) &= x(t) + j\,\hat{x}(t), \quad \hat{x}(t) = \Hilbert\{x(t)\}
+\end{align}
+
+\subsection{Μιγαδική περιβάλλουσα}
+\begin{align}
+x(t) &= \Repart\{g(t)\,e^{j2\pi f_c t}\} \\
+g(t) &= x_p(t)\,e^{-j2\pi f_c t} \\
+x_p(t) &= g(t)\,e^{j2\pi f_c t}
+\end{align}
+
+\subsection{IQ αναπαράσταση}
+\begin{align}
+g(t) &= x_I(t) + j x_Q(t) \\
+x(t) &= x_I(t)\cos(2\pi f_c t) - x_Q(t)\sin(2\pi f_c t)
+\end{align}
+
+\subsection{Περιβάλλουσα \& φάση}
+\begin{align}
+V(t) &= \sqrt{x_I^2(t) + x_Q^2(t)} \\
+\theta(t) &= \tan^{-1}\!\left(\frac{x_I(t)}{x_Q(t)}\right) \\
+g(t) &= V(t)\,e^{j\theta(t)} \\
+x_I(t) &= V(t)\cos\theta(t), \quad x_Q(t) = V(t)\sin\theta(t) \\
+x(t) &= V(t)\cos(2\pi f_c t + \theta(t))
+\end{align}
+
+\subsection{AM διαμόρφωση}
+\begin{align}
+g(t) &= V(t) = A_c + m(t) \\
+x_I(t) &= A_c + m(t), \quad x_Q(t) = 0
+\end{align}
+
+\subsection{Φάσμα ζωνοπερατού σήματος}
+\begin{equation}
+x(t) = \Repart\{g(t)\,e^{j2\pi f_c t}\}
+\quad \Rightarrow \quad
+X(f) = \frac{1}{2}\bigl[G(f-f_c) + G^*(-f-f_c)\bigr]
+\end{equation}
+
+\subsection{Φασματική πυκνότητα ισχύος (διαμόρφωση)}
+\begin{equation}
+S_x(f) = \frac{1}{4}\bigl[S_g(f-f_c) + S_g(-f-f_c)\bigr]
+\end{equation}
+
+\subsection{Φίλτρα — κέρδος σε dB}
+\begin{equation}
+\mathrm{Gain(dB)} = 20\log_{10}|H(f)|
+\end{equation}
+
+%==============================================================================
+\section{Session 9 — Τυχαίες διαδικασίες \& WSS}
+%==============================================================================
+
+\subsection{Μέση τιμή}
+\begin{align}
+m_X(t) &= \E[X(t)] = \int_{-\infty}^{\infty} a\,f_{X(t)}(a)\,da && \text{(συνεχής)} \\
+m_X(t) &= \E[X(t)] = \sum_i a_i\,P[X(t)=a_i] && \text{(διακριτή)}
+\end{align}
+
+\subsection{Αυτοσυσχέτιση (ΣΑΣ) τυχαίας διαδικασίας}
+\begin{align}
+R_X(t_i,t_j) &= \E[X(t_i)X(t_j)] \\
+R_X(t_i,t_j) &= \int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty} ab\,f_{X(t_i),X(t_j)}(a,b)\,da\,db \\
+R_X(t_i,t_j) &= R_X(t_j,t_i)
+\end{align}
+
+\subsection{Αυτοσυνδιακύμανση}
+\begin{align}
+C_X(t_i,t_j) &= \E\bigl[(X(t_i)-m_X(t_i))(X(t_j)-m_X(t_j))\bigr] \\
+C_X(t_i,t_j) &= R_X(t_i,t_j) - m_X(t_i)m_X(t_j)
+\end{align}
+
+\subsection{Ετεροσυσχέτιση \& ετεροσυνδιακύμανση}
+\begin{align}
+R_{XY}(t_1,t_2) &= \E[X(t_1)Y(t_2)] \\
+R_{YX}(t_1,t_2) &= \E[Y(t_1)X(t_2)] \\
+C_{XY}(t_1,t_2) &= R_{XY}(t_1,t_2) - m_X(t_1)m_Y(t_2)
+\end{align}
+
+\subsection{Ορθογώνιες \& ασυσχέτιστες}
+\begin{align}
+R_{XY}(t_1,t_2) &= 0, \quad \forall t_1,t_2 && \text{(ορθογώνιες)} \\
+C_{XY}(t_1,t_2) &= 0, \quad \forall t_1,t_2 && \text{(ασυσχέτιστες)}
+\end{align}
+
+\subsection{Αυστηρά στάσιμη (SSS)}
+\begin{equation}
+f_{X(t_1),X(t_2),\ldots}(a_1,a_2,\ldots)
+= f_{X(t_1+\tau),X(t_2+\tau),\ldots}(a_1,a_2,\ldots), \quad \forall\tau
+\end{equation}
+
+\subsection{WSS (Wide Sense Stationary)}
+\begin{align}
+m_X(t) &= m_X = \text{σταθερά} \\
+R_X(t_i,t_j) &= R_X(t_i - t_j) = R_X(\tau)
+\end{align}
+
+\subsection{Αυτοσυνδιακύμανση WSS}
+\begin{equation}
+C_X(\tau) = R_X(\tau) - m_X^2
+\end{equation}
+
+\subsection{WSS με μη μηδενική μέση τιμή}
+\begin{align}
+X(t) &= m_X + N(t), \quad \E[N(t)] = 0 \\
+R_X(\tau) &= m_X^2 + R_N(\tau)
+\end{align}
+
+\subsection{Χρονική μέση τιμή}
+\begin{equation}
+\E[x_i(t)] = \lim_{T\to\infty} \frac{1}{T}\int_{-T/2}^{T/2} x_i(t)\,dt
+\end{equation}
+
+\subsection{Χρονική αυτοσυσχέτιση}
+\begin{equation}
+R_{x_i}(\tau) = \lim_{T\to\infty} \frac{1}{T}\int_{-T/2}^{T/2} x_i(t)\,x_i(t+\tau)\,dt
+\end{equation}
+
+\subsection{Εργοδικότητα}
+\begin{align}
+\E[x_i(t)] &= \E[X(t)] \Rightarrow \E[X(t)] = m_X \\
+R_{x_i}(\tau) &= R_X(\tau)
+\end{align}
+
+\subsection{Wiener--Khinchin (PSD)}
+\begin{align}
+S_X(f) &= \int_{-\infty}^{\infty} R_X(\tau)\,e^{-j2\pi f\tau}\,d\tau \\
+R_X(\tau) &= \int_{-\infty}^{\infty} S_X(f)\,e^{j2\pi f\tau}\,df
+\end{align}
+
+\subsection{Ισχύς}
+\begin{align}
+P_X &= R_X(0) \\
+P_X &= \int_{-\infty}^{\infty} S_X(f)\,df \\
+R_X(0) &= \E[X^2(t)] && \text{(WSS)}
+\end{align}
+
+\subsection{Συνέλιξη \& ΓΧΑ με WSS είσοδο}
+\begin{align}
+Y(t) &= X(t) \ast h(t) = \int_{-\infty}^{\infty} X(\tau)\,h(t-\tau)\,d\tau \\
+R_Y(\tau) &= R_X(\tau) \ast h(\tau) \ast h(-\tau) \\
+S_Y(f) &= S_X(f)\,|H(f)|^2 \\
+P_Y &= R_Y(0) = \int_{-\infty}^{\infty} S_X(f)\,|H(f)|^2\,df
+\end{align}
+
+\subsection{Σήμα ενέργειας — PSD}
+\begin{equation}
+\F\{R_x(\tau)\} = |X(f)|^2
+\end{equation}
+
+%==============================================================================
+\section{Session 10 — Θόρυβος}
+%==============================================================================
+
+\subsection{Gaussian θερμικός θόρυβος — PDF}
+\begin{equation}
+f_N(x) = \frac{1}{\sigma\sqrt{2\pi}}\,e^{-\frac{x^2}{2\sigma^2}}
+\end{equation}
+
+\subsection{Διακύμανση θερμικού θορύβου}
+\begin{equation}
+\sigma^2 = \E[N^2(t)] = 4kTRW
+\end{equation}
+\begin{equation}
+k = 1{,}38 \times 10^{-23}\,\mathrm{J/K},\quad T\text{ σε Kelvin},\quad R\text{ σε }\Omega,\quad W\text{ σε Hz}
+\end{equation}
+
+\subsection{Θόρυβος δέκτη}
+\begin{equation}
+\sigma^2 = \E[N^2(t)] = 4k(T_e + T_i)RW
+\end{equation}
+
+\subsection{Ισχύς θερμικού θορύβου}
+\begin{equation}
+P_N = \frac{\E[N^2(t)]}{4R} = kTW
+\end{equation}
+
+\subsection{PSD θερμικού θορύβου}
+\begin{equation}
+S_N(f) = \frac{kT}{2}\,\mathrm{W/Hz}
+\end{equation}
+
+\subsection{Λευκός θόρυβος}
+\begin{align}
+S_N(f) &= \frac{N_0}{2} \\
+N_0 &= kT \\
+R_N(\tau) &= \F^{-1}\{S_N(f)\} = \frac{N_0}{2}\,\delta(\tau)
+\end{align}
+
+\subsection{Άσκηση 8 — λευκός θόρυβος + ζωνοπερατό φίλτρο}
+\begin{align}
+S_N(f) &= \frac{N_0}{2} \\
+H(f) &= 1, \quad f_c - \frac{W}{2} \le |f| \le f_c + \frac{W}{2} \\
+S_Y(f) &= S_N(f)\,|H(f)|^2 \\
+R_Y(\tau) &= N_0 W \cos(2\pi f_c \tau)\,\sinc(W\tau) \\
+P_Y &= R_Y(0) = N_0 W
+\end{align}
+
+%==============================================================================
+\section{Επανάληψη — 15 πιο κρίσιμοι τύποι εξέτασης}
+%==============================================================================
+\begin{enumerate}[leftmargin=*]
+\item $m_X(t) = \E[X(t)]$
+\item $R_X(t_1,t_2) = \E[X(t_1)X(t_2)]$
+\item $C_X = R_X - m_X m_X$
+\item $R_{XY} = \E[XY]$
+\item WSS: $m_X = \text{const}$, $R_X(t_1,t_2) = R_X(\tau)$
+\item $C_X(\tau) = R_X(\tau) - m_X^2$
+\item Χρονική μέση: $\displaystyle \lim_{T\to\infty}\frac{1}{T}\int_{-T/2}^{T/2} x_i(t)\,dt$
+\item Χρονική αυτοσυσχέτιση: $\displaystyle \lim_{T\to\infty}\frac{1}{T}\int_{-T/2}^{T/2} x_i(t)x_i(t+\tau)\,dt$
+\item $S_X(f) = \F\{R_X(\tau)\}$
+\item $R_X(\tau) = \F^{-1}\{S_X(f)\}$
+\item $P_X = R_X(0) = \int S_X(f)\,df$
+\item $Y = X \ast h$
+\item $S_Y(f) = S_X(f)|H(f)|^2$
+\item $R_Y(\tau) = R_X(\tau)\ast h(\tau)\ast h(-\tau)$
+\item $\sigma^2 = 4kTRW$, \quad $S_N(f) = N_0/2$, \quad $P_Y = N_0 W$ (άσκηση 8)
+\end{enumerate}
+
+\end{document}
