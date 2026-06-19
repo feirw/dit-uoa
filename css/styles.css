@@ -78,12 +78,6 @@ body {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.course-card:hover {
-    box-shadow: 0 4px 20px rgba(190, 100, 130, 0.1);
-    border-color: #e8a7b8;
 }
 
 .course-card h2 {
@@ -136,13 +130,6 @@ body {
     text-decoration: none;
     color: inherit;
     display: block;
-    transition: box-shadow 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
-}
-
-.course-hub-card:hover {
-    box-shadow: 0 6px 24px rgba(190, 100, 130, 0.14);
-    border-color: #e8a7b8;
-    transform: translateY(-2px);
 }
 
 .course-hub-card h3 {
@@ -864,12 +851,6 @@ footer {
     padding: 1rem 1.3rem;
     text-decoration: none;
     color: inherit;
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.file-card:hover {
-    box-shadow: 0 4px 20px rgba(190, 100, 130, 0.1);
-    border-color: #e8a7b8;
 }
 
 .file-icon {
@@ -910,12 +891,6 @@ footer {
     color: #c2476b;
     font-size: 0.82rem;
     flex-shrink: 0;
-    opacity: 0;
-    transition: opacity 0.2s;
-}
-
-.file-card:hover .file-download {
-    opacity: 1;
 }
 
 /* ════════════════════════════════════════
