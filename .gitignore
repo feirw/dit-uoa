@@ -1,0 +1,16 @@
+# PDFs over GitHub's 100 MB limit (keep locally, not in repo)
+ΑΛΓΟΡΙΘΜΟΙ/Αλγόριθμοι.pdf
+ΣΥΣΤΕΠΟΙΚ/ΣΥΣΤΕΠΙΚ.pdf
+ΣΧΒΔ/Βασεις Δεδομενων.pdf
+
+# Local tooling / temp
+__pycache__/
+.tools/
+*.log
+_audit_output.txt
+_apply_patches.py
+_audit_links.py
+_gen_theoria.py
+_patch_site.py
+_setup_4th.py
+_sxbd_materials_snippet.html
